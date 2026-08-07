@@ -93,40 +93,50 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId
     componentResources.afterDOMLoaded.push(`
-      const gtagScript = document.createElement('script');
-      gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=${tagId}';
-      gtagScript.defer = true;
-      gtagScript.onload = () => {
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', '${tagId}', { send_page_view: false });
-        gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
-        document.addEventListener('nav', () => {
+      const loadGoogleAnalytics = () => {
+        if (window.__gardenGoogleAnalyticsLoaded) return;
+        window.__gardenGoogleAnalyticsLoaded = true;
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=${tagId}';
+        gtagScript.defer = true;
+        gtagScript.onload = () => {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', '${tagId}', { send_page_view: false });
           gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
-        });
+          document.addEventListener('nav', () => {
+            gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
+          });
+        };
+        document.head.appendChild(gtagScript);
       };
-      
-      document.head.appendChild(gtagScript);
+      if (localStorage.getItem('garden-cookie-consent') === 'accepted') loadGoogleAnalytics();
+      window.addEventListener('garden-cookie-consent', (event) => {
+        if (event.detail === 'accepted') loadGoogleAnalytics();
+      });
     `)
   } else if (cfg.analytics?.provider === "plausible") {
     const plausibleHost = cfg.analytics.host ?? "https://plausible.io"
     componentResources.afterDOMLoaded.push(`
-      const plausibleScript = document.createElement('script');
-      plausibleScript.src = '${plausibleHost}/js/script.manual.js';
-      plausibleScript.setAttribute('data-domain', location.hostname);
-      plausibleScript.defer = true;
-      plausibleScript.onload = () => {
-        window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
-        plausible('pageview');
-        document.addEventListener('nav', () => {
+      const loadPlausible = () => {
+        if (window.__gardenPlausibleLoaded) return;
+        window.__gardenPlausibleLoaded = true;
+        const plausibleScript = document.createElement('script');
+        plausibleScript.src = '${plausibleHost}/js/script.manual.js';
+        plausibleScript.setAttribute('data-domain', location.hostname);
+        plausibleScript.defer = true;
+        plausibleScript.onload = () => {
+          window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
           plausible('pageview');
-        });
+          document.addEventListener('nav', () => { plausible('pageview'); });
+        };
+        document.head.appendChild(plausibleScript);
       };
-
-      document.head.appendChild(plausibleScript);
+      if (localStorage.getItem('garden-cookie-consent') === 'accepted') loadPlausible();
+      window.addEventListener('garden-cookie-consent', (event) => {
+        if (event.detail === 'accepted') loadPlausible();
+      });
     `)
   } else if (cfg.analytics?.provider === "umami") {
     componentResources.afterDOMLoaded.push(`
