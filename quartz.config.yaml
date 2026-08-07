@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: Nucli Digital Garden
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -21,25 +21,25 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        light: "#f6faf9"
+        lightgray: "#dce7e4"
+        gray: "#71827e"
+        darkgray: "#3b4c48"
+        dark: "#1e2c29"
+        secondary: "#126b67"
+        tertiary: "#b15d35"
+        highlight: rgba(18, 107, 103, 0.12)
+        textHighlight: "#f2c94c88"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#101a18"
+        lightgray: "#263832"
+        gray: "#7d938d"
+        darkgray: "#d8e4e1"
+        dark: "#eff8f5"
+        secondary: "#72d1c7"
+        tertiary: "#f0a277"
+        highlight: rgba(114, 209, 199, 0.15)
+        textHighlight: "#f2c94c88"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -186,10 +186,11 @@ plugins:
       position: beforeBody
       priority: 20
   - source: github:quartz-community/tag-list
-    enabled: false
+    enabled: true
     layout:
       position: beforeBody
       priority: 30
+      condition: has-tags
   - source: github:quartz-community/page-title
     enabled: true
     layout:
@@ -225,10 +226,22 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Nucli Digital: https://nuclidigital.com
+        Garden source: https://github.com/nuclidigital/garden
+    layout:
+      position: footer
+      priority: 50
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
+    options:
+      title: Recent notes
+      limit: 5
+      showTags: true
+      hideTagPages: true
+      hideFolderPages: true
+    layout:
+      position: afterBody
+      priority: 20
   - source: github:quartz-community/spacer
     enabled: true
     options: {}

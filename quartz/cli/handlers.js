@@ -582,7 +582,7 @@ export async function handleBuild(argv) {
     )
   } else {
     await build(clientRefresh)
-    ctx.dispose()
+    await ctx.dispose()
   }
 
   if (argv.watch) {
