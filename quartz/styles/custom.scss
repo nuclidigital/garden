@@ -197,24 +197,24 @@ pre > code[data-language="powershell"] {
   white-space: pre;
 }
 
-pre:has(> code[data-language="mermaid"]) {
+pre:has(> code.mermaid) {
   padding: 0.75rem;
   overflow: hidden;
   background: color-mix(in srgb, var(--lightgray) 34%, transparent);
 }
 
-pre:has(> code[data-language="mermaid"]) > code[data-language="mermaid"] {
+pre:has(> code.mermaid) > code.mermaid {
   display: block;
   overflow: auto;
   padding: 0.5rem;
   background: transparent;
 }
 
-pre:has(> code[data-language="mermaid"]) > code.mermaid-rendered {
+pre:has(> code.mermaid) > code.mermaid {
   min-height: 12rem;
 }
 
-pre:has(> code[data-language="mermaid"]) svg {
+pre:has(> code.mermaid) svg {
   display: block;
   width: min(100%, 1100px);
   height: auto;
@@ -268,13 +268,11 @@ pre:has(> code[data-language="mermaid"]) svg {
     padding-inline: clamp(1rem, 1.6vw, 2rem);
   }
 
-  .page[data-frame="default"] > #quartz-body .right.sidebar {
+.page[data-frame="default"] > #quartz-body .right.sidebar {
     align-self: start;
-    height: calc(100vh - 2.5rem);
-    max-height: calc(100vh - 2.5rem);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--secondary) transparent;
+    height: fit-content;
+    max-height: none;
+    overflow: visible;
   }
 
   .page[data-frame="default"] > #quartz-body .right.sidebar {
@@ -294,9 +292,9 @@ pre:has(> code[data-language="mermaid"]) svg {
     flex: 0 0 auto;
   }
 
-  .page[data-frame="default"] .right.sidebar .toc-content {
-    max-height: min(30rem, calc(100vh - 24rem));
-  }
+.page[data-frame="default"] .right.sidebar .toc-content {
+    max-height: min(20rem, calc(100vh - 30rem));
+}
 
   .page[data-frame="default"] .right.sidebar .backlinks {
     flex: 0 0 auto;

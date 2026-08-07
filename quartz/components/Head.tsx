@@ -5,8 +5,6 @@ import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../../.quartz/plugins"
-// @ts-expect-error - inline script imported as string by esbuild loader
-import mermaidScript from "./scripts/mermaid.inline.ts"
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -112,6 +110,5 @@ export default (() => {
     )
   }
 
-  Head.afterDOMLoaded = mermaidScript
   return Head
 }) satisfies QuartzComponentConstructor

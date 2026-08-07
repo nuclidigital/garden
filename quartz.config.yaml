@@ -65,7 +65,7 @@ plugins:
       highlight: true
       wikilinks: true
       callouts: true
-      mermaid: false
+      mermaid: true
       parseTags: true
       parseArrows: true
       parseBlockReferences: true
@@ -215,10 +215,21 @@ plugins:
       priority: 5
       condition: not-index
   - source: github:quartz-community/comments
-    enabled: false
+    enabled: true
     options:
       provider: giscus
-      options: {}
+      options:
+        repo: nuclidigital/garden
+        repoId: R_kgDOTUd3kw
+        category: Announcements
+        categoryId: DIC_kwDOTUd3k84DC4Wx
+        mapping: pathname
+        strict: true
+        reactionsEnabled: true
+        inputPosition: top
+        lightTheme: preferred_color_scheme
+        darkTheme: preferred_color_scheme
+        lang: es
     layout:
       position: afterBody
       priority: 10
@@ -235,7 +246,7 @@ plugins:
     enabled: true
     options:
       title: Recent notes
-      limit: 5
+      limit: 10
       showTags: true
       hideTagPages: true
       hideFolderPages: true
