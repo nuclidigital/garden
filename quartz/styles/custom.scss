@@ -197,24 +197,24 @@ pre > code[data-language="powershell"] {
   white-space: pre;
 }
 
-pre:has(> code.mermaid) {
+pre:has(> :is(code.mermaid, code[data-language="mermaid"])) {
   padding: 0.75rem;
   overflow: hidden;
   background: color-mix(in srgb, var(--lightgray) 34%, transparent);
 }
 
-pre:has(> code.mermaid) > code.mermaid {
+pre:has(> :is(code.mermaid, code[data-language="mermaid"])) > :is(code.mermaid, code[data-language="mermaid"]) {
   display: block;
   overflow: auto;
   padding: 0.5rem;
   background: transparent;
 }
 
-pre:has(> code.mermaid) > code.mermaid {
+pre:has(> :is(code.mermaid, code[data-language="mermaid"])) > :is(code.mermaid, code[data-language="mermaid"]) {
   min-height: 12rem;
 }
 
-pre:has(> code.mermaid) svg {
+pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   display: block;
   width: min(100%, 1100px);
   height: auto;
