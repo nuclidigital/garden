@@ -96,13 +96,13 @@ El VHDX existe, se puede montar y `ext4` no presenta daños graves.
 
 El error real aparece al intentar ejecutar `systemd` y `pacman`:
 
-```text
+```console
 libcrypto.so.3: file too short
 ```
 
 Se detectan varias bibliotecas críticas a cero bytes:
 
-```text
+```console
 libcrypto.so.3
 libssl.so.3
 libacl.so.1
@@ -110,7 +110,7 @@ libacl.so.1
 
 También se encuentran entradas dañadas en:
 
-```text
+```console
 /var/lib/pacman/local
 ```
 
@@ -162,7 +162,7 @@ No resulta necesario:
 
 La causa técnica confirmada corresponde a:
 
-```text
+```console
 bibliotecas críticas truncadas
         +
 base local de Pacman parcialmente dañada

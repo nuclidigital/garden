@@ -91,7 +91,7 @@ flowchart TD
 
 Este documento describe la recuperación concreta de una distribución Arch Linux sobre WSL2 con las siguientes propiedades:
 
-```text
+```console
 WSL:              2.7.11.0
 Kernel:           6.18.33.2-2
 WSLg:             1.0.73.2
@@ -103,19 +103,19 @@ systemd en Arch:  habilitado
 
 VHDX:
 
-```text
+```console
 C:\Applications\Scoop\persist\archwsl\data\ext4.vhdx
 ```
 
 Tamaño físico observado:
 
-```text
+```console
 96,63 GiB
 ```
 
 Capacidad virtual observada:
 
-```text
+```console
 1 TiB
 ```
 
@@ -125,7 +125,7 @@ Capacidad virtual observada:
 wsl -d Arch
 ```
 
-```text
+```console
 Error catastrófico
 Código de error: Wsl/Service/E_UNEXPECTED
 ```
@@ -174,7 +174,7 @@ wsl -d docker-desktop -u root --exec /bin/sh -c "echo WSL_VM_OK"
 
 Resultado:
 
-```text
+```console
 WSL_VM_OK
 ```
 
@@ -271,7 +271,7 @@ wsl -d docker-desktop -u root -- \
 
 Resultado relevante:
 
-```text
+```console
 sdc  /dev/sdc  1T  ext4  0
 ```
 
@@ -283,7 +283,7 @@ wsl -d docker-desktop -u root -- e2fsck -f -v /dev/sdc
 
 Resultado:
 
-```text
+```console
 FILE SYSTEM WAS MODIFIED
 0 bad blocks
 ```
@@ -310,7 +310,7 @@ pacman --version
 
 Resultado:
 
-```text
+```console
 CHROOT_OK
 /usr/lib/systemd/systemd: error while loading shared libraries:
 /usr/lib/libcrypto.so.3: file too short
@@ -321,7 +321,7 @@ pacman: error while loading shared libraries:
 
 Comprobación:
 
-```text
+```console
 /usr/lib/libcrypto.so.3 — 0 bytes
 /usr/lib/libssl.so.3    — 0 bytes
 ```
@@ -334,7 +334,7 @@ Comprobación:
 
 Paquetes encontrados:
 
-```text
+```console
 openssl-3.6.1-1-x86_64.pkg.tar.zst
 openssl-3.6.2-2-x86_64.pkg.tar.zst
 openssl-3.6.3-1-x86_64.pkg.tar.zst
@@ -417,7 +417,7 @@ umount "$ROOT"
 
 Resultado:
 
-```text
+```console
 libcrypto.so.3 — 5922312 bytes
 libssl.so.3    — 1011672 bytes
 7f 45 4c 46
@@ -429,7 +429,7 @@ libssl.so.3    — 1011672 bytes
 
 Después de recuperar OpenSSL:
 
-```text
+```console
 /usr/bin/pacman: error while loading shared libraries:
 /usr/lib/libacl.so.1: file too short
 ```
@@ -440,13 +440,13 @@ Se descubrió que `libacl.so.1` también estaba truncada.
 
 Se copió un binario estático a:
 
-```text
+```console
 C:\Temp\arch-repair\pacman-static
 ```
 
 Problemas iniciales:
 
-```text
+```console
 GPGME error: Invalid crypto engine
 failed to synchronize all databases
 unable to lock database
@@ -490,7 +490,7 @@ pacman-static \
 
 Resultado:
 
-```text
+```console
 Pacman v7.1.0
 systemd 260
 ```
@@ -501,7 +501,7 @@ Arch volvió a iniciar:
 wsl -d Arch -u root --exec /bin/bash --noprofile --norc
 ```
 
-```text
+```console
 bash-5.3#
 ```
 
@@ -517,7 +517,7 @@ ls -la /var/lib/pacman/local/bash-*
 
 Resultado:
 
-```text
+```console
 bash 5.3.15-1
 No package owns /usr/bin/bash
 
@@ -539,7 +539,7 @@ pacman -Qo /usr/bin/bash
 pacman -Qkk bash
 ```
 
-```text
+```console
 /usr/bin/bash is owned by bash 5.3.15-1
 bash: 270 total files, 0 altered files
 ```
@@ -548,7 +548,7 @@ bash: 270 total files, 0 altered files
 
 Entrada dañada de Ansible:
 
-```text
+```console
 /var/lib/pacman/local/ansible-14.2.0-1/desc
 ```
 
@@ -573,7 +573,7 @@ Validación:
 pacman -Qkk ansible
 ```
 
-```text
+```console
 ansible: 51231 total files, 0 altered files
 ```
 
@@ -588,7 +588,7 @@ pacman -S --overwrite '*' ansible-core
 
 Validación:
 
-```text
+```console
 /usr/bin/ansible is owned by ansible-core 2.21.2-1
 ansible-core: 3068 total files, 0 altered files
 ```
@@ -597,7 +597,7 @@ ansible-core: 3068 total files, 0 altered files
 
 Se detectaron muchas entradas con:
 
-```text
+```console
 desc=0
 files=0
 ```
@@ -617,7 +617,7 @@ Afectaban, entre otros, a:
 
 Una entrada es sospechosa cuando:
 
-```text
+```console
 desc ausente o vacío
 ```
 
@@ -625,7 +625,7 @@ Un archivo `files` vacío no implica por sí solo corrupción. Algunos metapaque
 
 Ejemplos válidos:
 
-```text
+```console
 base: 0 total files, 0 altered files
 base-devel: 0 total files, 0 altered files
 ca-certificates: 0 total files, 0 altered files
@@ -719,7 +719,7 @@ find /usr/lib \
 
 Se encontraron:
 
-```text
+```console
 /usr/bin/protoc-33.1.0
 /usr/bin/protoc-gen-upb-33.1.0
 /usr/bin/protoc-gen-upb_minitable-33.1.0
@@ -728,21 +728,21 @@ Se encontraron:
 
 Características:
 
-```text
+```console
 0 bytes
 sin propietario Pacman
 ```
 
 La versión vigente estaba íntegra:
 
-```text
+```console
 protobuf 35.1-1
 protobuf: 385 total files, 0 altered files
 ```
 
 Archivos actuales:
 
-```text
+```console
 /usr/bin/protoc-35.1.0
 /usr/bin/protoc-gen-upb-35.1.0
 /usr/bin/protoc-gen-upb_minitable-35.1.0
@@ -770,7 +770,7 @@ done
 
 Resultado esperado:
 
-```text
+```console
 sin salida
 ```
 
@@ -823,7 +823,7 @@ No se demostró que la actualización de ArchWSL `25.3.19.0 → 26.4.2.0` causar
 
 ## 20. Árbol de decisión reutilizable
 
-```text
+```console
 wsl -d DISTRO falla
 │
 ├─ ¿Otra distribución WSL arranca?
