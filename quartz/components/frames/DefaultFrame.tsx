@@ -1,7 +1,9 @@
 import { PageFrame, PageFrameProps } from "./types"
 import HeaderConstructor from "../Header"
+import CookieConsent from "../CookieConsent"
 
 const Header = HeaderConstructor()
+const CookieConsentComponent = CookieConsent()
 
 /**
  * The default page frame — three-column layout with left sidebar, center
@@ -55,6 +57,7 @@ export const DefaultFrame: PageFrame = {
           ))}
         </div>
         <Footer {...componentData} />
+        <CookieConsentComponent {...componentData} />
       </>
     )
   },

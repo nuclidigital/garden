@@ -16,7 +16,7 @@ const cookieConsentScript = `
     if (banner) banner.hidden = true;
   };
 
-  const show = () => {
+  const getBanner = () => {
     let banner = document.getElementById(bannerId);
     if (!banner) {
       banner = document.createElement("section");
@@ -33,6 +33,9 @@ const cookieConsentScript = `
         '<button type="button" class="cookie-consent__accept">Aceptar analítica</button>' +
         '</div></div>';
       document.body.appendChild(banner);
+    }
+    if (!banner.dataset.bound) {
+      banner.dataset.bound = "true";
       banner.querySelector(".cookie-consent__reject").addEventListener("click", () => {
         setConsent("rejected");
         close();
@@ -44,6 +47,11 @@ const cookieConsentScript = `
         window.dispatchEvent(new CustomEvent("garden-cookie-consent", { detail: "accepted" }));
       });
     }
+    return banner;
+  };
+
+  const show = () => {
+    const banner = getBanner();
     banner.hidden = false;
   };
 
@@ -54,6 +62,8 @@ const cookieConsentScript = `
     show();
   });
 
+  const banner = getBanner();
+  banner.hidden = Boolean(getConsent());
   if (!getConsent()) show();
 })();
 `

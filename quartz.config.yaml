@@ -232,7 +232,7 @@ plugins:
         lang: es
     layout:
       position: afterBody
-      priority: 10
+      priority: 30
   - source: github:quartz-community/footer
     enabled: true
     options:

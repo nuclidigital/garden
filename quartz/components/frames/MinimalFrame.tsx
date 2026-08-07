@@ -1,4 +1,7 @@
 import { PageFrame, PageFrameProps } from "./types"
+import CookieConsent from "../CookieConsent"
+
+const CookieConsentComponent = CookieConsent()
 
 /**
  * Minimal page frame — no sidebars, no header/footer chrome. Only the
@@ -17,6 +20,7 @@ export const MinimalFrame: PageFrame = {
           <Content {...componentData} />
         </div>
         <Footer {...componentData} />
+        <CookieConsentComponent {...componentData} />
       </>
     )
   },

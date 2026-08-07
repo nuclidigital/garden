@@ -1,7 +1,9 @@
 import { PageFrame, PageFrameProps } from "./types"
 import HeaderConstructor from "../Header"
+import CookieConsent from "../CookieConsent"
 
 const Header = HeaderConstructor()
+const CookieConsentComponent = CookieConsent()
 
 /**
  * Full-width page frame — no sidebars. The center content area spans the
@@ -45,6 +47,7 @@ export const FullWidthFrame: PageFrame = {
           </div>
         </div>
         <Footer {...componentData} />
+        <CookieConsentComponent {...componentData} />
       </>
     )
   },

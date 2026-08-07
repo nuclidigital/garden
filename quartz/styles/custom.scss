@@ -192,12 +192,12 @@
 }
 
 :root {
-  --shell-code: var(--nord12);
+  --shell-code: var(--nord10);
   --shell-code-bg: var(--nord5);
 }
 
 :root[saved-theme="dark"] {
-  --shell-code: var(--nord12);
+  --shell-code: var(--nord10);
   --shell-code-bg: var(--nord1);
 }
 
@@ -228,7 +228,7 @@ code [data-token-type="punctuation"] {
 }
 
 article :not(pre) > code {
-  color: var(--nord12);
+  color: var(--nord10);
 }
 
 pre:has(> code[data-language="bash"]),
@@ -387,6 +387,10 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   display: flex;
   justify-content: center;
   pointer-events: none;
+}
+
+.cookie-consent[hidden] {
+  display: none;
 }
 
 .cookie-consent__panel {
