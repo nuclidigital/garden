@@ -44,7 +44,7 @@ async function renderMermaid() {
       }
 
   for (const node of nodes) {
-    const source = (node.dataset.mermaidSource ?? node.textContent)?.trim()
+    const source = (node.dataset.mermaidSource ?? node.innerText)?.trim()
     if (!source) continue
 
     try {

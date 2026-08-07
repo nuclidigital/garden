@@ -117,6 +117,33 @@
   white-space: nowrap;
 }
 
+.popover .tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+}
+
+.popover .tags li {
+  margin: 0;
+  padding: 0;
+}
+
+.popover .tags .tag-link {
+  display: inline-block;
+  flex: 0 0 auto;
+  min-width: max-content;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--secondary) 34%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--secondary) 14%, transparent);
+  color: var(--secondary);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
 :root {
   --shell-code: #256b3b;
   --shell-code-bg: #eef6ef;
@@ -144,6 +171,20 @@ pre > code[data-language="zsh"] span,
 pre > code[data-language="fish"] span,
 pre > code[data-language="powershell"] span {
   color: var(--shell-code) !important;
+}
+
+pre:has(> code[data-language="console"]) {
+  background: var(--shell-code-bg);
+  border-color: color-mix(in srgb, var(--shell-code) 34%, var(--lightgray));
+}
+
+pre > code[data-language="console"] span {
+  color: var(--shell-code) !important;
+}
+
+pre > code[data-language="console"] {
+  max-width: 100%;
+  white-space: pre;
 }
 
 pre > code[data-language="bash"],
