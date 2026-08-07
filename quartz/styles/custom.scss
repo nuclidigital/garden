@@ -1,23 +1,51 @@
 @use "./variables.scss" as *;
 
 // Use the available viewport while keeping long-form text comfortable to read.
-.page {
+.page[data-frame="default"] {
   width: 100%;
   max-width: none;
 }
 
-.center {
+.page[data-frame="default"] > #quartz-body {
   min-width: 0;
 }
 
-.center > article {
-  max-width: 82ch;
+.page[data-frame="default"] .center {
+  min-width: 0;
+}
+
+.page[data-frame="default"] .center > article {
+  width: 100%;
+  max-width: min(92ch, 100%);
+  box-sizing: border-box;
   margin-inline: auto;
   padding-inline: clamp(1rem, 2.5vw, 2.5rem);
 }
 
-.sidebar {
+.page[data-frame="default"] > #quartz-body .sidebar {
+  min-width: 0;
   padding-inline: clamp(1rem, 1.8vw, 1.75rem);
+}
+
+@media (min-width: 1201px) {
+  .page[data-frame="default"] > #quartz-body {
+    grid-template-columns:
+      minmax(0, clamp(240px, 19vw, 300px))
+      minmax(0, 1fr)
+      minmax(0, clamp(240px, 19vw, 300px));
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .page[data-frame="default"] > #quartz-body {
+    grid-template-columns: minmax(220px, 25vw) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .page[data-frame="default"] > #quartz-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .recent-notes .recent-li:has(a[href$="/404"]) {
