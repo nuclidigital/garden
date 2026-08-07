@@ -86,31 +86,44 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
 
   componentResources.afterDOMLoaded.push(`
     (() => {
-      const banner = document.getElementById('garden-cookie-consent');
-      if (!banner) return;
       const storageKey = 'garden-cookie-consent';
       const save = (value) => {
         try { localStorage.setItem(storageKey, value); } catch {}
       };
-      const hide = () => { banner.hidden = true; };
       const notify = (value) => window.dispatchEvent(new CustomEvent('garden-cookie-consent', { detail: value }));
-      banner.querySelector('.cookie-consent__reject')?.addEventListener('click', () => {
-        save('rejected');
-        hide();
-        notify('rejected');
-      });
-      banner.querySelector('.cookie-consent__accept')?.addEventListener('click', () => {
-        save('accepted');
-        hide();
-        notify('accepted');
-      });
+      const getChoice = () => {
+        try { return localStorage.getItem(storageKey); } catch { return null; }
+      };
+      const init = () => {
+        const banner = document.getElementById('garden-cookie-consent');
+        if (!banner) return;
+        const choice = getChoice();
+        banner.hidden = Boolean(choice);
+        if (banner.dataset.bound) return;
+        banner.dataset.bound = 'true';
+        banner.querySelector('.cookie-consent__reject')?.addEventListener('click', () => {
+          save('rejected');
+          banner.hidden = true;
+          notify('rejected');
+        });
+        banner.querySelector('.cookie-consent__accept')?.addEventListener('click', () => {
+          save('accepted');
+          banner.hidden = true;
+          notify('accepted');
+        });
+      };
       document.addEventListener('click', (event) => {
-        const link = event.target.closest('a[href="#cookie-settings"]');
+        const link = event.target instanceof Element
+          ? event.target.closest('a[href="#cookie-settings"]')
+          : null;
         if (!link) return;
         event.preventDefault();
-        banner.hidden = false;
+        const banner = document.getElementById('garden-cookie-consent');
+        if (banner) banner.hidden = false;
       });
-      if (localStorage.getItem(storageKey)) hide();
+      document.addEventListener('nav', init);
+      document.addEventListener('render', init);
+      init();
     })();
   `)
 
