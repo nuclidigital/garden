@@ -82,6 +82,80 @@
   display: none;
 }
 
+// Popovers are mounted directly under body, outside the page frame.
+.popover .note-properties {
+  border-color: color-mix(in srgb, var(--darkgray) 28%, transparent);
+  background: color-mix(in srgb, var(--lightgray) 28%, transparent);
+}
+
+.popover .note-properties-table {
+  table-layout: auto;
+}
+
+.popover .note-properties-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.popover .note-properties-tags .note-properties-separator {
+  display: none;
+}
+
+.popover .note-properties .tag-link {
+  display: inline-block;
+  flex: 0 0 auto;
+  min-width: max-content;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--secondary) 34%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--secondary) 14%, transparent);
+  color: var(--secondary);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+:root {
+  --shell-code: #256b3b;
+  --shell-code-bg: #eef6ef;
+}
+
+:root[saved-theme="dark"] {
+  --shell-code: #93d543;
+  --shell-code-bg: #13241b;
+}
+
+pre:has(> code[data-language="bash"]),
+pre:has(> code[data-language="sh"]),
+pre:has(> code[data-language="shell"]),
+pre:has(> code[data-language="zsh"]),
+pre:has(> code[data-language="fish"]),
+pre:has(> code[data-language="powershell"]) {
+  background: var(--shell-code-bg);
+  border-color: color-mix(in srgb, var(--shell-code) 34%, var(--lightgray));
+}
+
+pre > code[data-language="bash"] span,
+pre > code[data-language="sh"] span,
+pre > code[data-language="shell"] span,
+pre > code[data-language="zsh"] span,
+pre > code[data-language="fish"] span,
+pre > code[data-language="powershell"] span {
+  color: var(--shell-code) !important;
+}
+
+pre > code[data-language="bash"],
+pre > code[data-language="sh"],
+pre > code[data-language="shell"],
+pre > code[data-language="zsh"],
+pre > code[data-language="fish"],
+pre > code[data-language="powershell"] {
+  max-width: 100%;
+  white-space: pre;
+}
+
 pre:has(> code[data-language="mermaid"]) {
   padding: 0.75rem;
   overflow: hidden;
@@ -262,6 +336,10 @@ pre:has(> code[data-language="mermaid"]) svg {
   font-size: 2.35rem;
   line-height: 1.08;
   text-wrap: balance;
+}
+
+.page[data-frame="default"] > #quartz-body > .center > article .markdown-rendered > h1:first-child {
+  text-align: center;
 }
 
 @media (min-width: 801px) and (max-width: 1200px) {

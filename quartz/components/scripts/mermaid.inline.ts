@@ -44,10 +44,11 @@ async function renderMermaid() {
       }
 
   for (const node of nodes) {
-    const source = node.textContent?.trim()
+    const source = (node.dataset.mermaidSource ?? node.textContent)?.trim()
     if (!source) continue
 
     try {
+      node.dataset.mermaidSource = source
       const id = `garden-mermaid-${sequence++}`
       const themedSource = source.replace(
         /classDef (decision|diagnostic|repair|success) [^;]+;/g,
@@ -68,3 +69,20 @@ async function renderMermaid() {
 
 document.addEventListener("nav", renderMermaid)
 document.addEventListener("render", renderMermaid)
+
+document.addEventListener("themechange", () => {
+  document.querySelectorAll<HTMLElement>('code[data-mermaid-rendered="true"]').forEach((node) => {
+    const source = node.dataset.mermaidSource
+    if (source) node.textContent = source
+    delete node.dataset.mermaidRendered
+  })
+  void renderMermaid()
+})
+
+void renderMermaid()
+
+const mermaidObserver = new MutationObserver(() => {
+  void renderMermaid()
+})
+mermaidObserver.observe(document.body, { childList: true, subtree: true })
+window.addCleanup?.(() => mermaidObserver.disconnect())
