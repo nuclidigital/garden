@@ -25,6 +25,52 @@
 .page[data-frame="default"] > #quartz-body .sidebar {
   min-width: 0;
   padding-inline: clamp(1rem, 1.8vw, 1.75rem);
+  align-items: stretch;
+}
+
+.page[data-frame="default"] > #quartz-body .sidebar > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.page[data-frame="default"] .tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.page[data-frame="default"] .tags li {
+  margin: 0;
+}
+
+.page[data-frame="default"] .tags .tag-link,
+.page[data-frame="default"] .note-properties .tag-link {
+  display: inline-block;
+  flex: 0 0 auto;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--secondary) 34%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--secondary) 14%, transparent);
+  color: var(--secondary);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.page[data-frame="default"] .note-properties {
+  border-color: color-mix(in srgb, var(--darkgray) 28%, transparent);
+  background: color-mix(in srgb, var(--lightgray) 28%, transparent);
+}
+
+.page[data-frame="default"] .note-properties-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.page[data-frame="default"] .note-properties-tags .note-properties-separator {
+  display: none;
 }
 
 @media (min-width: 1201px) {
