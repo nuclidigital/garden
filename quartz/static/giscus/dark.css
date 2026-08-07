@@ -97,3 +97,44 @@ main .pagination-loader-container {
 main .gsc-loading-image {
   background-image: url("https://github.githubassets.com/images/mona-loading-dark.gif");
 }
+
+/* Nord Polar Night, Frost and Aurora overrides. */
+main {
+  --color-prettylights-syntax-comment: #4c566a;
+  --color-prettylights-syntax-constant: #81a1c1;
+  --color-prettylights-syntax-entity: #b48ead;
+  --color-prettylights-syntax-storage-modifier-import: #d8dee9;
+  --color-prettylights-syntax-entity-tag: #a3be8c;
+  --color-prettylights-syntax-keyword: #88c0d0;
+  --color-prettylights-syntax-string: #a3be8c;
+  --color-prettylights-syntax-variable: #d08770;
+  --color-btn-text: #eceff4;
+  --color-btn-bg: #2e3440;
+  --color-btn-border: #4c566a;
+  --color-btn-hover-bg: #434c5e;
+  --color-btn-hover-border: #81a1c1;
+  --color-btn-active-bg: #434c5e;
+  --color-btn-selected-bg: #3b4252;
+  --color-btn-primary-text: #2e3440;
+  --color-btn-primary-bg: #88c0d0;
+  --color-btn-primary-hover-bg: #81a1c1;
+  --color-btn-primary-selected-bg: #88c0d0;
+  --color-action-list-item-default-hover-bg: #434c5e;
+  --color-segmented-control-bg: #3b4252;
+  --color-segmented-control-button-bg: #2e3440;
+  --color-fg-default: #eceff4;
+  --color-fg-muted: #d8dee9;
+  --color-fg-subtle: #d8dee9;
+  --color-canvas-default: #2e3440;
+  --color-canvas-overlay: #3b4252;
+  --color-canvas-inset: #2e3440;
+  --color-canvas-subtle: #3b4252;
+  --color-border-default: #4c566a;
+  --color-border-muted: #434c5e;
+  --color-accent-fg: #88c0d0;
+  --color-accent-emphasis: #88c0d0;
+  --color-accent-subtle: #434c5e;
+  --color-success-fg: #a3be8c;
+  --color-attention-fg: #ebcb8b;
+  --color-danger-fg: #bf616a;
+}

@@ -97,3 +97,44 @@ main .pagination-loader-container {
 main .gsc-loading-image {
   background-image: url("https://github.githubassets.com/images/mona-loading-default.gif");
 }
+
+/* Nord Snow Storm, Frost and Aurora overrides. */
+main {
+  --color-prettylights-syntax-comment: #4c566a;
+  --color-prettylights-syntax-constant: #5e81ac;
+  --color-prettylights-syntax-entity: #b48ead;
+  --color-prettylights-syntax-storage-modifier-import: #2e3440;
+  --color-prettylights-syntax-entity-tag: #a3be8c;
+  --color-prettylights-syntax-keyword: #5e81ac;
+  --color-prettylights-syntax-string: #a3be8c;
+  --color-prettylights-syntax-variable: #d08770;
+  --color-btn-text: #2e3440;
+  --color-btn-bg: #eceff4;
+  --color-btn-border: #d8dee9;
+  --color-btn-hover-bg: #e5e9f0;
+  --color-btn-hover-border: #81a1c1;
+  --color-btn-active-bg: #d8dee9;
+  --color-btn-selected-bg: #d8dee9;
+  --color-btn-primary-text: #eceff4;
+  --color-btn-primary-bg: #5e81ac;
+  --color-btn-primary-hover-bg: #81a1c1;
+  --color-btn-primary-selected-bg: #5e81ac;
+  --color-action-list-item-default-hover-bg: #d8dee980;
+  --color-segmented-control-bg: #e5e9f0;
+  --color-segmented-control-button-bg: #eceff4;
+  --color-fg-default: #2e3440;
+  --color-fg-muted: #4c566a;
+  --color-fg-subtle: #4c566a;
+  --color-canvas-default: #eceff4;
+  --color-canvas-overlay: #e5e9f0;
+  --color-canvas-inset: #d8dee9;
+  --color-canvas-subtle: #e5e9f0;
+  --color-border-default: #d8dee9;
+  --color-border-muted: #e5e9f0;
+  --color-accent-fg: #5e81ac;
+  --color-accent-emphasis: #5e81ac;
+  --color-accent-subtle: #d8dee980;
+  --color-success-fg: #a3be8c;
+  --color-attention-fg: #d08770;
+  --color-danger-fg: #bf616a;
+}

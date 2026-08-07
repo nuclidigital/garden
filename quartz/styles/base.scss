@@ -29,7 +29,7 @@ body {
   border-radius: 5px;
 }
 ::selection {
-  background: color-mix(in srgb, var(--tertiary) 60%, rgba(255, 255, 255, 0));
+  background: color-mix(in srgb, var(--tertiary) 60%, var(--light));
   color: var(--darkgray);
 }
 
@@ -530,7 +530,7 @@ pre {
         margin-right: 1rem;
         display: inline-block;
         text-align: right;
-        color: rgba(115, 138, 148, 0.6);
+        color: color-mix(in srgb, var(--gray) 60%, transparent);
       }
     }
 
