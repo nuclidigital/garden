@@ -17,6 +17,19 @@
   --nord13: #ebcb8b;
   --nord14: #a3be8c;
   --nord15: #b48ead;
+
+  // Nord Snow Storm: a quiet but visible separation between reading surface
+  // and navigation rails in the light theme.
+  --layout-center: var(--nord6);
+  --layout-sidebar: var(--nord5);
+  --layout-divider: var(--nord4);
+}
+
+:root[saved-theme="dark"] {
+  // Nord Polar Night: preserve the stronger contrast already used by dark mode.
+  --layout-center: var(--nord0);
+  --layout-sidebar: var(--nord1);
+  --layout-divider: var(--nord2);
 }
 
 // Use the available viewport while keeping long-form text comfortable to read.
@@ -27,10 +40,17 @@
 
 .page[data-frame="default"] > #quartz-body {
   min-width: 0;
+  background: var(--layout-center);
+}
+
+.page[data-frame="default"] > #quartz-body > .sidebar {
+  background: var(--layout-sidebar);
 }
 
 .page[data-frame="default"] .center {
   min-width: 0;
+  background: var(--layout-center);
+  border-inline: 1px solid var(--layout-divider);
 }
 
 .page[data-frame="default"] .center > article {

@@ -226,7 +226,7 @@ plugins:
         mapping: pathname
         strict: true
         reactionsEnabled: true
-        inputPosition: top
+        inputPosition: bottom
         lightTheme: light
         darkTheme: dark
         lang: es
