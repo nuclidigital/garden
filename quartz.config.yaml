@@ -21,25 +21,25 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#fbf8f4"
-        lightgray: "#f1eae2"
-        gray: "#665f64"
-        darkgray: "#423540"
-        dark: "#1e1b20"
-        secondary: "#0f6b78"
-        tertiary: "#b5624b"
-        highlight: rgba(15, 107, 120, 0.12)
-        textHighlight: "#e3b89188"
+        light: "#eceff4"
+        lightgray: "#e5e9f0"
+        gray: "#4c566a"
+        darkgray: "#434c5e"
+        dark: "#2e3440"
+        secondary: "#5e81ac"
+        tertiary: "#bf616a"
+        highlight: "#d8dee980"
+        textHighlight: "#ebcb8b88"
       darkMode:
-        light: "#191320"
-        lightgray: "#2e2531"
-        gray: "#c9bbb4"
-        darkgray: "#f0e6dd"
-        dark: "#fbf8f4"
-        secondary: "#8fd3dc"
-        tertiary: "#e3b891"
-        highlight: rgba(143, 211, 220, 0.16)
-        textHighlight: "#e3b89188"
+        light: "#2e3440"
+        lightgray: "#3b4252"
+        gray: "#d8dee9"
+        darkgray: "#e5e9f0"
+        dark: "#eceff4"
+        secondary: "#88c0d0"
+        tertiary: "#ebcb8b"
+        highlight: "#434c5e"
+        textHighlight: "#ebcb8b88"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -55,7 +55,7 @@ plugins:
     options:
       theme:
         light: github-light
-        dark: github-dark
+        dark: nord
       keepBackground: false
     order: 20
   - source: github:quartz-community/obsidian-flavored-markdown

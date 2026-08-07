@@ -1,5 +1,24 @@
 @use "./variables.scss" as *;
 
+:root {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+}
+
 // Use the available viewport while keeping long-form text comfortable to read.
 .page[data-frame="default"] {
   width: 100%;
@@ -145,14 +164,23 @@
 }
 
 :root {
-  --shell-code: #256b3b;
-  --shell-code-bg: #eef6ef;
+  --shell-code: var(--nord14);
+  --shell-code-bg: var(--nord5);
 }
 
 :root[saved-theme="dark"] {
-  --shell-code: #93d543;
-  --shell-code-bg: #13241b;
+  --shell-code: var(--nord14);
+  --shell-code-bg: var(--nord1);
 }
+
+code [data-token-type="normal"] { color: var(--dark) !important; }
+code [data-token-type="comment"] { color: var(--gray) !important; font-style: italic; }
+code [data-token-type="keyword"] { color: var(--secondary) !important; }
+code [data-token-type="function"] { color: var(--nord8) !important; }
+code [data-token-type="string"] { color: var(--nord14) !important; }
+code [data-token-type="value"] { color: var(--nord12) !important; }
+code [data-token-type="operator"] { color: var(--nord7) !important; }
+code [data-token-type="punctuation"] { color: var(--gray) !important; }
 
 pre:has(> code[data-language="bash"]),
 pre:has(> code[data-language="sh"]),
