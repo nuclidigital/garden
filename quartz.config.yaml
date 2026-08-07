@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Nucli Digital Garden
+  pageTitle: Garden Digital
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -21,25 +21,25 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#f6faf9"
-        lightgray: "#dce7e4"
-        gray: "#71827e"
-        darkgray: "#3b4c48"
-        dark: "#1e2c29"
-        secondary: "#126b67"
-        tertiary: "#b15d35"
-        highlight: rgba(18, 107, 103, 0.12)
-        textHighlight: "#f2c94c88"
+        light: "#fbf8f4"
+        lightgray: "#f1eae2"
+        gray: "#665f64"
+        darkgray: "#423540"
+        dark: "#1e1b20"
+        secondary: "#0f6b78"
+        tertiary: "#b5624b"
+        highlight: rgba(15, 107, 120, 0.12)
+        textHighlight: "#e3b89188"
       darkMode:
-        light: "#101a18"
-        lightgray: "#263832"
-        gray: "#7d938d"
-        darkgray: "#d8e4e1"
-        dark: "#eff8f5"
-        secondary: "#72d1c7"
-        tertiary: "#f0a277"
-        highlight: rgba(114, 209, 199, 0.15)
-        textHighlight: "#f2c94c88"
+        light: "#191320"
+        lightgray: "#2e2531"
+        gray: "#c9bbb4"
+        darkgray: "#f0e6dd"
+        dark: "#fbf8f4"
+        secondary: "#8fd3dc"
+        tertiary: "#e3b891"
+        highlight: rgba(143, 211, 220, 0.16)
+        textHighlight: "#e3b89188"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true

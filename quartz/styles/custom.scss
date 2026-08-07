@@ -11,13 +11,13 @@
 }
 
 .center > article {
-  max-width: 78ch;
+  max-width: 82ch;
   margin-inline: auto;
-  padding-inline: clamp(1rem, 3vw, 3rem);
+  padding-inline: clamp(1rem, 2.5vw, 2.5rem);
 }
 
 .sidebar {
-  padding-inline: 1.25rem;
+  padding-inline: clamp(1rem, 1.8vw, 1.75rem);
 }
 
 .recent-notes .recent-li:has(a[href$="/404"]) {
