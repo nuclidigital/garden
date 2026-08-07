@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: google
     tagId: G-71RJ704J8T
-  locale: en-US
+  locale: es-ES
   baseUrl: garden.nuclidigital.com
   ignorePatterns:
     - private
