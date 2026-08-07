@@ -6,7 +6,7 @@ configuration:
   enablePopovers: true
   analytics:
     provider: google
-    tagId: G-DTB0MXMNH9
+    tagId: G-71RJ704J8T
   locale: en-US
   baseUrl: garden.nuclidigital.com
   ignorePatterns:
