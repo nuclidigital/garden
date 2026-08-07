@@ -86,30 +86,45 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
 
   componentResources.afterDOMLoaded.push(`
     (() => {
-      const storageKey = 'garden-cookie-consent';
-      const save = (value) => {
-        try { localStorage.setItem(storageKey, value); } catch {}
+      const storageKey = 'garden-consent';
+      const gpc = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1' || window.doNotTrack === '1';
+      const read = () => {
+        try {
+          const value = JSON.parse(localStorage.getItem(storageKey) || 'null');
+          return value && value.v === 1 ? value : null;
+        } catch { return null; }
       };
-      const notify = (value) => window.dispatchEvent(new CustomEvent('garden-cookie-consent', { detail: value }));
-      const getChoice = () => {
-        try { return localStorage.getItem(storageKey); } catch { return null; }
+      const save = (analytics) => {
+        const value = { v: 1, ts: new Date().toISOString(), necessary: true, analytics: Boolean(analytics) };
+        try { localStorage.setItem(storageKey, JSON.stringify(value)); } catch {}
+        window.dispatchEvent(new CustomEvent('garden-consent-changed', { detail: value }));
+        return value;
       };
       const init = () => {
-        const banner = document.getElementById('garden-cookie-consent');
+        const banner = document.getElementById('garden-consent');
         if (!banner) return;
-        const choice = getChoice();
+        const checkbox = document.getElementById('garden-consent-analytics');
+        const preferences = document.getElementById('garden-consent-preferences');
+        const choice = read();
         banner.hidden = Boolean(choice);
+        if (checkbox) checkbox.checked = choice ? choice.analytics : false;
         if (banner.dataset.bound) return;
         banner.dataset.bound = 'true';
         banner.querySelector('.cookie-consent__reject')?.addEventListener('click', () => {
-          save('rejected');
+          save(false);
           banner.hidden = true;
-          notify('rejected');
         });
         banner.querySelector('.cookie-consent__accept')?.addEventListener('click', () => {
-          save('accepted');
+          save(gpc ? false : true);
           banner.hidden = true;
-          notify('accepted');
+        });
+        banner.querySelector('.cookie-consent__configure')?.addEventListener('click', () => {
+          if (!preferences) return;
+          preferences.hidden = !preferences.hidden;
+          if (!preferences.hidden) checkbox?.focus();
+        });
+        checkbox?.addEventListener('change', () => {
+          if (!gpc) save(checkbox.checked);
         });
       };
       document.addEventListener('click', (event) => {
@@ -118,8 +133,11 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
           : null;
         if (!link) return;
         event.preventDefault();
-        const banner = document.getElementById('garden-cookie-consent');
+        const banner = document.getElementById('garden-consent');
+        const preferences = document.getElementById('garden-consent-preferences');
         if (banner) banner.hidden = false;
+        if (preferences) preferences.hidden = false;
+        document.getElementById('garden-consent-analytics')?.focus();
       });
       document.addEventListener('nav', init);
       document.addEventListener('render', init);
@@ -136,6 +154,14 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId
     componentResources.afterDOMLoaded.push(`
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      window.gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied'
+      });
       const loadGoogleAnalytics = () => {
         if (window.__gardenGoogleAnalyticsLoaded) return;
         window.__gardenGoogleAnalyticsLoaded = true;
@@ -143,10 +169,8 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
         gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=${tagId}';
         gtagScript.defer = true;
         gtagScript.onload = () => {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
           gtag('js', new Date());
-          gtag('config', '${tagId}', { send_page_view: false });
+          gtag('config', '${tagId}', { send_page_view: false, anonymize_ip: true });
           gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
           document.addEventListener('nav', () => {
             gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
@@ -154,9 +178,18 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
         };
         document.head.appendChild(gtagScript);
       };
-      if (localStorage.getItem('garden-cookie-consent') === 'accepted') loadGoogleAnalytics();
-      window.addEventListener('garden-cookie-consent', (event) => {
-        if (event.detail === 'accepted') loadGoogleAnalytics();
+      const consent = () => {
+        try { return JSON.parse(localStorage.getItem('garden-consent') || 'null'); } catch { return null; }
+      };
+      const currentConsent = consent();
+      if (currentConsent?.v === 1 && currentConsent.analytics === true) {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+        loadGoogleAnalytics();
+      }
+      window.addEventListener('garden-consent-changed', (event) => {
+        const analytics = event.detail?.analytics === true;
+        gtag('consent', 'update', { analytics_storage: analytics ? 'granted' : 'denied' });
+        if (analytics) loadGoogleAnalytics();
       });
     `)
   } else if (cfg.analytics?.provider === "plausible") {
