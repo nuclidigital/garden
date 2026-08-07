@@ -239,6 +239,7 @@ plugins:
       links:
         Nucli Digital: https://nuclidigital.com
         Garden source: https://github.com/nuclidigital/garden
+        Configuración de cookies: "#cookie-settings"
     layout:
       position: footer
       priority: 50

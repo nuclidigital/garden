@@ -7,6 +7,8 @@ import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../../.quartz/plugins"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import mermaidScript from "./scripts/mermaid.inline.ts"
+// @ts-expect-error - inline script imported as string by esbuild loader
+import cookieConsentScript from "./scripts/cookie-consent.inline.ts"
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -112,6 +114,6 @@ export default (() => {
     )
   }
 
-  Head.afterDOMLoaded = mermaidScript
+  Head.afterDOMLoaded = [mermaidScript, cookieConsentScript]
   return Head
 }) satisfies QuartzComponentConstructor
