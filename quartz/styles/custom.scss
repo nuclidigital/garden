@@ -22,6 +22,15 @@
   padding-inline: clamp(1rem, 1.6vw, 2rem);
 }
 
+.page[data-frame="default"] > #quartz-body > .center > article,
+.page[data-frame="default"] > #quartz-body > .center > article > .markdown-preview-view {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
 .page[data-frame="default"] > #quartz-body .sidebar {
   min-width: 0;
   padding-inline: clamp(1rem, 1.8vw, 1.75rem);
@@ -136,11 +145,11 @@ pre:has(> code[data-language="mermaid"]) svg {
 
 @media (min-width: 801px) {
   .page[data-frame="default"] > #quartz-body .sidebar {
-    padding-top: 2.5rem;
+    padding-top: 1rem;
   }
 
   .page[data-frame="default"] > #quartz-body .page-header {
-    margin-top: 2rem;
+    margin-top: 0.5rem;
     padding-inline: clamp(1rem, 1.6vw, 2rem);
   }
 
@@ -151,6 +160,15 @@ pre:has(> code[data-language="mermaid"]) svg {
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--secondary) transparent;
+  }
+
+  .page[data-frame="default"] > #quartz-body .right.sidebar {
+    flex-direction: column;
+  }
+
+  .page[data-frame="default"] > #quartz-body .right.sidebar > .toc {
+    display: flex;
+    visibility: visible;
   }
 
   .page[data-frame="default"] .right.sidebar .graph {

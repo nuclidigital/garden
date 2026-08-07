@@ -29,13 +29,34 @@ async function renderMermaid() {
     },
   })
 
+  const palette = dark
+    ? {
+        decision: ["#5a3b34", "#e3b891", "#fbf8f4"],
+        diagnostic: ["#2e2531", "#c9bbb4", "#fbf8f4"],
+        repair: ["#143b43", "#8fd3dc", "#fbf8f4"],
+        success: ["#294326", "#93d543", "#fbf8f4"],
+      }
+    : {
+        decision: ["#efd4bc", "#b5624b", "#423540"],
+        diagnostic: ["#f1eae2", "#665f64", "#423540"],
+        repair: ["#d9f0f2", "#0f6b78", "#003748"],
+        success: ["#dcefc5", "#5f8f2e", "#234016"],
+      }
+
   for (const node of nodes) {
     const source = node.textContent?.trim()
     if (!source) continue
 
     try {
       const id = `garden-mermaid-${sequence++}`
-      const { svg } = await mermaid.render(id, source)
+      const themedSource = source.replace(
+        /classDef (decision|diagnostic|repair|success) [^;]+;/g,
+        (_definition, name: keyof typeof palette) => {
+          const [fill, stroke, color] = palette[name]
+          return `classDef ${name} fill:${fill},stroke:${stroke},color:${color};`
+        },
+      )
+      const { svg } = await mermaid.render(id, themedSource)
       node.innerHTML = svg
       node.dataset.mermaidRendered = "true"
       node.parentElement?.classList.add("mermaid-rendered")
