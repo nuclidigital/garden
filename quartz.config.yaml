@@ -5,7 +5,8 @@ configuration:
   enableSPA: true
   enablePopovers: true
   analytics:
-    provider: plausible
+    provider: google
+    tagId: G-DTB0MXMNH9
   locale: en-US
   baseUrl: garden.nuclidigital.com
   ignorePatterns:
