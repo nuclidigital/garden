@@ -17,6 +17,10 @@
   --nord13: #ebcb8b;
   --nord14: #a3be8c;
   --nord15: #b48ead;
+  --garden-brand: #5f8f69;
+  --brand-sand: #f0dfca;
+  --brand-clay: #c98568;
+  --brand-teal: #8fc9ca;
 
   // Nord Snow Storm: a quiet but visible separation between reading surface
   // and navigation rails in the light theme.
@@ -30,6 +34,7 @@
   --layout-center: var(--nord0);
   --layout-sidebar: var(--nord1);
   --layout-divider: var(--nord2);
+  --garden-brand: #a3be8c;
 }
 
 // Use the available viewport while keeping long-form text comfortable to read.
@@ -80,15 +85,18 @@
 .page[data-frame="default"] .page-title::before {
   content: "";
   display: block;
-  flex: 0 0 2rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 72% 70%, var(--nord11) 0 0.22rem, transparent 0.24rem),
-    linear-gradient(125deg, transparent 35%, var(--nord12) 36% 52%, transparent 53%),
-    radial-gradient(circle, transparent 43%, var(--nord8) 44% 51%, transparent 52%);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--nord8) 38%, transparent);
+  flex: 0 0 2.35rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.25rem;
+  background: conic-gradient(
+    from 205deg,
+    var(--brand-clay) 0 33%,
+    var(--brand-sand) 33% 67%,
+    var(--brand-teal) 67% 100%
+  );
+  clip-path: polygon(50% 0%, 100% 88%, 77% 100%, 50% 55%, 23% 100%, 0% 88%);
+  filter: drop-shadow(0 0 0.2rem color-mix(in srgb, var(--brand-teal) 35%, transparent));
   animation: garden-brand-pulse 3.5s ease-in-out infinite;
 }
 
@@ -110,17 +118,16 @@
 
 .page[data-frame="default"] .page-title a::before {
   content: "Garden";
-  color: var(--nord10);
+  color: var(--garden-brand);
 }
 
 .page[data-frame="default"] .page-title a::after {
   content: "Digital";
   background: linear-gradient(
     105deg,
-    var(--nord8) 0%,
-    var(--nord9) 38%,
-    var(--nord15) 78%,
-    var(--nord11) 100%
+    var(--brand-sand) 0%,
+    var(--brand-clay) 47%,
+    var(--brand-teal) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -162,6 +169,10 @@
 
 .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li {
   margin: 0;
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .section > .meta {
+  display: none;
 }
 
 .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a {
