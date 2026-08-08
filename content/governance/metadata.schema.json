@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Garden Digital frontmatter reference",
+  "description": "Esquema de referencia para validación/migración. Adaptar a la automatización real del Vault.",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "created": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "space": {
+      "type": "string",
+      "enum": ["cuaderno", "temporadas", "estudio", "colecciones"]
+    },
+    "area": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "kind": {
+      "type": ["string", "null"]
+    },
+    "project": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "season": {
+      "type": ["string", "null"]
+    },
+    "phase": {
+      "type": ["string", "null"]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "publish": {
+      "type": "boolean"
+    },
+    "cssclasses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["space"],
+  "additionalProperties": true
+}

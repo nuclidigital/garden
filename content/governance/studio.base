@@ -1,0 +1,27 @@
+filters:
+  and:
+    - 'file.ext == "md"'
+    - 'space == "estudio"'
+properties:
+  file.name:
+    displayName: Pieza
+  project:
+    displayName: Proyecto
+  kind:
+    displayName: Tipo
+  file.tags:
+    displayName: Tags
+  publish:
+    displayName: Publicada
+views:
+  - type: table
+    name: Estudio
+    groupBy:
+      property: project
+      direction: ASC
+    order:
+      - file.name
+      - project
+      - kind
+      - file.tags
+      - publish

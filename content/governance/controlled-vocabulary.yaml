@@ -1,0 +1,42 @@
+version: 1
+spaces:
+  closed: true
+  values: [cuaderno, temporadas, estudio, colecciones]
+
+areas:
+  closed: false
+  values: [digital, psicologia, jardin, quant]
+  rule: "Mantener pequeño; añadir sólo dominios estables y voluminosos."
+
+kinds:
+  closed: false
+  values:
+    - note
+    - issue
+    - guide
+    - research
+    - reflection
+    - tool
+    - architecture
+    - experience
+    - work
+    - resource
+    - governance
+  rule: "Opcional; añadir sólo si permite una vista/filtro útil."
+
+seasons:
+  closed: false
+  values: [halloween, navidad]
+
+phases:
+  closed: false
+  values: [anticipation, preparation, experience, closure]
+
+projects:
+  closed: false
+  values: [garden-digital, podsplot, quant]
+
+tag_convention:
+  case: lowercase
+  separator: kebab-case
+  nested: "usar sólo para relaciones padre/hijo reales"

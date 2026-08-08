@@ -28,14 +28,16 @@ export interface SocialLink {
 /**
  * Entradas del menú horizontal, en el orden en que se muestran.
  *
- * Solo se enlazan secciones que ya tienen notas: Quartz genera la página de una
- * carpeta a partir de su contenido, así que apuntar a una carpeta vacía daría un
- * 404. Según se vayan llenando `PodSplot`, `Juegos`, `Lecturas` o `Bitacora`,
- * se añaden aquí con su `href` en minúsculas.
+ * Las cuatro cajas del sistema editorial se muestran siempre. Aunque una todavía
+ * no tenga notas, su landing explica qué pertenece allí y evita una navegación
+ * dominada por carpetas temáticas.
  */
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "" },
-  { label: "Digital", href: "digital" },
+  { label: "Cuaderno", href: "cuaderno" },
+  { label: "Temporadas", href: "temporadas" },
+  { label: "Estudio", href: "estudio" },
+  { label: "Colecciones", href: "colecciones" },
   { label: "Tags", href: "tags" },
 ]
 

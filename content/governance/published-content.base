@@ -1,0 +1,24 @@
+filters:
+  and:
+    - 'file.ext == "md"'
+    - "publish == true"
+properties:
+  file.name:
+    displayName: Entrada
+  description:
+    displayName: Descripción
+  space:
+    displayName: Espacio
+  area:
+    displayName: Área
+  file.tags:
+    displayName: Tags
+views:
+  - type: table
+    name: Publicadas
+    order:
+      - file.name
+      - description
+      - space
+      - area
+      - file.tags
