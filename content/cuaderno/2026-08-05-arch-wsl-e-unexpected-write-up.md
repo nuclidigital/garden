@@ -1,7 +1,15 @@
 ---
 title: "Write-Up técnico: recuperación de Arch Linux en WSL ante Wsl/Service/E_UNEXPECTED"
 date: 2026-08-05
+created: 2026-08-05
 description: "Procedimiento técnico reproducible para diagnosticar y recuperar una distribución Arch Linux en WSL con bibliotecas y base local de Pacman truncadas."
+space: cuaderno
+area:
+  - digital
+kind: guide
+project: []
+season:
+phase:
 tags:
   - write-up
   - arch-linux
@@ -18,13 +26,14 @@ aliases:
   - "ArchWSL E_UNEXPECTED Write-Up"
   - "Recuperar Pacman con bibliotecas corruptas"
 draft: false
+publish: true
+cssclasses: []
 ---
 
 # Write-Up técnico: recuperación de Arch Linux en WSL ante `Wsl/Service/E_UNEXPECTED`
 
 > [!abstract]
 > Una distribución Arch Linux registrada en WSL2 no iniciaba y devolvía `Wsl/Service/E_UNEXPECTED`. Otra distribución WSL sí arrancaba. El análisis mediante `wsl --system`, montaje del VHDX y `chroot` reveló bibliotecas ELF críticas y metadatos de `/var/lib/pacman/local` truncados a cero bytes. La recuperación se realizó restaurando OpenSSL desde caché, usando `pacman-static`, reconstruyendo la base local y reinstalando paquetes afectados.
-
 
 ## Flujo técnico de diagnóstico y recuperación
 
@@ -148,15 +157,15 @@ Por tanto, el fallo no dependía de:
 
 ## 3. Hipótesis iniciales
 
-| Hipótesis | Prueba | Resultado |
-|---|---|---|
-| WSL roto globalmente | Arrancar `docker-desktop` | Descartada |
-| Servicio WSL bloqueado | Reiniciar `WslService`, `vmcompute`, `hns` | Sin efecto |
-| Nuevo `Arch.exe` defectuoso | Usar `wsl -d Arch` directamente | No era la causa |
-| Usuario o shell dañados | Forzar `root` y Bash sin perfiles | Descartada |
-| VHDX ausente | Inspeccionar registro y ruta | Descartada |
-| ext4 gravemente corrupto | `e2fsck` | Sin bloques defectuosos |
-| PID 1 o dependencia ELF rota | `chroot` y ejecutar systemd | Confirmada |
+| Hipótesis                    | Prueba                                     | Resultado               |
+| ---------------------------- | ------------------------------------------ | ----------------------- |
+| WSL roto globalmente         | Arrancar `docker-desktop`                  | Descartada              |
+| Servicio WSL bloqueado       | Reiniciar `WslService`, `vmcompute`, `hns` | Sin efecto              |
+| Nuevo `Arch.exe` defectuoso  | Usar `wsl -d Arch` directamente            | No era la causa         |
+| Usuario o shell dañados      | Forzar `root` y Bash sin perfiles          | Descartada              |
+| VHDX ausente                 | Inspeccionar registro y ruta               | Descartada              |
+| ext4 gravemente corrupto     | `e2fsck`                                   | Sin bloques defectuosos |
+| PID 1 o dependencia ELF rota | `chroot` y ejecutar systemd                | Confirmada              |
 
 ## 4. Confirmar que WSL funciona
 

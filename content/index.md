@@ -1,6 +1,7 @@
 ---
 title: Garden Digital
 unlisted: true
+publish: true
 ---
 
 <div class="garden-home">

@@ -1,0 +1,53 @@
+filters:
+  and:
+    - 'file.ext == "md"'
+properties:
+  file.name:
+    displayName: Entrada
+  file.folder:
+    displayName: Carpeta
+  space:
+    displayName: Espacio
+  area:
+    displayName: Área
+  kind:
+    displayName: Tipo
+  description:
+    displayName: Descripción
+  publish:
+    displayName: Publicada
+views:
+  - type: table
+    name: Sin space
+    filters:
+      and:
+        - "space.isEmpty()"
+    order:
+      - file.name
+      - file.folder
+      - space
+      - area
+      - kind
+
+  - type: table
+    name: Publicadas sin descripción
+    filters:
+      and:
+        - "publish == true"
+        - "description.isEmpty()"
+    order:
+      - file.name
+      - description
+      - space
+      - area
+
+  - type: table
+    name: Sin área
+    filters:
+      and:
+        - "list(area).isEmpty()"
+    order:
+      - file.name
+      - space
+      - area
+      - kind
