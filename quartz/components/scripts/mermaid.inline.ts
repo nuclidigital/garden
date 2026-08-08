@@ -50,6 +50,12 @@ async function renderMermaid() {
     securityLevel: "loose",
     theme: "dark",
     themeVariables: {
+      // Los rótulos de un diagrama son texto corto dentro de cajas estrechas:
+      // pide una sans de interfaz —altura de x grande, ascendentes cortas— y no
+      // la serif de lectura, que a ese tamaño engorda las cajas y se emborrona.
+      fontFamily:
+        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontSize: "14px",
       primaryColor: colors.background,
       primaryTextColor: colors.text,
       primaryBorderColor: colors.border,

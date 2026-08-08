@@ -21,9 +21,18 @@ configuration:
       # subconjunto de Fraunces con esos caracteres, la misma serif de
       # nuclidigital.com.
       title: Fraunces
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      # Literata en titulares y cuerpo: TypeTogether la desarrolló durante más
+      # de un año probándola para lectura extensa en pantalla (es la fuente de
+      # Google Play Books). No existe «la fuente más legible» —la investigación
+      # dice que la mejor depende de cada lector—, así que se elige una diseñada
+      # para este uso y se cuidan las palancas que sí funcionan a nivel de grupo:
+      # tamaño, interlineado y ancho de línea.
+      header: Literata
+      body: Literata
+      # JetBrains Mono está hecha para leer código en IDE y terminal: altura de
+      # x mayor y formas inconfundibles entre 0/O, 1/l/I. Marca la diferencia
+      # entre código y prosa, que es justo lo que se busca.
+      code: JetBrains Mono
     # El sitio es solo oscuro. Quartz emite `lightMode` en `:root` y `darkMode`
     # en `:root[saved-theme="dark"]`; al ser idénticos, el tema no depende de que
     # ese atributo llegue a existir (el plugin `darkmode` está desactivado y
@@ -115,8 +124,16 @@ plugins:
   - source: github:quartz-community/roam
     enabled: false
     order: 92
+  # Desactivado: este plugin no lee `theme.typography`, sino sus propias
+  # opciones, y sin ellas emitía los valores por defecto de Quartz. Eso suponía
+  # (a) una segunda hoja de Google Fonts descargando Schibsted Grotesk, Source
+  # Sans Pro e IBM Plex Mono, que ya no usa nadie, y (b) una regla sin capa
+  # `h1..h6 { font-family: Schibsted Grotesk }` que ganaba a `--headerFont` y
+  # dejaba los titulares en una fuente no descargada. Sus variables
+  # (`--font-text`, `--h1-font`…) no las consume nada. `theme.typography` y
+  # `Head.tsx` ya emiten enlaces y variables.
   - source: github:quartz-community/fonts
-    enabled: true
+    enabled: false
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
@@ -293,8 +310,9 @@ plugins:
     options:
       includeAll: false
       includedProperties:
+        # `tags` sale de aquí: el plugin `tag-list` ya las pinta justo debajo y
+        # aparecían dos veces en cada nota.
         - description
-        - tags
         - aliases
       excludedProperties: []
       hidePropertiesView: false

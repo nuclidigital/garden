@@ -36,6 +36,11 @@
 
   --brand-font: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 
+  // Chrome de interfaz y diagramas: las tipografías de sistema son las mejor
+  // ajustadas a tamaños pequeños en pantalla (es para lo que se diseñaron) y no
+  // cuestan una descarga. Literata se reserva para leer, que es su oficio.
+  --uiFont: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
   // Alias legible del acento del tema, que `quartz.config.yaml` ya define con
   // contraste verificado.
   --accent-strong: var(--secondary);
@@ -72,6 +77,112 @@
 .text-highlight {
   background-color: var(--textHighlight);
   color: var(--nord0);
+}
+
+// ============================================================================
+// Escala tipográfica
+// ============================================================================
+//
+// Dos voces: Literata para leer (cuerpo y titulares) y la tipografía del
+// sistema para el chrome —raíles, menú, migas, metadatos y etiquetas—, donde el
+// texto es pequeño y funcional. El código va aparte, en JetBrains Mono.
+//
+// El cuerpo baja de 16 a 15.2 px, pero Literata tiene la altura de x mayor que
+// Source Sans Pro, así que el tamaño aparente apenas cambia; a cambio se sube
+// el interlineado a 1.75, que es la palanca con respaldo real en los estudios
+// de legibilidad.
+
+.page[data-frame="default"] > #quartz-body > .center > article {
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.page[data-frame="default"] article :is(p, li, td, th) {
+  line-height: 1.75;
+}
+
+// Los titulares heredaban el 1.75 del cuerpo y quedaban desparramados.
+.page[data-frame="default"] article :is(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.page[data-frame="default"] article h1 {
+  font-size: 1.5rem;
+}
+
+.page[data-frame="default"] article h2 {
+  font-size: 1.25rem;
+}
+
+.page[data-frame="default"] article h3 {
+  font-size: 1.05rem;
+}
+
+.page[data-frame="default"] article :is(h4, h5, h6) {
+  font-size: 0.95rem;
+}
+
+// Chrome: todo lo que no es prosa. El popup de consentimiento y los popovers
+// cuelgan de `body`, fuera del frame, así que van por su cuenta.
+.page[data-frame="default"]
+  :is(.sidebar, .site-nav, .breadcrumb-container, .content-meta, .tags, .note-properties),
+.cookie-consent,
+.popover :is(.content-meta, .tags, .note-properties) {
+  font-family: var(--uiFont);
+}
+
+.cookie-consent {
+  font-size: 0.85rem;
+}
+
+.page[data-frame="default"] .content-meta {
+  font-size: 0.8rem;
+}
+
+.page[data-frame="default"] :is(.tags .tag-link, .note-properties .tag-link) {
+  font-size: 0.75rem;
+}
+
+.page[data-frame="default"] .note-properties {
+  font-size: 0.85rem;
+}
+
+// La columna de nombres de propiedad se comía el ancho en tablet.
+.page[data-frame="default"] .note-properties-table td:first-child {
+  width: 8.5rem;
+}
+
+// ============================================================================
+// Raíles laterales
+// ============================================================================
+//
+// Antes cada bloque iba por su cuenta: entradas recientes a 13.1 px, explorador
+// a 15.2 px y el lateral derecho a 16 px, tan grande como el texto del
+// artículo. Ahora los cuatro comparten escala, y los títulos pasan a versalitas
+// para que se lean como rótulos de sección y no compitan con las entradas.
+
+.page[data-frame="default"]
+  > #quartz-body
+  > .sidebar
+  :is(.recent-notes > h3, .explorer .title-button h2, .toc h3, .backlinks h3, .graph h3) {
+  margin: 0;
+  color: var(--gray);
+  font-family: var(--uiFont);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.page[data-frame="default"]
+  > #quartz-body
+  > .sidebar
+  :is(.recent-notes .recent-li a, .explorer-content a, .toc-content li a, .backlinks li a) {
+  font-family: var(--uiFont);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 // ============================================================================
@@ -280,7 +391,7 @@
   align-items: center;
   flex: 1 1 auto;
   flex-wrap: nowrap;
-  gap: 0.15rem;
+  gap: 0.4rem;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -293,26 +404,45 @@
   margin: 0;
 }
 
+// Pastillas con borde propio: se leen como botones, no como enlaces sueltos.
 .site-nav-link {
   display: inline-block;
-  padding: 0.4rem 0.7rem;
-  border-radius: 5px;
-  color: var(--darkgray);
-  font-size: 0.9rem;
+  padding: 0.42rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--accent-strong) 26%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-strong) 7%, transparent);
+  color: var(--gray);
+  font-size: 0.85rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .site-nav-link:hover,
 .site-nav-link:focus-visible {
-  background: color-mix(in srgb, var(--accent-strong) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent-strong) 60%, transparent);
+  background: color-mix(in srgb, var(--accent-strong) 18%, transparent);
   color: var(--dark);
+  transform: translateY(-1px);
 }
 
+// La página actual va en sólido: es el único estado que no depende del color
+// para leerse, porque además invierte la figura y el fondo.
 .site-nav-link[aria-current="page"] {
-  box-shadow: inset 0 -2px 0 var(--accent-strong);
-  background: color-mix(in srgb, var(--accent-strong) 12%, transparent);
-  color: var(--dark);
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--nord0);
+}
+
+.site-nav-link[aria-current="page"]:hover,
+.site-nav-link[aria-current="page"]:focus-visible {
+  background: color-mix(in srgb, var(--accent-strong) 82%, var(--nord6));
+  color: var(--nord0);
 }
 
 .site-nav-toggle {
@@ -377,8 +507,9 @@
 .site-nav[data-collapsed="true"] .site-nav-link {
   display: block;
   min-height: 2.75rem;
-  padding: 0.7rem 0.75rem;
-  font-size: 0.95rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 .site-nav[data-open="true"] .site-nav-toggle-open {
@@ -470,10 +601,8 @@
   border-top: 1px solid var(--layout-divider);
 }
 
-.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes h3 {
-  margin: 0 0 0.7rem;
-  color: var(--dark);
-  font-size: 0.95rem;
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes > h3 {
+  margin-bottom: 0.7rem;
 }
 
 .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes ul {
@@ -494,11 +623,9 @@
 
 .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a {
   display: block;
-  padding: 0.45rem 0.55rem;
+  padding: 0.35rem 0.55rem;
   border-left: 2px solid transparent;
   color: var(--gray);
-  font-size: 0.82rem;
-  line-height: 1.35;
 }
 
 .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a:hover,
@@ -536,12 +663,14 @@
   text-transform: uppercase;
 }
 
-.garden-home h1 {
+// Especificidad por encima de `article h1`, o el titular de la portada se
+// quedaría en el tamaño de un encabezado de sección.
+.page[data-frame="default"] article .garden-home h1 {
   margin: 0;
   color: var(--dark);
   font-family: var(--headerFont);
-  font-size: clamp(2rem, 5vw, 3.1rem);
-  line-height: 1.06;
+  font-size: clamp(1.8rem, 4.2vw, 2.5rem);
+  line-height: 1.1;
   text-wrap: balance;
 }
 
@@ -878,7 +1007,7 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   margin-top: 0.5rem;
   padding: 0.35rem 0;
   gap: 0.25rem 0.45rem;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   line-height: 1.35;
 }
 
@@ -899,11 +1028,11 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 }
 
 .page[data-frame="default"] .article-title {
-  max-width: 34ch;
+  max-width: 30ch;
   margin-top: 0.35rem;
   margin-bottom: 0.85rem;
-  font-size: 2.35rem;
-  line-height: 1.08;
+  font-size: 2rem;
+  line-height: 1.12;
   text-wrap: balance;
 }
 
@@ -1088,7 +1217,7 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   }
 
   .page[data-frame="default"] .article-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   // El raíl baja a 220 px: el logotipo se ajusta para no partirse en dos líneas.
@@ -1133,12 +1262,12 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 
   .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
     flex: 1 0 100%;
-    padding-top: 0.85rem;
+    padding-top: 0.7rem;
   }
 
   .social-link {
-    width: clamp(2.1rem, 9vw, 2.6rem);
-    height: clamp(2.1rem, 9vw, 2.6rem);
+    width: clamp(2rem, 8.5vw, 2.5rem);
+    height: clamp(2rem, 8.5vw, 2.5rem);
   }
 
   .social-link svg {
@@ -1156,37 +1285,11 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     padding-inline: 0.6rem;
   }
 
+  // «Entradas recientes» sale de la cabecera móvil. En una sola columna esa
+  // tira empujaba el artículo unos 120 px hacia abajo para repetir lo que ya
+  // dan el menú y el explorador. En escritorio y tablet sigue intacta.
   .page[data-frame="default"] > #quartz-body > .left.sidebar > .recent-notes {
-    flex: 1 0 100%;
-    margin-top: 0.85rem;
-    padding-top: 0.85rem;
-  }
-
-  // En una cabecera no cabe una lista vertical: se convierte en una tira de
-  // fichas con scroll horizontal propio.
-  .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes ul {
-    display: flex;
-    gap: 0.4rem;
-    padding-bottom: 0.35rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scrollbar-width: thin;
-  }
-
-  .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li {
-    flex: 0 0 auto;
-    max-width: 15rem;
-    scroll-snap-align: start;
-  }
-
-  .page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a {
-    overflow: hidden;
-    border: 1px solid var(--layout-divider);
-    border-left-width: 2px;
-    border-radius: 6px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: none;
   }
 
   .site-brand-mark {
@@ -1216,8 +1319,24 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 
   .page[data-frame="default"] .article-title {
     max-width: none;
-    font-size: 1.65rem;
-    line-height: 1.12;
+    font-size: 1.45rem;
+    line-height: 1.18;
+  }
+
+  // Las migas se comían dos líneas repitiendo el titular que viene justo
+  // debajo: basta con la ruta hasta la carpeta. Hay que quitar además el
+  // separador del penúltimo, o queda un «›» colgando al final.
+  .page[data-frame="default"] .breadcrumb-element:last-child {
+    display: none;
+  }
+
+  .page[data-frame="default"] .breadcrumb-element:nth-last-child(2) p {
+    display: none;
+  }
+
+  // La tabla de propiedades no cabe en dos columnas a 400 px.
+  .page[data-frame="default"] .note-properties-table td:first-child {
+    width: 6rem;
   }
 
   .cookie-consent {

@@ -28,10 +28,8 @@ export interface SocialLink {
 /** Entradas del menú horizontal, en el orden en que se muestran. */
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "" },
-  { label: "IThings", href: "ithings" },
-  { label: "Etiquetas", href: "tags" },
-  { label: "Nucli Digital", href: "https://nuclidigital.com" },
-  { label: "Labs", href: "https://glpi11.labs.nuclidigital.com" },
+  { label: "Tech", href: "ithings" },
+  { label: "Tags", href: "tags" },
 ]
 
 /** Perfiles de redes sociales del lateral izquierdo, en orden de aparición. */
