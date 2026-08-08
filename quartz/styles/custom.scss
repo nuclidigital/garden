@@ -22,65 +22,56 @@
   --nord14: #a3be8c;
   --nord15: #b48ead;
 
-  // Marca NucliDigital, con los mismos tokens que nuclidigital.com.
-  --nd-copper: #b5624b;
-  --nd-copper-deep: #8f5141;
+  // Marca NucliDigital: los tokens de nuclidigital.com pensados para fondo
+  // oscuro. Los profundos (`copper`, `teal`, `ink`) eran solo para modo claro y
+  // ya no se usan.
   --nd-copper-soft: #e3b891;
   --nd-peach: #f2d9c2;
-  --nd-teal: #0f6b78;
   --nd-teal-soft: #8fd3dc;
-  --nd-ink: #423540;
+  // Cobre de nuclidigital.com un punto más vivo: su variante oscura (#c9764f)
+  // se quedaba en 2.96:1 sobre el raíl. Los logotipos están exentos del 3:1 de
+  // WCAG 1.4.11 y el símbolo es `aria-hidden`, pero por 0.04 no compensa.
+  --nd-flame: #d4855f; // 3.51:1
+  --nd-parchment: #f4e8de; // 8.36:1
 
   --brand-font: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 
-  // Alias legibles de los acentos del tema, que `quartz.config.yaml` ya define
-  // con contraste suficiente en ambos modos.
+  // Alias legible del acento del tema, que `quartz.config.yaml` ya define con
+  // contraste verificado.
   --accent-strong: var(--secondary);
-  --accent-warm: var(--tertiary);
 
-  // Nord Snow Storm: separación discreta pero visible entre superficie de
-  // lectura y raíles de navegación.
-  --layout-center: var(--nord6);
-  --layout-sidebar: var(--nord5);
-  --layout-divider: var(--nord4);
-  --layout-shadow: rgb(46 52 64 / 18%);
-
-  // «Garden» en verde consola; en claro hace falta un verde más profundo que
-  // el Aurora de Nord para separarse del fondo.
-  --brand-garden: #3f7d4e;
-  --brand-digital: linear-gradient(
-    105deg,
-    var(--nd-copper) 0%,
-    var(--nd-copper-deep) 45%,
-    var(--nd-teal) 100%
-  );
-  --brand-mark-line: var(--nd-copper);
-  --brand-mark-ink: var(--nd-ink);
-  --brand-mark-base: var(--nd-teal);
-
-  color-scheme: light;
-}
-
-:root[saved-theme="dark"] {
-  // Nord Polar Night.
+  // Nord Polar Night: separación discreta pero visible entre la superficie de
+  // lectura y los raíles de navegación.
   --layout-center: var(--nord0);
   --layout-sidebar: var(--nord1);
-  --layout-divider: var(--nord2);
+  // nord3 en vez de nord2: sube el divisor de 1.45:1 a 1.69:1 sobre el fondo.
+  // Son separadores decorativos —no controles ni gráficos que haya que
+  // interpretar—, así que no les aplica el 3:1 de WCAG 1.4.11; aun así se
+  // agradece que se vean.
+  --layout-divider: var(--nord3);
   --layout-shadow: rgb(20 24 31 / 45%);
 
-  --brand-garden: var(--nord14);
-  // Sobre Polar Night sí cabe el degradado exacto de nuclidigital.com.
+  // «Garden» en verde consola. Sobre Polar Night cabe el degradado exacto de
+  // nuclidigital.com, que es donde estaba pensado desde el principio.
+  --brand-garden: var(--nord14); // 4.94:1 sobre el raíl
   --brand-digital: linear-gradient(
     105deg,
     var(--nd-copper-soft) 0%,
     var(--nd-peach) 45%,
     var(--nd-teal-soft) 100%
   );
-  --brand-mark-line: #c9764f;
-  --brand-mark-ink: #f4e8de;
+  --brand-mark-line: var(--nd-flame);
+  --brand-mark-ink: var(--nd-parchment);
   --brand-mark-base: var(--nd-teal-soft);
 
   color-scheme: dark;
+}
+
+// El marcador `==texto==` con velo translúcido dejaba el cuerpo claro en 1.28:1.
+// Un rotulador de verdad —fondo sólido y tinta oscura— da 8.00:1 y encima se ve.
+.text-highlight {
+  background-color: var(--textHighlight);
+  color: var(--nord0);
 }
 
 // ============================================================================
@@ -688,15 +679,8 @@
 // Código
 // ============================================================================
 
-// El código va sobre `--lightgray`, un fondo más apagado que el de la página,
-// así que el azul Frost necesita un paso más de contraste que `--secondary`.
 :root {
-  --shell-code: #456590;
-  --shell-code-bg: var(--nord5);
-}
-
-:root[saved-theme="dark"] {
-  --shell-code: var(--nord8);
+  --shell-code: var(--secondary); // 5.62:1 sobre el fondo de código
   --shell-code-bg: var(--nord1);
 }
 
@@ -711,16 +695,18 @@ code [data-token-type="keyword"] {
   color: var(--secondary) !important;
 }
 code [data-token-type="function"] {
-  color: var(--nord8) !important;
+  color: var(--secondary) !important;
 }
 code [data-token-type="string"] {
-  color: var(--nord14) !important;
+  color: var(--nord14) !important; // 4.94:1
 }
 code [data-token-type="value"] {
-  color: var(--nord12) !important;
+  // Aurora naranja aclarado: nord12 (#d08770) se quedaba en 3.54:1 sobre el
+  // fondo de código.
+  color: #e5ab90 !important; // 5.06:1
 }
 code [data-token-type="operator"] {
-  color: var(--nord7) !important;
+  color: var(--nord7) !important; // 4.83:1
 }
 code [data-token-type="punctuation"] {
   color: var(--gray) !important;

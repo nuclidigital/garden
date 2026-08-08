@@ -24,30 +24,26 @@ configuration:
       header: Schibsted Grotesk
       body: Source Sans Pro
       code: IBM Plex Mono
+    # El sitio es solo oscuro. Quartz emite `lightMode` en `:root` y `darkMode`
+    # en `:root[saved-theme="dark"]`; al ser idénticos, el tema no depende de que
+    # ese atributo llegue a existir (el plugin `darkmode` está desactivado y
+    # nadie lo escribe). Contrastes verificados sobre Polar Night.
     colors:
-      lightMode:
-        light: "#eceff4"
-        lightgray: "#e5e9f0"
-        gray: "#4c566a"
-        darkgray: "#434c5e"
-        dark: "#2e3440"
-        # Nord está pensado para fondos oscuros: sobre Snow Storm, Frost
-        # (#5e81ac) y Aurora (#bf616a) se quedan en 3.5:1, por debajo del 4.5:1
-        # que pide texto normal. Estas son sus versiones profundas.
-        secondary: "#4b6f9b"
-        tertiary: "#a54a52"
-        highlight: "#d8dee980"
-        textHighlight: "#ebcb8b88"
-      darkMode:
-        light: "#2e3440"
-        lightgray: "#3b4252"
-        gray: "#d8dee9"
-        darkgray: "#e5e9f0"
-        dark: "#eceff4"
-        secondary: "#88c0d0"
-        tertiary: "#ebcb8b"
+      lightMode: &nordDark
+        light: "#2e3440" # nord0, superficie de lectura
+        lightgray: "#3b4252" # nord1, raíles y fondo de código
+        gray: "#d8dee9" # nord4, texto apagado — 9.25:1
+        darkgray: "#e5e9f0" # nord5, texto de cuerpo — 10.26:1
+        dark: "#eceff4" # nord6, titulares — 10.84:1
+        # Frost nord8 aclarado: los enlaces internos van sobre `highlight`
+        # (#434c5e) y con #88c0d0 se quedaban en 4.31:1.
+        secondary: "#96cad8" # 4.82:1 sobre highlight, 6.98:1 sobre el fondo
+        tertiary: "#ebcb8b" # Aurora amarillo — 8.00:1
         highlight: "#434c5e"
-        textHighlight: "#ebcb8b88"
+        # Marcador sólido: en oscuro, un velo translúcido dejaba el texto claro
+        # en 1.28:1. `custom.scss` le pone encima texto Polar Night (8.00:1).
+        textHighlight: "#ebcb8b"
+      darkMode: *nordDark
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -62,7 +58,8 @@ plugins:
     enabled: true
     options:
       theme:
-        light: github-light
+        # Shiki elige según el tema del documento; con uno solo, ambos son Nord.
+        light: nord
         dark: nord
       keepBackground: false
     order: 20
@@ -212,8 +209,9 @@ plugins:
     layout:
       position: left
       priority: 10
+  # Sitio solo oscuro: sin conmutador no hay nada que alternar.
   - source: github:quartz-community/darkmode
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 30
@@ -246,8 +244,12 @@ plugins:
         strict: true
         reactionsEnabled: true
         inputPosition: bottom
-        lightTheme: light
-        darkTheme: dark
+        # Giscus decide con el atributo `saved-theme`, que ya nadie escribe, así
+        # que las dos ramas apuntan al mismo tema. Además pasan a usar el CSS
+        # Nord de `quartz/static/giscus/`, que se emitía pero no se aplicaba:
+        # la configuración anterior nombraba los temas integrados de Giscus.
+        lightTheme: https://garden.nuclidigital.com/static/giscus/dark.css
+        darkTheme: https://garden.nuclidigital.com/static/giscus/dark.css
         lang: es
     layout:
       position: afterBody

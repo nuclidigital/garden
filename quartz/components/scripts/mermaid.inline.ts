@@ -27,43 +27,28 @@ async function renderMermaid() {
   const nodes = getNodes()
   if (nodes.length === 0) return
 
-  const dark = document.documentElement.getAttribute("saved-theme") === "dark"
-  const colors = dark
-    ? {
-        background: "#2e3440",
-        text: "#eceff4",
-        border: "#88c0d0",
-        line: "#d8dee9",
-        secondary: "#81a1c1",
-        label: "#3b4252",
-        classes: {
-          start: ["#3b4252", "#81a1c1", "#eceff4"],
-          decision: ["#4c566a", "#ebcb8b", "#eceff4"],
-          diagnostic: ["#3b4252", "#81a1c1", "#eceff4"],
-          repair: ["#2e4a55", "#88c0d0", "#eceff4"],
-          success: ["#3a4d3b", "#a3be8c", "#eceff4"],
-        },
-      }
-    : {
-        background: "#eceff4",
-        text: "#2e3440",
-        border: "#5e81ac",
-        line: "#4c566a",
-        secondary: "#81a1c1",
-        label: "#e5e9f0",
-        classes: {
-          start: ["#e5e9f0", "#4c566a", "#2e3440"],
-          decision: ["#ebcb8b", "#d08770", "#2e3440"],
-          diagnostic: ["#e5e9f0", "#4c566a", "#2e3440"],
-          repair: ["#d8dee9", "#5e81ac", "#2e3440"],
-          success: ["#a3be8c", "#5e81ac", "#2e3440"],
-        },
-      }
+  // Sitio solo oscuro: una única paleta Nord Polar Night. Los rótulos van en
+  // Snow Storm sobre rellenos oscuros, todos por encima de 4.5:1.
+  const colors = {
+    background: "#2e3440",
+    text: "#eceff4",
+    border: "#96cad8",
+    line: "#d8dee9",
+    secondary: "#81a1c1",
+    label: "#3b4252",
+    classes: {
+      start: ["#3b4252", "#96cad8", "#eceff4"],
+      decision: ["#4c566a", "#ebcb8b", "#eceff4"],
+      diagnostic: ["#3b4252", "#96cad8", "#eceff4"],
+      repair: ["#2e4a55", "#96cad8", "#eceff4"],
+      success: ["#3a4d3b", "#a3be8c", "#eceff4"],
+    },
+  }
 
   mermaid.initialize({
     startOnLoad: false,
     securityLevel: "loose",
-    theme: dark ? "dark" : "base",
+    theme: "dark",
     themeVariables: {
       primaryColor: colors.background,
       primaryTextColor: colors.text,
@@ -101,6 +86,8 @@ const render = () => {
 document.addEventListener("nav", render)
 document.addEventListener("render", render)
 window.addEventListener("load", render)
+// El sitio ya no cambia de tema, pero `resetRenderedNodes` sigue haciendo falta
+// para volver a pintar si algo dispara el evento (por ejemplo una extensión).
 document.addEventListener("themechange", () => {
   resetRenderedNodes()
   render()
