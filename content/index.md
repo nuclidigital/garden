@@ -11,8 +11,23 @@ publish: true
 
   <div class="garden-home-body">
     <p>Casi todo lo que hay aquí está <strong>sin terminar a propósito</strong>. Una nota entra cuando me sirve para acordarme de algo, y se queda creciendo —o no— según vuelva a necesitarla. Algunas se convierten en un artículo largo; otras se quedan en tres líneas durante años.</p>
-    <p>Escribo sobre todo de sistemas, Linux y las herramientas con las que trabajo, pero también de lo que leo y de lo que construyo fuera del trabajo. Si buscas algo concreto, el <strong>menú de arriba</strong> y el buscador del lateral llegan más rápido que esta página.</p>
+
+    <section class="garden-home-structure" aria-labelledby="garden-structure-title">
+      <h2 id="garden-structure-title">Cómo está organizado</h2>
+      <p>Hay cuatro cajas sencillas: la carpeta dice dónde vive una nota; los tags cuentan de qué habla; los enlaces unen ideas relacionadas.</p>
+      <pre aria-label="Estructura de Garden Digital"><code>Garden Digital
+
+├─ 📓 Cuaderno conocimiento, notas y experimentos
+├─ ✦ Temporadas vivencias y ciclos estacionales
+├─ ✎ Estudio obra y procesos creativos
+└─ ⌘ Colecciones catálogos y recopilaciones
+
+Explorar temas → tags · búsqueda · enlaces</code></pre>
+
+</section>
+
     <p>Gracias por pasarte. Si algo de lo que hay aquí te resulta útil, o simplemente equivocado, los enlaces de contacto están en el lateral.</p>
+
   </div>
 
   <p class="garden-home-sign">garden.nuclidigital.com — en obras desde siempre</p>
