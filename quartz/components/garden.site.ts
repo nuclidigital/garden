@@ -25,10 +25,17 @@ export interface SocialLink {
   href: string
 }
 
-/** Entradas del menú horizontal, en el orden en que se muestran. */
+/**
+ * Entradas del menú horizontal, en el orden en que se muestran.
+ *
+ * Solo se enlazan secciones que ya tienen notas: Quartz genera la página de una
+ * carpeta a partir de su contenido, así que apuntar a una carpeta vacía daría un
+ * 404. Según se vayan llenando `PodSplot`, `Juegos`, `Lecturas` o `Bitacora`,
+ * se añaden aquí con su `href` en minúsculas.
+ */
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "" },
-  { label: "Tech", href: "ithings" },
+  { label: "Digital", href: "digital" },
   { label: "Tags", href: "tags" },
 ]
 

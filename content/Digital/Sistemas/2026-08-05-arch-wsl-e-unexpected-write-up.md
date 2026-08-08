@@ -13,6 +13,7 @@ tags:
   - openssl
   - incident-response
   - recovery
+permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
   - "ArchWSL E_UNEXPECTED Write-Up"
   - "Recuperar Pacman con bibliotecas corruptas"

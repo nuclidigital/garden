@@ -9,6 +9,7 @@ tags:
   - windows
   - troubleshooting
   - pacman
+permalink: ithings/2026-08-05-arch-wsl-e-unexpected-informe
 aliases:
   - "Error catastrófico WSL Arch"
   - "Recuperación ArchWSL E_UNEXPECTED"
