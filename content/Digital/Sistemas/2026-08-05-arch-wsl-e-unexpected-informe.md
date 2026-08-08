@@ -1,15 +1,7 @@
 ---
 title: "Arch Linux en WSL: recuperación de un E_UNEXPECTED"
 date: 2026-08-05
-created: 2026-08-05
 description: "Resumen ejecutivo e informal de la recuperación de Arch Linux en WSL tras un fallo Wsl/Service/E_UNEXPECTED."
-space: cuaderno
-area:
-  - digital
-kind: issue
-project: []
-season:
-phase:
 tags:
   - field-notes
   - arch-linux
@@ -22,8 +14,6 @@ aliases:
   - "Error catastrófico WSL Arch"
   - "Recuperación ArchWSL E_UNEXPECTED"
 draft: false
-publish: true
-cssclasses: []
 ---
 
 # Arch Linux en WSL: recuperación de un `E_UNEXPECTED`
@@ -67,15 +57,15 @@ El incidente se produce en una instalación Arch Linux sobre WSL2, gestionada me
 
 Datos relevantes:
 
-| Elemento     | Valor                                                  |
-| ------------ | ------------------------------------------------------ |
-| Windows      | Windows 11, build `10.0.26200.8875`                    |
-| WSL          | `2.7.11.0`                                             |
-| ArchWSL      | `25.3.19.0` → `26.4.2.0`                               |
-| VHDX         | `96,63 GiB` físicos, `1 TiB` virtual                   |
-| Ubicación    | `C:\Applications\Scoop\persist\archwsl\data\ext4.vhdx` |
-| `C:` antes   | `279 GB`, aproximadamente `4 GB` libres                |
-| `C:` después | `379 GB`, `115 GB` libres                              |
+| Elemento | Valor |
+|---|---|
+| Windows | Windows 11, build `10.0.26200.8875` |
+| WSL | `2.7.11.0` |
+| ArchWSL | `25.3.19.0` → `26.4.2.0` |
+| VHDX | `96,63 GiB` físicos, `1 TiB` virtual |
+| Ubicación | `C:\Applications\Scoop\persist\archwsl\data\ext4.vhdx` |
+| `C:` antes | `279 GB`, aproximadamente `4 GB` libres |
+| `C:` después | `379 GB`, `115 GB` libres |
 
 La actualización de ArchWSL mediante Scoop constituye el último cambio visible antes del fallo.
 
