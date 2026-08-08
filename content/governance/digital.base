@@ -1,0 +1,15 @@
+filters:
+  and:
+    - 'file.ext == "md"'
+    - 'list(area).contains("digital")'
+properties:
+  file.name: { displayName: Entrada }
+  kind: { displayName: Tipo }
+  project: { displayName: Proyecto }
+  file.tags: { displayName: Tags }
+  publish: { displayName: Publicada }
+views:
+  - type: table
+    name: Digital
+    groupBy: { property: kind, direction: ASC }
+    order: [file.name, kind, project, file.tags, publish]

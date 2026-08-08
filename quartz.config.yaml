@@ -12,6 +12,9 @@ configuration:
   ignorePatterns:
     - private
     - templates
+    # Bases, vocabulario y gobernanza son herramientas del Vault; no deben
+    # aparecer como contenido editorial ni en las entradas recientes públicas.
+    - governance
     - .obsidian
   theme:
     fontOrigin: googleFonts
@@ -313,6 +316,12 @@ plugins:
         # `tags` sale de aquí: el plugin `tag-list` ya las pinta justo debajo y
         # aparecían dos veces en cada nota.
         - description
+        - space
+        - area
+        - kind
+        - project
+        - season
+        - phase
         - aliases
       excludedProperties: []
       hidePropertiesView: false
