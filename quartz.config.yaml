@@ -250,7 +250,7 @@ plugins:
     options:
       title: Recent notes
       limit: 5
-      showTags: true
+      showTags: false
       hideTagPages: true
       hideFolderPages: true
     layout:
