@@ -17,6 +17,10 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
+      # `title` solo se usa en el logotipo «Garden Digital»; Quartz carga un
+      # subconjunto de Fraunces con esos caracteres, la misma serif de
+      # nuclidigital.com.
+      title: Fraunces
       header: Schibsted Grotesk
       body: Source Sans Pro
       code: IBM Plex Mono
@@ -27,8 +31,11 @@ configuration:
         gray: "#4c566a"
         darkgray: "#434c5e"
         dark: "#2e3440"
-        secondary: "#5e81ac"
-        tertiary: "#bf616a"
+        # Nord está pensado para fondos oscuros: sobre Snow Storm, Frost
+        # (#5e81ac) y Aurora (#bf616a) se quedan en 3.5:1, por debajo del 4.5:1
+        # que pide texto normal. Estas son sus versiones profundas.
+        secondary: "#4b6f9b"
+        tertiary: "#a54a52"
         highlight: "#d8dee980"
         textHighlight: "#ebcb8b88"
       darkMode:
@@ -84,6 +91,8 @@ plugins:
     layout:
       position: right
       priority: 30
+      # Evita la caja vacía en páginas sin encabezados, como la portada.
+      condition: has-toc
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -176,24 +185,30 @@ plugins:
     layout:
       position: right
       priority: 50
+  # La portada trae su propio titular y no tiene fechas: el título del artículo
+  # y los metadatos solo estorban ahí.
   - source: github:quartz-community/article-title
     enabled: true
     layout:
       position: beforeBody
       priority: 10
+      condition: not-index
   - source: github:quartz-community/content-meta
     enabled: true
     layout:
       position: beforeBody
       priority: 20
+      condition: not-index
   - source: github:quartz-community/tag-list
     enabled: true
     layout:
       position: beforeBody
       priority: 30
       condition: has-tags
+  # Sustituido por `quartz/components/SiteBrand.tsx`, que pinta el símbolo y las
+  # dos mitades del logotipo. El plugin solo sabe emitir texto plano.
   - source: github:quartz-community/page-title
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 10
@@ -211,6 +226,9 @@ plugins:
       group: toolbar
   - source: github:quartz-community/breadcrumbs
     enabled: true
+    options:
+      # El plugin rotula la raíz como «Home» aunque el sitio esté en español.
+      rootName: Inicio
     layout:
       position: beforeBody
       priority: 5
@@ -248,7 +266,7 @@ plugins:
   - source: github:quartz-community/recent-notes
     enabled: true
     options:
-      title: Recent notes
+      title: Entradas recientes
       limit: 5
       showTags: false
       hideTagPages: true

@@ -7,6 +7,10 @@ import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../../.quartz/plugins"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import mermaidScript from "./scripts/mermaid.inline.ts"
+// @ts-expect-error - inline script imported as string by esbuild loader
+import siteNavScript from "./scripts/sitenav.inline.ts"
+// @ts-expect-error - inline script imported as string by esbuild loader
+import explorerScrollScript from "./scripts/explorer-scroll.inline.ts"
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -112,6 +116,8 @@ export default (() => {
     )
   }
 
-  Head.afterDOMLoaded = mermaidScript
+  // Head es el único componente local que el emisor `componentResources`
+  // recoge automáticamente, así que los scripts propios cuelgan de aquí.
+  Head.afterDOMLoaded = [explorerScrollScript, mermaidScript, siteNavScript]
   return Head
 }) satisfies QuartzComponentConstructor

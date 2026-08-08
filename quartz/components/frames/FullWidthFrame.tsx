@@ -1,9 +1,13 @@
 import { PageFrame, PageFrameProps } from "./types"
 import HeaderConstructor from "../Header"
 import CookieConsent from "../CookieConsent"
+import SiteBrand from "../SiteBrand"
+import SiteNav from "../SiteNav"
 
 const Header = HeaderConstructor()
 const CookieConsentComponent = CookieConsent()
+const SiteBrandComponent = SiteBrand()
+const SiteNavComponent = SiteNav()
 
 /**
  * Full-width page frame — no sidebars. The center content area spans the
@@ -26,6 +30,11 @@ export const FullWidthFrame: PageFrame = {
     return (
       <>
         <div class="center full-width">
+          {/* Sin laterales, la marca acompaña al menú en la propia columna. */}
+          <div class="site-masthead">
+            <SiteBrandComponent {...componentData} />
+            <SiteNavComponent {...componentData} />
+          </div>
           <div class="page-header">
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
