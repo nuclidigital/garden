@@ -69,6 +69,283 @@
   padding-inline: clamp(1rem, 1.6vw, 2rem);
 }
 
+// Garden Digital wordmark: the accessible source text remains in PageTitle;
+// pseudo-elements provide the split solid/gradient treatment without changing Quartz.
+.page[data-frame="default"] .page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.page[data-frame="default"] .page-title::before {
+  content: "";
+  display: block;
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 70% 70%, var(--nord8) 0 0.18rem, transparent 0.2rem),
+    linear-gradient(125deg, transparent 38%, var(--nord12) 39% 53%, transparent 54%),
+    radial-gradient(circle, transparent 47%, var(--nord7) 48% 54%, transparent 55%);
+  animation: garden-brand-pulse 3.5s ease-in-out infinite;
+}
+
+.page[data-frame="default"] .page-title a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.32rem;
+  font-size: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.page[data-frame="default"] .page-title a::before,
+.page[data-frame="default"] .page-title a::after {
+  font-family: var(--titleFont);
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+
+.page[data-frame="default"] .page-title a::before {
+  content: "Garden";
+  color: var(--nord10);
+}
+
+.page[data-frame="default"] .page-title a::after {
+  content: "Digital";
+  background: linear-gradient(105deg, var(--nord8), var(--nord10) 48%, var(--nord15));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes garden-brand-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.06) rotate(2deg);
+  }
+}
+
+// The recent-notes plugin is a compact navigation rail, rather than a second article list.
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--layout-divider);
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes h3 {
+  margin: 0 0 0.7rem;
+  color: var(--dark);
+  font-size: 0.95rem;
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes ul {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li {
+  margin: 0;
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a {
+  display: block;
+  padding: 0.45rem 0.55rem;
+  border-left: 2px solid transparent;
+  color: var(--gray);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a:hover,
+.page[data-frame="default"]
+  > #quartz-body
+  > .left.sidebar
+  .recent-notes
+  .recent-li
+  a:focus-visible {
+  border-left-color: var(--nord8);
+  background: color-mix(in srgb, var(--nord8) 12%, transparent);
+  color: var(--dark);
+}
+
+// Home composition
+.garden-home {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+}
+
+.garden-home-hero {
+  padding: 3.5rem 0 4.5rem;
+  border-bottom: 1px solid var(--layout-divider);
+}
+
+.garden-home-eyebrow,
+.garden-home-kicker {
+  margin: 0 0 1rem;
+  color: var(--nord10);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.garden-home h1,
+.garden-home h2,
+.garden-home h3 {
+  font-family: var(--titleFont);
+}
+
+.garden-home h1 {
+  max-width: 13ch;
+  margin: 0;
+  color: var(--dark);
+  font-size: 3.6rem;
+  line-height: 1.03;
+  text-wrap: balance;
+}
+
+.garden-home-lead {
+  max-width: 47rem;
+  margin: 1.5rem 0 0;
+  color: var(--gray);
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.garden-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.garden-home-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.7rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--nord10);
+  border-radius: 5px;
+  color: var(--nord10);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.garden-home-action--primary {
+  background: var(--nord10);
+  color: var(--nord6);
+}
+
+.garden-home-action:hover,
+.garden-home-action:focus-visible {
+  border-color: var(--nord8);
+  background: var(--nord8);
+  color: var(--nord0);
+}
+
+.garden-home-section {
+  padding: 4rem 0;
+}
+
+.garden-home-section-heading {
+  max-width: 42rem;
+  margin-bottom: 2rem;
+}
+
+.garden-home-section h2,
+.garden-home-note h2 {
+  margin: 0;
+  color: var(--dark);
+  font-size: 2rem;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.garden-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.garden-home-card {
+  display: block;
+  min-height: 12rem;
+  padding: 1.25rem;
+  border: 1px solid var(--layout-divider);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--lightgray) 38%, transparent);
+  text-decoration: none;
+}
+
+.garden-home-card:hover,
+.garden-home-card:focus-visible {
+  border-color: var(--nord8);
+  background: color-mix(in srgb, var(--nord8) 12%, var(--layout-center));
+}
+
+.garden-home-card-index {
+  color: var(--nord12);
+  font-family: var(--codeFont);
+  font-size: 0.8rem;
+}
+
+.garden-home-card h3 {
+  margin: 2rem 0 0.5rem;
+  color: var(--dark);
+  font-size: 1.2rem;
+}
+
+.garden-home-card p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.garden-home-note {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--layout-divider);
+  border-bottom: 1px solid var(--layout-divider);
+}
+
+.garden-home-note h2 {
+  max-width: 34rem;
+}
+
+.garden-home-arrow {
+  display: inline-grid;
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--nord10);
+  border-radius: 50%;
+  color: var(--nord10);
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.garden-home-arrow:hover,
+.garden-home-arrow:focus-visible {
+  background: var(--nord8);
+  color: var(--nord0);
+}
+
 .page[data-frame="default"] > #quartz-body > .center > article,
 .page[data-frame="default"] > #quartz-body > .center > article > .markdown-preview-view {
   width: 100%;
@@ -574,6 +851,51 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 }
 
 @media (max-width: 800px) {
+  .page[data-frame="default"] .page-title::before {
+    flex-basis: 1.65rem;
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .page[data-frame="default"] .page-title a::before,
+  .page[data-frame="default"] .page-title a::after {
+    font-size: 1.35rem;
+  }
+
+  .garden-home {
+    padding-inline: 0;
+  }
+
+  .garden-home-hero {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .garden-home h1 {
+    font-size: 2.45rem;
+  }
+
+  .garden-home-section {
+    padding: 3rem 0;
+  }
+
+  .garden-home-section h2,
+  .garden-home-note h2 {
+    font-size: 1.65rem;
+  }
+
+  .garden-home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .garden-home-card {
+    min-height: auto;
+  }
+
+  .garden-home-note {
+    align-items: start;
+  }
+
   .page[data-frame="default"] .toc-content {
     max-height: 16rem;
   }

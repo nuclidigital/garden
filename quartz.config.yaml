@@ -234,6 +234,7 @@ plugins:
     layout:
       position: afterBody
       priority: 30
+      condition: not-index
   - source: github:quartz-community/footer
     enabled: true
     options:
@@ -248,13 +249,13 @@ plugins:
     enabled: true
     options:
       title: Recent notes
-      limit: 10
+      limit: 5
       showTags: true
       hideTagPages: true
       hideFolderPages: true
     layout:
-      position: afterBody
-      priority: 20
+      position: left
+      priority: 40
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
