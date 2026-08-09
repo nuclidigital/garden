@@ -1474,340 +1474,348 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   }
 
   .page[data-frame="default"] .explorer-overlay-close {
-    position: fixed;
-    z-index: 1;
-    top: 1rem;
-    right: clamp(1rem, 3vw, 2rem);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-height: 2.7rem;
-    padding: 0.45rem 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--nord1) 80%, transparent);
-    color: var(--dark);
-    cursor: pointer;
-    font: 600 0.8rem var(--uiFont);
-  }
-
-  .page[data-frame="default"] .explorer-overlay-close span:first-child {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .page[data-frame="default"] .explorer .explorer-content > .explorer-ul {
-    max-width: 52rem;
-    margin-inline: auto;
-    padding-bottom: 2rem;
-  }
-
-  .page[data-frame="default"] .explorer-content ul li > a {
-    padding: 0.48rem 0.7rem;
-    border-radius: 0.4rem;
-    font-size: 1.08rem;
-    line-height: 1.4;
-  }
-
-  .page[data-frame="default"] .explorer-content .folder-button,
-  .page[data-frame="default"] .explorer-content .folder-title {
-    font-size: 1.08rem;
-    line-height: 1.4;
-  }
-}
-
-// En la columna central estrecha, los tags no compiten con el titular: ocupan
-// una segunda línea completa. Así la lista sigue siendo escaneable en tablet y
-// móvil, incluso en notas con títulos largos.
-@media (max-width: 1200px) {
-  .page[data-frame="default"] .page-listing li.section-li > .section {
-    grid-template-columns: minmax(5rem, 6.5rem) minmax(0, 1fr);
-    row-gap: 0.35rem;
-  }
-
-  .page[data-frame="default"] .page-listing .section > .tags {
-    grid-column: 2 / -1;
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 600px) {
-  .page[data-frame="default"] .page-listing li.section-li > .section {
-    grid-template-columns: minmax(4.75rem, 5.5rem) minmax(0, 1fr);
-  }
-
-  // El CSS del componente externo oculta los tags en móvil. Los mantenemos,
-  // pero en su propia fila bajo toda la entrada, nunca junto al título.
-  .page[data-frame="default"] .page-listing .section > .tags {
-    display: flex !important;
-    grid-column: 1 / -1;
-    margin-top: 0.1rem;
-  }
-}
-
-@media (max-width: 800px) {
-  .page[data-frame="default"] > #quartz-body {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .page[data-frame="default"] > #quartz-body > .left.sidebar {
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
-    padding: 1.25rem 0 0.85rem;
-    // En una sola columna el lateral es la cabecera, y sí lleva su propio fondo.
-    background: var(--layout-sidebar);
-    box-shadow:
-      -1rem 0 0 var(--layout-sidebar),
-      1rem 0 0 var(--layout-sidebar);
-  }
-
-  // El panel móvil del explorador es la navegación principal mientras está
-  // abierto. Lo elevamos por encima del nav central (que es sticky) y
-  // ocultamos el resto de la rejilla para que sea un menú de pantalla completa.
-  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > .left.sidebar {
-    position: fixed;
-    z-index: 200;
-    inset: 0;
-    overflow: visible;
-  }
-
-  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > :not(.left.sidebar) {
-    visibility: hidden;
-  }
-
-  .page[data-frame="default"] > #quartz-body > .left.sidebar > .site-brand {
-    flex: 0 1 auto;
-    margin-bottom: 0;
-  }
-
-  // Marca, buscador/tema y explorador comparten la primera fila; redes y
-  // entradas recientes ocupan una línea propia debajo.
-  .page[data-frame="default"] > #quartz-body > .left.sidebar > .explorer {
-    order: 0;
-  }
-
-  .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
-    flex: 1 0 100%;
-    padding-top: 0.7rem;
-  }
-
-  .social-link {
-    width: clamp(2rem, 8.5vw, 2.5rem);
-    height: clamp(2rem, 8.5vw, 2.5rem);
-  }
-
-  .social-link svg {
-    width: 1.3rem;
-    height: 1.3rem;
-  }
-
-  // El icono ya dice qué hace el botón; sin la etiqueta cabe el explorador en
-  // la misma fila que la marca.
-  .page[data-frame="default"] .search .search-button p {
     display: none;
   }
 
-  .page[data-frame="default"] .search .search-button {
-    padding-inline: 0.6rem;
+  @media (max-width: 1200px) {
+    .page[data-frame="default"] .explorer-overlay-close {
+      position: fixed;
+      z-index: 1;
+      top: 1rem;
+      right: clamp(1rem, 3vw, 2rem);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 2.7rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--nord1) 80%, transparent);
+      color: var(--dark);
+      cursor: pointer;
+      font: 600 0.8rem var(--uiFont);
+    }
+
+    .page[data-frame="default"] .explorer-overlay-close span:first-child {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .page[data-frame="default"] .explorer .explorer-content > .explorer-ul {
+      max-width: 52rem;
+      margin-inline: auto;
+      padding-bottom: 2rem;
+    }
+
+    .page[data-frame="default"] .explorer-content ul li > a {
+      padding: 0.48rem 0.7rem;
+      border-radius: 0.4rem;
+      font-size: 1.08rem;
+      line-height: 1.4;
+    }
+
+    .page[data-frame="default"] .explorer-content .folder-button,
+    .page[data-frame="default"] .explorer-content .folder-title {
+      font-size: 1.08rem;
+      line-height: 1.4;
+    }
   }
 
-  // «Entradas recientes» sale de la cabecera móvil. En una sola columna esa
-  // tira empujaba el artículo unos 120 px hacia abajo para repetir lo que ya
-  // dan el menú y el explorador. En escritorio y tablet sigue intacta.
-  .page[data-frame="default"] > #quartz-body > .left.sidebar > .recent-notes {
-    display: none;
+  // En la columna central estrecha, los tags no compiten con el titular: ocupan
+  // una segunda línea completa. Así la lista sigue siendo escaneable en tablet y
+  // móvil, incluso en notas con títulos largos.
+  @media (max-width: 1200px) {
+    .page[data-frame="default"] .page-listing li.section-li > .section {
+      grid-template-columns: minmax(5rem, 6.5rem) minmax(0, 1fr);
+      row-gap: 0.35rem;
+    }
+
+    .page[data-frame="default"] .page-listing .section > .tags {
+      grid-column: 2 / -1;
+      justify-content: flex-start;
+    }
   }
 
-  .site-brand-mark {
-    width: 2rem;
-    height: 2rem;
+  @media (max-width: 600px) {
+    .page[data-frame="default"] .page-listing li.section-li > .section {
+      grid-template-columns: minmax(4.75rem, 5.5rem) minmax(0, 1fr);
+    }
+
+    // El CSS del componente externo oculta los tags en móvil. Los mantenemos,
+    // pero en su propia fila bajo toda la entrada, nunca junto al título.
+    .page[data-frame="default"] .page-listing .section > .tags {
+      display: flex !important;
+      grid-column: 1 / -1;
+      margin-top: 0.1rem;
+    }
   }
 
-  .site-brand-wordmark {
-    font-size: 1.2rem;
+  @media (max-width: 800px) {
+    .page[data-frame="default"] > #quartz-body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .page[data-frame="default"] > #quartz-body > .left.sidebar {
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+      padding: 1.25rem 0 0.85rem;
+      // En una sola columna el lateral es la cabecera, y sí lleva su propio fondo.
+      background: var(--layout-sidebar);
+      box-shadow:
+        -1rem 0 0 var(--layout-sidebar),
+        1rem 0 0 var(--layout-sidebar);
+    }
+
+    // El panel móvil del explorador es la navegación principal mientras está
+    // abierto. Lo elevamos por encima del nav central (que es sticky) y
+    // ocultamos el resto de la rejilla para que sea un menú de pantalla completa.
+    .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > .left.sidebar {
+      position: fixed;
+      z-index: 200;
+      inset: 0;
+      overflow: visible;
+    }
+
+    .page[data-frame="default"]
+      > #quartz-body:has(.explorer:not(.collapsed))
+      > :not(.left.sidebar) {
+      visibility: hidden;
+    }
+
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .site-brand {
+      flex: 0 1 auto;
+      margin-bottom: 0;
+    }
+
+    // Marca, buscador/tema y explorador comparten la primera fila; redes y
+    // entradas recientes ocupan una línea propia debajo.
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .explorer {
+      order: 0;
+    }
+
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
+      flex: 1 0 100%;
+      padding-top: 0.7rem;
+    }
+
+    .social-link {
+      width: clamp(2rem, 8.5vw, 2.5rem);
+      height: clamp(2rem, 8.5vw, 2.5rem);
+    }
+
+    .social-link svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    // El icono ya dice qué hace el botón; sin la etiqueta cabe el explorador en
+    // la misma fila que la marca.
+    .page[data-frame="default"] .search .search-button p {
+      display: none;
+    }
+
+    .page[data-frame="default"] .search .search-button {
+      padding-inline: 0.6rem;
+    }
+
+    // «Entradas recientes» sale de la cabecera móvil. En una sola columna esa
+    // tira empujaba el artículo unos 120 px hacia abajo para repetir lo que ya
+    // dan el menú y el explorador. En escritorio y tablet sigue intacta.
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .recent-notes {
+      display: none;
+    }
+
+    .site-brand-mark {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .site-brand-wordmark {
+      font-size: 1.2rem;
+    }
+
+    .site-nav {
+      padding-inline: 1rem;
+    }
+
+    .page[data-frame="default"] .center {
+      border-inline: none;
+    }
+
+    .page[data-frame="default"] .toc-content {
+      max-height: 16rem;
+    }
+
+    .page[data-frame="default"] .breadcrumb-container {
+      font-size: 0.8rem;
+    }
+
+    .page[data-frame="default"] .article-title {
+      max-width: none;
+      font-size: 1.45rem;
+      line-height: 1.18;
+    }
+
+    // Las migas se comían dos líneas repitiendo el titular que viene justo
+    // debajo: basta con la ruta hasta la carpeta. Hay que quitar además el
+    // separador del penúltimo, o queda un «›» colgando al final.
+    .page[data-frame="default"] .breadcrumb-element:last-child {
+      display: none;
+    }
+
+    .page[data-frame="default"] .breadcrumb-element:nth-last-child(2) p {
+      display: none;
+    }
+
+    // La tabla de propiedades no cabe en dos columnas a 400 px.
+    .page[data-frame="default"] .note-properties-table td:first-child {
+      width: 6rem;
+    }
+
+    .cookie-consent {
+      inset: auto 0.75rem 0.75rem;
+    }
+
+    .cookie-consent__panel {
+      gap: 0.75rem;
+    }
+
+    .cookie-consent__actions button {
+      flex: 1;
+    }
   }
 
-  .site-nav {
-    padding-inline: 1rem;
-  }
+  // En tablet y móvil, el explorador se abre como una superficie de navegación
+  // completa. En escritorio conserva el raíl estándar, más eficiente para leer
+  // y explorar a la vez.
+  @media (max-width: 1200px) {
+    .page[data-frame="default"] .explorer button.mobile-explorer {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 2.7rem;
+      height: 2.7rem;
+      margin: 0;
+      padding: 0;
+      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border-radius: 0.7rem;
+      background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
+      box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
+      color: var(--nd-teal-soft);
+    }
 
-  .page[data-frame="default"] .center {
-    border-inline: none;
-  }
+    .page[data-frame="default"] .explorer button.mobile-explorer:hover,
+    .page[data-frame="default"] .explorer button.mobile-explorer:focus-visible {
+      border-color: var(--nd-teal-soft);
+      background: color-mix(in srgb, var(--nd-teal-soft) 22%, var(--layout-sidebar));
+    }
 
-  .page[data-frame="default"] .toc-content {
-    max-height: 16rem;
-  }
+    .page[data-frame="default"] .explorer button.desktop-explorer {
+      display: none !important;
+    }
 
-  .page[data-frame="default"] .breadcrumb-container {
-    font-size: 0.8rem;
-  }
+    .page[data-frame="default"] .explorer.collapsed,
+    .page[data-frame="default"] .explorer:not(.collapsed) {
+      flex-basis: 2.7rem;
+    }
 
-  .page[data-frame="default"] .article-title {
-    max-width: none;
-    font-size: 1.45rem;
-    line-height: 1.18;
-  }
+    .page[data-frame="default"] .explorer .explorer-content {
+      position: fixed;
+      z-index: 300;
+      inset: 0;
+      width: 100vw;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 5.75rem clamp(1.25rem, 5vw, 5rem) 2rem;
+      border: 0;
+      background:
+        radial-gradient(
+          circle at 92% 3%,
+          color-mix(in srgb, var(--nd-teal-soft) 18%, transparent),
+          transparent 22rem
+        ),
+        linear-gradient(135deg, var(--nord1), var(--nord0));
+      box-shadow: 0 1rem 3rem rgb(0 0 0 / 42%);
+      opacity: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      transform: translateY(-1rem);
+      transition:
+        opacity 0.22s ease,
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0.28s ease;
+      visibility: hidden;
+    }
 
-  // Las migas se comían dos líneas repitiendo el titular que viene justo
-  // debajo: basta con la ruta hasta la carpeta. Hay que quitar además el
-  // separador del penúltimo, o queda un «›» colgando al final.
-  .page[data-frame="default"] .breadcrumb-element:last-child {
-    display: none;
-  }
+    .page[data-frame="default"] .explorer:not(.collapsed) > .explorer-content {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
 
-  .page[data-frame="default"] .breadcrumb-element:nth-last-child(2) p {
-    display: none;
-  }
+    .page[data-frame="default"] .explorer-overlay-close {
+      position: fixed;
+      z-index: 1;
+      top: 1rem;
+      right: clamp(1rem, 3vw, 2.5rem);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 2.7rem;
+      padding: 0.45rem 0.8rem;
+      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border-radius: 0.7rem;
+      background: color-mix(in srgb, var(--nord1) 88%, transparent);
+      box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 18%);
+      color: var(--dark);
+      cursor: pointer;
+      font: 600 0.84rem var(--uiFont);
+    }
 
-  // La tabla de propiedades no cabe en dos columnas a 400 px.
-  .page[data-frame="default"] .note-properties-table td:first-child {
-    width: 6rem;
-  }
+    .page[data-frame="default"] .explorer-overlay-close span:first-child {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1;
+    }
 
-  .cookie-consent {
-    inset: auto 0.75rem 0.75rem;
-  }
+    .page[data-frame="default"] .explorer .explorer-content > .explorer-ul {
+      max-width: 58rem;
+      margin-inline: auto;
+      padding-bottom: 2rem;
+    }
 
-  .cookie-consent__panel {
-    gap: 0.75rem;
-  }
+    .page[data-frame="default"] .explorer-content ul li > a {
+      padding: 0.55rem 0.8rem;
+      border-radius: 0.45rem;
+      font-size: 1.08rem;
+      line-height: 1.4;
+    }
 
-  .cookie-consent__actions button {
-    flex: 1;
-  }
-}
+    .page[data-frame="default"] .explorer-content .folder-button,
+    .page[data-frame="default"] .explorer-content .folder-title {
+      font-size: 1.08rem;
+      line-height: 1.4;
+    }
 
-// En tablet y móvil, el explorador se abre como una superficie de navegación
-// completa. En escritorio conserva el raíl estándar, más eficiente para leer
-// y explorar a la vez.
-@media (max-width: 1200px) {
-  .page[data-frame="default"] .explorer button.mobile-explorer {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 2.7rem;
-    height: 2.7rem;
-    margin: 0;
-    padding: 0;
-    border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
-    border-radius: 0.7rem;
-    background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
-    box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
-    color: var(--nd-teal-soft);
-  }
+    html.mobile-no-scroll,
+    html.mobile-no-scroll body {
+      height: 100%;
+      overflow: hidden;
+    }
 
-  .page[data-frame="default"] .explorer button.mobile-explorer:hover,
-  .page[data-frame="default"] .explorer button.mobile-explorer:focus-visible {
-    border-color: var(--nd-teal-soft);
-    background: color-mix(in srgb, var(--nd-teal-soft) 22%, var(--layout-sidebar));
-  }
-
-  .page[data-frame="default"] .explorer button.desktop-explorer {
-    display: none !important;
-  }
-
-  .page[data-frame="default"] .explorer.collapsed,
-  .page[data-frame="default"] .explorer:not(.collapsed) {
-    flex-basis: 2.7rem;
-  }
-
-  .page[data-frame="default"] .explorer .explorer-content {
-    position: fixed;
-    z-index: 300;
-    inset: 0;
-    width: 100vw;
-    max-width: none;
-    height: 100dvh;
-    max-height: none;
-    margin: 0;
-    padding: 5.75rem clamp(1.25rem, 5vw, 5rem) 2rem;
-    border: 0;
-    background:
-      radial-gradient(
-        circle at 92% 3%,
-        color-mix(in srgb, var(--nd-teal-soft) 18%, transparent),
-        transparent 22rem
-      ),
-      linear-gradient(135deg, var(--nord1), var(--nord0));
-    box-shadow: 0 1rem 3rem rgb(0 0 0 / 42%);
-    opacity: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    transform: translateY(-1rem);
-    transition:
-      opacity 0.22s ease,
-      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-      visibility 0.28s ease;
-    visibility: hidden;
-  }
-
-  .page[data-frame="default"] .explorer:not(.collapsed) > .explorer-content {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-  }
-
-  .page[data-frame="default"] .explorer-overlay-close {
-    position: fixed;
-    z-index: 1;
-    top: 1rem;
-    right: clamp(1rem, 3vw, 2.5rem);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-height: 2.7rem;
-    padding: 0.45rem 0.8rem;
-    border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
-    border-radius: 0.7rem;
-    background: color-mix(in srgb, var(--nord1) 88%, transparent);
-    box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 18%);
-    color: var(--dark);
-    cursor: pointer;
-    font: 600 0.84rem var(--uiFont);
-  }
-
-  .page[data-frame="default"] .explorer-overlay-close span:first-child {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .page[data-frame="default"] .explorer .explorer-content > .explorer-ul {
-    max-width: 58rem;
-    margin-inline: auto;
-    padding-bottom: 2rem;
-  }
-
-  .page[data-frame="default"] .explorer-content ul li > a {
-    padding: 0.55rem 0.8rem;
-    border-radius: 0.45rem;
-    font-size: 1.08rem;
-    line-height: 1.4;
-  }
-
-  .page[data-frame="default"] .explorer-content .folder-button,
-  .page[data-frame="default"] .explorer-content .folder-title {
-    font-size: 1.08rem;
-    line-height: 1.4;
-  }
-
-  html.mobile-no-scroll,
-  html.mobile-no-scroll body {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  // Ningún contenedor ancestral debe ofrecer un segundo ascensor mientras el
-  // panel está abierto: el único scroll útil es el árbol del explorador.
-  html:has(.explorer:not(.collapsed)),
-  html:has(.explorer:not(.collapsed)) body,
-  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)),
-  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > .left.sidebar {
-    height: 100dvh;
-    overflow: hidden !important;
+    // Ningún contenedor ancestral debe ofrecer un segundo ascensor mientras el
+    // panel está abierto: el único scroll útil es el árbol del explorador.
+    html:has(.explorer:not(.collapsed)),
+    html:has(.explorer:not(.collapsed)) body,
+    .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)),
+    .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > .left.sidebar {
+      height: 100dvh;
+      overflow: hidden !important;
+    }
   }
 }
 
@@ -1852,5 +1860,18 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+// Salvaguarda: el control solo pertenece al overlay responsive. Aunque un
+// script se ejecute tarde, nunca puede aparecer como un botón extraño en el
+// explorador lateral de escritorio.
+.explorer-overlay-close {
+  display: none !important;
+}
+
+@media (max-width: 1200px) {
+  .explorer-overlay-close {
+    display: inline-flex !important;
   }
 }

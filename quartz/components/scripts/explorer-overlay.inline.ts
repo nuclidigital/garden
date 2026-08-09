@@ -12,10 +12,17 @@ const closeExplorer = (explorer: HTMLElement) => {
 }
 
 const setupExplorerOverlay = () => {
+  const isOverlayViewport = window.matchMedia("(max-width: 1200px)").matches
   for (const explorer of document.querySelectorAll<HTMLElement>(".explorer")) {
     const panel = explorer.querySelector<HTMLElement>(".explorer-content")
     const opener = explorer.querySelector<HTMLButtonElement>(".mobile-explorer")
     if (!panel || !opener) continue
+
+    // Desktop uses the normal left rail, not the full-screen overlay.
+    if (!isOverlayViewport) {
+      panel.querySelector(".explorer-overlay-close")?.remove()
+      continue
+    }
 
     opener.setAttribute("aria-expanded", String(!explorer.classList.contains("collapsed")))
     if (!panel.querySelector(".explorer-overlay-close")) {
