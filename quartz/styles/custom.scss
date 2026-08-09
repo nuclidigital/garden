@@ -1875,6 +1875,13 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     display: inline-flex !important;
   }
 
+  // `width: 100vw` más el padding del tema era una caja content-box más ancha
+  // que el viewport. Al ser el panel el bloque de referencia del botón fijo,
+  // «Cerrar» terminaba desplazado y parcialmente fuera de pantalla.
+  .page[data-frame="default"] .explorer > .explorer-content {
+    box-sizing: border-box;
+  }
+
   // Estado cerrado realmente no interactivo. El tema de Explorer aplica
   // `pointer-events` a sus enlaces y puede hacer que atraviesen el
   // `visibility: hidden` del panel, creando una capa invisible sobre el menú

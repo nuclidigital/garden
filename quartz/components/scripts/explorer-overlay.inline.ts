@@ -28,8 +28,10 @@ const closeExplorer = (explorer: HTMLElement) => {
   explorer.querySelector<HTMLButtonElement>(".mobile-explorer")?.focus()
 }
 
-const setupExplorerOverlay = () => {
-  const isOverlayViewport = window.matchMedia("(max-width: 1200px)").matches
+const overlayMedia = window.matchMedia("(max-width: 1200px)")
+
+const setupExplorerOverlay = (closeOnEnter = false) => {
+  const isOverlayViewport = overlayMedia.matches
   for (const explorer of document.querySelectorAll<HTMLElement>(".explorer")) {
     const panel = explorer.querySelector<HTMLElement>(".explorer-content")
     const opener = explorer.querySelector<HTMLButtonElement>(".mobile-explorer")
@@ -43,13 +45,19 @@ const setupExplorerOverlay = () => {
       continue
     }
 
+    // An expanded desktop rail must not turn into an already-open full-screen
+    // overlay when the window crosses into tablet/mobile. Start the responsive
+    // mode closed so the page and its hamburger remain usable.
+    if (closeOnEnter) explorer.classList.add("collapsed")
     reflectExplorerState(explorer)
     if (explorer.dataset.overlayStateBound !== "true") {
       explorer.dataset.overlayStateBound = "true"
       // Quartz restores the saved Explorer state asynchronously. Observing the
       // class makes our interaction state follow that final value too, rather
       // than whichever value happened to exist while this script initialized.
-      new MutationObserver(() => reflectExplorerState(explorer)).observe(explorer, {
+      new MutationObserver(() => {
+        if (overlayMedia.matches) reflectExplorerState(explorer)
+      }).observe(explorer, {
         attributes: true,
         attributeFilter: ["class"],
       })
@@ -111,5 +119,17 @@ document.addEventListener("keydown", (event) => {
   if (explorer) closeExplorer(explorer)
 })
 
-document.addEventListener("nav", setupExplorerOverlay)
+document.addEventListener("nav", () => setupExplorerOverlay())
+overlayMedia.addEventListener("change", (event) => {
+  document.documentElement.classList.remove("mobile-no-scroll")
+  for (const explorer of document.querySelectorAll<HTMLElement>(".explorer")) {
+    if (event.matches) {
+      explorer.dataset.desktopWasExpanded = String(!explorer.classList.contains("collapsed"))
+    } else {
+      if (explorer.dataset.desktopWasExpanded === "true") explorer.classList.remove("collapsed")
+      delete explorer.dataset.desktopWasExpanded
+    }
+  }
+  setupExplorerOverlay(event.matches)
+})
 setupExplorerOverlay()
