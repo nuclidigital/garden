@@ -1874,4 +1874,13 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   .explorer-overlay-close {
     display: inline-flex !important;
   }
+
+  // Estado cerrado realmente no interactivo. El tema de Explorer aplica
+  // `pointer-events` a sus enlaces y puede hacer que atraviesen el
+  // `visibility: hidden` del panel, creando una capa invisible sobre el menú
+  // de áreas. `display: none` es el cierre fiable incluso antes de que cargue
+  // JavaScript; al abrirse, el componente retira la clase `collapsed`.
+  .page[data-frame="default"] .explorer.collapsed > .explorer-content {
+    display: none !important;
+  }
 }

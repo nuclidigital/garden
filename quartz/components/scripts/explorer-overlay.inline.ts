@@ -4,10 +4,27 @@
  * close control inside the overlay and keeps its ARIA state in sync after SPA
  * navigations.
  */
+const reflectExplorerState = (explorer: HTMLElement) => {
+  const panel = explorer.querySelector<HTMLElement>(".explorer-content")
+  const opener = explorer.querySelector<HTMLButtonElement>(".mobile-explorer")
+  const open = !explorer.classList.contains("collapsed")
+
+  opener?.setAttribute("aria-expanded", String(open))
+  if (panel) {
+    // `visibility: hidden` is not sufficient here: the Explorer stylesheet
+    // gives its links their own visibility/pointer-event values, so an
+    // invisible descendant can still win hit testing and steal taps from the
+    // area navigation underneath. `inert` removes the complete closed subtree
+    // from pointer and keyboard interaction.
+    panel.inert = !open
+    panel.setAttribute("aria-hidden", String(!open))
+  }
+  document.documentElement.classList.toggle("mobile-no-scroll", open)
+}
+
 const closeExplorer = (explorer: HTMLElement) => {
   explorer.classList.add("collapsed")
-  explorer.setAttribute("aria-expanded", "false")
-  document.documentElement.classList.remove("mobile-no-scroll")
+  reflectExplorerState(explorer)
   explorer.querySelector<HTMLButtonElement>(".mobile-explorer")?.focus()
 }
 
@@ -20,11 +37,23 @@ const setupExplorerOverlay = () => {
 
     // Desktop uses the normal left rail, not the full-screen overlay.
     if (!isOverlayViewport) {
+      panel.inert = false
+      panel.removeAttribute("aria-hidden")
       panel.querySelector(".explorer-overlay-close")?.remove()
       continue
     }
 
-    opener.setAttribute("aria-expanded", String(!explorer.classList.contains("collapsed")))
+    reflectExplorerState(explorer)
+    if (explorer.dataset.overlayStateBound !== "true") {
+      explorer.dataset.overlayStateBound = "true"
+      // Quartz restores the saved Explorer state asynchronously. Observing the
+      // class makes our interaction state follow that final value too, rather
+      // than whichever value happened to exist while this script initialized.
+      new MutationObserver(() => reflectExplorerState(explorer)).observe(explorer, {
+        attributes: true,
+        attributeFilter: ["class"],
+      })
+    }
     if (!panel.querySelector(".explorer-overlay-close")) {
       const close = document.createElement("button")
       close.type = "button"
@@ -70,7 +99,7 @@ const setupExplorerOverlay = () => {
       // Explorer toggles its class in its own handler. Read it after that
       // handler has run, then reflect the resulting state for assistive tech.
       requestAnimationFrame(() => {
-        opener.setAttribute("aria-expanded", String(!explorer.classList.contains("collapsed")))
+        reflectExplorerState(explorer)
       })
     })
   }
