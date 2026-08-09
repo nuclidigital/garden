@@ -11,7 +11,8 @@ Esta customización mantiene Quartz V5 como generador y sustituye solo aquello q
 - `garden/quartz/components/Head.tsx`: añade canonical, robots, descubrimiento RSS, Open Graph coherente y JSON-LD.
 - `garden/quartz/plugins/loader/config-loader.ts`: registra el emisor local como emisor integrado.
 - `garden/quartz.config.yaml`: mantiene `content-index`, pero desactiva únicamente sus salidas RSS y sitemap para evitar colisiones.
-- `publish-garden.sh`: sincroniza `.dev`, actualiza todos los archivos ya versionados y admite nuevas customizaciones bajo el árbol completo `quartz`; así componentes, estilos, scripts, emitters, loaders, utilidades y pruebas viajan juntos.
+- `garden/scripts/publish-garden.sh`: implementación canónica y versionada del publicador. Sincroniza `.dev`, actualiza todos los archivos ya versionados y admite nuevas customizaciones bajo el árbol completo `quartz`; así componentes, estilos, scripts, emitters, loaders, utilidades y pruebas viajan juntos.
+- `publish-garden.sh`: wrapper estable en la raíz de trabajo para conservar el comando habitual `./publish-garden.sh`.
 
 Hay pruebas de política en `gardenSeo.test.ts`, junto a la utilidad y al emisor.
 
