@@ -229,6 +229,25 @@
   padding-inline: clamp(1rem, 1.6vw, 2rem);
 }
 
+// `afterBody` (Giscus) no vive dentro de `article`, por lo que necesita el
+// mismo carril de lectura de forma explícita. Así sus bordes coinciden con el
+// texto, títulos, callouts y bloques de código.
+.page[data-frame="default"] .center > .page-footer {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-inline: clamp(1rem, 1.6vw, 2rem);
+}
+
+.page[data-frame="default"] .page-footer .giscus,
+.page[data-frame="default"] .page-footer iframe.giscus-frame {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-inline: 0;
+}
+
 .page[data-frame="default"] > #quartz-body > .center > article,
 .page[data-frame="default"] > #quartz-body > .center > article > .markdown-preview-view {
   width: 100%;
@@ -649,8 +668,9 @@
 // ============================================================================
 
 .garden-home {
-  max-width: 44rem;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: clamp(2rem, 6vw, 4.5rem) 0 3rem;
 }
 
@@ -1028,7 +1048,8 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 }
 
 .page[data-frame="default"] .article-title {
-  max-width: 30ch;
+  width: 100%;
+  max-width: none;
   margin-top: 0.35rem;
   margin-bottom: 0.85rem;
   font-size: 2rem;
@@ -1247,6 +1268,20 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     box-shadow:
       -1rem 0 0 var(--layout-sidebar),
       1rem 0 0 var(--layout-sidebar);
+  }
+
+  // El panel móvil del explorador es la navegación principal mientras está
+  // abierto. Lo elevamos por encima del nav central (que es sticky) y
+  // ocultamos el resto de la rejilla para que sea un menú de pantalla completa.
+  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > .left.sidebar {
+    position: fixed;
+    z-index: 200;
+    inset: 0;
+    overflow: visible;
+  }
+
+  .page[data-frame="default"] > #quartz-body:has(.explorer:not(.collapsed)) > :not(.left.sidebar) {
+    visibility: hidden;
   }
 
   .page[data-frame="default"] > #quartz-body > .left.sidebar > .site-brand {
