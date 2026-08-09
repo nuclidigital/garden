@@ -10,6 +10,4 @@ publish: true
 draft: false
 ---
 
-# Explorar por temas
-
 Los espacios dicen dónde vive una nota; los tags dicen de qué habla. Aquí se reúnen landings editoriales de áreas importantes y el índice de etiquetas del Garden.

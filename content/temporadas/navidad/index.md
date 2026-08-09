@@ -13,6 +13,4 @@ publish: true
 draft: false
 ---
 
-# Navidad
-
 Preparación, experiencia y cierre del ciclo de Navidad. Las notas generales se mantienen en Cuaderno y se conectan aquí cuando formen parte del recorrido.

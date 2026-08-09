@@ -229,6 +229,16 @@
   padding-inline: clamp(1rem, 1.6vw, 2rem);
 }
 
+// Las páginas de carpeta envuelven su `article` y su lista de notas en un
+// `.popover-hint` adicional. Sin esta regla la lista escapaba al borde del
+// carril central aunque el contenido de una nota sí respetase sus márgenes.
+.page[data-frame="default"] .center > .popover-hint > :is(article, .page-listing) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-inline: clamp(1rem, 1.6vw, 2rem);
+}
+
 // `afterBody` (Giscus) no vive dentro de `article`, por lo que necesita el
 // mismo carril de lectura de forma explícita. Así sus bordes coinciden con el
 // texto, títulos, callouts y bloques de código.

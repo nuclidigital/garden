@@ -13,6 +13,4 @@ publish: true
 draft: false
 ---
 
-# Relatos
-
 Piezas narrativas y su material de trabajo: ideas, personajes, estructura, borradores y versiones publicables.

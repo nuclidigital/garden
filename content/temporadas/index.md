@@ -10,6 +10,4 @@ publish: true
 draft: false
 ---
 
-# Temporadas
-
 Aquí viven los ciclos y experiencias estacionales, como Halloween o Navidad.

@@ -10,6 +10,4 @@ publish: true
 draft: false
 ---
 
-# Cuaderno
-
 La caja por defecto: conocimiento reusable, investigación, herramientas, incidencias, experimentos y reflexiones.

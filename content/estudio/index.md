@@ -10,6 +10,4 @@ publish: true
 draft: false
 ---
 
-# Estudio
-
 Creación de obra: relatos, audiorelatos, personajes, guiones e investigación aplicada.

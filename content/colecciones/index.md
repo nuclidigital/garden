@@ -10,6 +10,4 @@ publish: true
 draft: false
 ---
 
-# Colecciones
-
 Recopilaciones y catálogos: libros, películas, herramientas, recursos, lugares, personas, mapas y bibliografía.

@@ -13,6 +13,4 @@ publish: true
 draft: false
 ---
 
-# Halloween
-
 Preparación, experiencia y cierre del ciclo de Halloween. El conocimiento histórico o técnico sobre el tema pertenece a Cuaderno y se relaciona con tags y enlaces.
