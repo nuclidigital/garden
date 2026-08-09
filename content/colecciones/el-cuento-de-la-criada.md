@@ -8,9 +8,7 @@ area:
 kind: resource
 project: []
 tags:
-  - libros
   - literatura/distopía
-  - margaret-atwood
 aliases:
   - The Handmaid's Tale
 publish: true

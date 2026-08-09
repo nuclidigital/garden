@@ -8,9 +8,7 @@ area:
 kind: resource
 project: []
 tags:
-  - libros
   - literatura/policíaca
-  - sherlock-holmes
 aliases:
   - The Hound of the Baskervilles
 publish: true

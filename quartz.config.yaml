@@ -36,26 +36,31 @@ configuration:
       # x mayor y formas inconfundibles entre 0/O, 1/l/I. Marca la diferencia
       # entre código y prosa, que es justo lo que se busca.
       code: JetBrains Mono
-    # El sitio es solo oscuro. Quartz emite `lightMode` en `:root` y `darkMode`
-    # en `:root[saved-theme="dark"]`; al ser idénticos, el tema no depende de que
-    # ese atributo llegue a existir (el plugin `darkmode` está desactivado y
-    # nadie lo escribe). Contrastes verificados sobre Polar Night.
+    # Everforest medium. Los siete acentos originales se distribuyen mediante
+    # tokens semánticos en custom.scss; aquí se reservan los colores base que
+    # Quartz consume directamente. Los acentos de texto del modo claro son
+    # variantes oscurecidas para sostener WCAG AA sobre el fondo crema.
     colors:
-      lightMode: &nordDark
-        light: "#2e3440" # nord0, superficie de lectura
-        lightgray: "#3b4252" # nord1, raíles y fondo de código
-        gray: "#d8dee9" # nord4, texto apagado — 9.25:1
-        darkgray: "#e5e9f0" # nord5, texto de cuerpo — 10.26:1
-        dark: "#eceff4" # nord6, titulares — 10.84:1
-        # Frost nord8 aclarado: los enlaces internos van sobre `highlight`
-        # (#434c5e) y con #88c0d0 se quedaban en 4.31:1.
-        secondary: "#96cad8" # 4.82:1 sobre highlight, 6.98:1 sobre el fondo
-        tertiary: "#ebcb8b" # Aurora amarillo — 8.00:1
-        highlight: "#434c5e"
-        # Marcador sólido: en oscuro, un velo translúcido dejaba el texto claro
-        # en 1.28:1. `custom.scss` le pone encima texto Polar Night (8.00:1).
-        textHighlight: "#ebcb8b"
-      darkMode: *nordDark
+      lightMode:
+        light: "#fdf6e3" # bg0
+        lightgray: "#efebd4" # bg_dim / bg2
+        gray: "#66756b" # gris funcional adaptado — 4.55:1
+        darkgray: "#4f5b52" # cuerpo — 6.60:1
+        dark: "#35433c" # titulares — 8.83:1
+        secondary: "#4f6d00" # verde de enlace — 5.53:1
+        tertiary: "#246e92" # azul de interacción — 5.23:1
+        highlight: "#e1e4bd" # bg_visual soft
+        textHighlight: "#faedcd" # bg_yellow
+      darkMode:
+        light: "#2d353b" # bg0
+        lightgray: "#343f44" # bg1
+        gray: "#9da9a0" # grey2 — 5.12:1
+        darkgray: "#d3c6aa" # fg — 7.38:1
+        dark: "#fdf6e3" # crema de titulares — 10.41:1
+        secondary: "#a7c080" # green — 6.23:1
+        tertiary: "#7fbbb3" # blue/aqua — 5.74:1
+        highlight: "#425047" # bg_green
+        textHighlight: "#dbbc7f" # yellow
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -70,9 +75,8 @@ plugins:
     enabled: true
     options:
       theme:
-        # Shiki elige según el tema del documento; con uno solo, ambos son Nord.
-        light: nord
-        dark: nord
+        light: everforest-light
+        dark: everforest-dark
       keepBackground: false
     order: 20
   - source: github:quartz-community/obsidian-flavored-markdown
@@ -237,9 +241,10 @@ plugins:
     layout:
       position: left
       priority: 10
-  # Sitio solo oscuro: sin conmutador no hay nada que alternar.
+  # Selector nativo de Quartz: respeta la preferencia del sistema, recuerda la
+  # elección local y emite `themechange` para Mermaid y Giscus.
   - source: github:quartz-community/darkmode
-    enabled: false
+    enabled: true
     layout:
       position: left
       priority: 30
@@ -272,11 +277,8 @@ plugins:
         strict: true
         reactionsEnabled: true
         inputPosition: bottom
-        # Giscus decide con el atributo `saved-theme`, que ya nadie escribe, así
-        # que las dos ramas apuntan al mismo tema. Además pasan a usar el CSS
-        # Nord de `quartz/static/giscus/`, que se emitía pero no se aplicaba:
-        # la configuración anterior nombraba los temas integrados de Giscus.
-        lightTheme: https://garden.nuclidigital.com/static/giscus/dark.css
+        # El plugin cambia estos temas al recibir `themechange`.
+        lightTheme: https://garden.nuclidigital.com/static/giscus/light.css
         darkTheme: https://garden.nuclidigital.com/static/giscus/dark.css
         lang: es
     layout:

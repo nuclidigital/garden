@@ -13,14 +13,6 @@ phase:
 tags:
   - write-up
   - arch-linux
-  - wsl
-  - windows
-  - pacman
-  - systemd
-  - ext4
-  - openssl
-  - incident-response
-  - recovery
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
   - cuaderno/arch-en-wsl2-e_unexpected-(parte-ii)
@@ -87,11 +79,6 @@ flowchart TD
 
     AE --> AF["pacman -Qkk<br/>wsl --shutdown<br/>wsl -d Arch"]
     AF --> AG["Sistema recuperado"]
-
-    classDef decision fill:#fef3c7,stroke:#d97706,color:#78350f;
-    classDef diagnostic fill:#f4f4f5,stroke:#71717a,color:#18181b;
-    classDef repair fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e;
-    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d;
 
     class C,F,M,V,AB decision;
     class A,B,D,E,G,H,I,J,K,L,N,O,Q,T,U,AA diagnostic;

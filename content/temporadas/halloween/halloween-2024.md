@@ -10,8 +10,7 @@ project: []
 season: halloween
 phase: closure
 tags:
-  - halloween
-  - halloween/2024
+  - roleplay
 publish: true
 draft: false
 cssclasses: []

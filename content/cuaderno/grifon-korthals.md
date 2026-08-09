@@ -8,9 +8,9 @@ area:
 kind: note
 project: []
 tags:
-  - cinofilia
-  - perros
-  - perros/grifon-korthals
+  - perro/pointer-setter
+  - perro/muestra-continental
+  - perro/caza
 aliases:
   - Griffon Korthals
   - Grifón de pelo duro

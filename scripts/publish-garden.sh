@@ -61,6 +61,7 @@ fi
 
 printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
+node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build
 
 printf 'Preparando cambios para publicar...\n'

@@ -11,12 +11,8 @@ project: []
 season:
 phase:
 tags:
-  - field-notes
   - arch-linux
-  - wsl
-  - windows
   - troubleshooting
-  - pacman
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-informe
 aliases:
   - cuaderno/arch-en-wsl2-e_unexpected-(parte-i)
@@ -51,11 +47,6 @@ flowchart TD
     H --> I["Recuperación de OpenSSL,<br/>ACL y Pacman"]
     I --> J["Reconstrucción de la base local<br/>y actualización completa"]
     J --> K["Validación final<br/>Arch inicia con normalidad"]
-
-    classDef start fill:#f4f4f5,stroke:#71717a,color:#18181b;
-    classDef decision fill:#fef3c7,stroke:#d97706,color:#78350f;
-    classDef repair fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e;
-    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d;
 
     class A,B,C,D start;
     class E decision;

@@ -5,34 +5,45 @@
 // ============================================================================
 
 :root {
-  --nord0: #2e3440;
-  --nord1: #3b4252;
-  --nord2: #434c5e;
-  --nord3: #4c566a;
-  --nord4: #d8dee9;
-  --nord5: #e5e9f0;
-  --nord6: #eceff4;
-  --nord7: #8fbcbb;
-  --nord8: #88c0d0;
-  --nord9: #81a1c1;
-  --nord10: #5e81ac;
-  --nord11: #bf616a;
-  --nord12: #d08770;
-  --nord13: #ebcb8b;
-  --nord14: #a3be8c;
-  --nord15: #b48ead;
-
-  // Marca NucliDigital: los tokens de nuclidigital.com pensados para fondo
-  // oscuro. Los profundos (`copper`, `teal`, `ink`) eran solo para modo claro y
-  // ya no se usan.
-  --nd-copper-soft: #e3b891;
-  --nd-peach: #f2d9c2;
-  --nd-teal-soft: #8fd3dc;
-  // Cobre de nuclidigital.com un punto más vivo: su variante oscura (#c9764f)
-  // se quedaba en 2.96:1 sobre el raíl. Los logotipos están exentos del 3:1 de
-  // WCAG 1.4.11 y el símbolo es `aria-hidden`, pero por 0.04 no compensa.
-  --nd-flame: #d4855f; // 3.51:1
-  --nd-parchment: #f4e8de; // 8.36:1
+  // Everforest medium, paleta oficial. En claro los acentos `--ef-*-vivid`
+  // preservan la identidad original en superficies y ornamento; sus parejas
+  // sin sufijo están oscurecidas únicamente cuando funcionan como texto, para
+  // alcanzar al menos 4.5:1 sobre bg0.
+  --ef-bg-dim: #efebd4;
+  --ef-bg0: #fdf6e3;
+  --ef-bg1: #f4f0d9;
+  --ef-bg2: #efebd4;
+  --ef-bg3: #e6e2cc;
+  --ef-bg4: #e0dcc7;
+  --ef-bg5: #bdc3af;
+  --ef-bg-visual: #eaedc8;
+  --ef-bg-red: #fde3da;
+  --ef-bg-yellow: #faedcd;
+  --ef-bg-green: #f0f1d2;
+  --ef-bg-blue: #e9f0e9;
+  --ef-bg-purple: #fae8e2;
+  --ef-fg: #4f5b52;
+  --ef-muted: #66756b;
+  --ef-heading: #35433c;
+  --ef-red: #b83a37;
+  --ef-orange: #a84d0d;
+  --ef-yellow: #7a5b00;
+  --ef-green: #4f6d00;
+  --ef-aqua: #14785a;
+  --ef-blue: #246e92;
+  --ef-purple: #a23e86;
+  --ef-red-vivid: #f85552;
+  --ef-orange-vivid: #f57d26;
+  --ef-yellow-vivid: #dfa000;
+  --ef-green-vivid: #8da101;
+  --ef-aqua-vivid: #35a77c;
+  --ef-blue-vivid: #3a94c5;
+  --ef-purple-vivid: #df69ba;
+  --ef-grey0: #a6b0a0;
+  --ef-grey1: #939f91;
+  --ef-grey2: #829181;
+  --on-accent: var(--ef-bg0);
+  --highlight-ink: var(--ef-heading);
 
   --brand-font: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 
@@ -45,29 +56,75 @@
   // contraste verificado.
   --accent-strong: var(--secondary);
 
-  // Nord Polar Night: separación discreta pero visible entre la superficie de
-  // lectura y los raíles de navegación.
-  --layout-center: var(--nord0);
-  --layout-sidebar: var(--nord1);
-  // nord3 en vez de nord2: sube el divisor de 1.45:1 a 1.69:1 sobre el fondo.
-  // Son separadores decorativos —no controles ni gráficos que haya que
-  // interpretar—, así que no les aplica el 3:1 de WCAG 1.4.11; aun así se
-  // agradece que se vean.
-  --layout-divider: var(--nord3);
-  --layout-shadow: rgb(20 24 31 / 45%);
+  --layout-center: var(--ef-bg0);
+  --layout-sidebar: var(--ef-bg1);
+  --layout-divider: var(--ef-bg5);
+  --layout-shadow: rgb(53 67 60 / 20%);
 
-  // «Garden» en verde consola. Sobre Polar Night cabe el degradado exacto de
-  // nuclidigital.com, que es donde estaba pensado desde el principio.
-  --brand-garden: var(--nord14); // 4.94:1 sobre el raíl
+  --brand-garden: var(--ef-green);
   --brand-digital: linear-gradient(
     105deg,
-    var(--nd-copper-soft) 0%,
-    var(--nd-peach) 45%,
-    var(--nd-teal-soft) 100%
+    var(--ef-orange) 0%,
+    var(--ef-purple) 48%,
+    var(--ef-blue) 100%
   );
-  --brand-mark-line: var(--nd-flame);
-  --brand-mark-ink: var(--nd-parchment);
-  --brand-mark-base: var(--nd-teal-soft);
+  --brand-mark-line: var(--ef-red);
+  --brand-mark-ink: var(--ef-heading);
+  --brand-mark-base: var(--ef-aqua);
+
+  color-scheme: light;
+}
+
+:root[saved-theme="dark"] {
+  --ef-bg-dim: #232a2e;
+  --ef-bg0: #2d353b;
+  --ef-bg1: #343f44;
+  --ef-bg2: #3d484d;
+  --ef-bg3: #475258;
+  --ef-bg4: #4f585e;
+  --ef-bg5: #56635f;
+  --ef-bg-visual: #543a48;
+  --ef-bg-red: #514045;
+  --ef-bg-yellow: #4d4c43;
+  --ef-bg-green: #425047;
+  --ef-bg-blue: #3a515d;
+  --ef-bg-purple: #4a444e;
+  --ef-fg: #d3c6aa;
+  --ef-muted: #9da9a0;
+  --ef-heading: #fdf6e3;
+  --ef-red: #e67e80;
+  --ef-orange: #e69875;
+  --ef-yellow: #dbbc7f;
+  --ef-green: #a7c080;
+  --ef-aqua: #83c092;
+  --ef-blue: #7fbbb3;
+  --ef-purple: #d699b6;
+  --ef-red-vivid: #e67e80;
+  --ef-orange-vivid: #e69875;
+  --ef-yellow-vivid: #dbbc7f;
+  --ef-green-vivid: #a7c080;
+  --ef-aqua-vivid: #83c092;
+  --ef-blue-vivid: #7fbbb3;
+  --ef-purple-vivid: #d699b6;
+  --ef-grey0: #7a8478;
+  --ef-grey1: #859289;
+  --ef-grey2: #9da9a0;
+  --on-accent: var(--ef-bg0);
+  --highlight-ink: var(--ef-bg0);
+  --layout-center: var(--ef-bg0);
+  --layout-sidebar: var(--ef-bg1);
+  --layout-divider: var(--ef-bg4);
+  --layout-shadow: rgb(18 22 24 / 48%);
+  --brand-garden: var(--ef-green);
+  --brand-digital: linear-gradient(
+    105deg,
+    var(--ef-orange) 0%,
+    var(--ef-yellow) 45%,
+    var(--ef-aqua) 100%
+  );
+  --brand-mark-line: var(--ef-orange);
+  --brand-mark-ink: var(--ef-heading);
+  --brand-mark-base: var(--ef-aqua);
 
   color-scheme: dark;
 }
@@ -76,7 +133,7 @@
 // Un rotulador de verdad —fondo sólido y tinta oscura— da 8.00:1 y encima se ve.
 .text-highlight {
   background-color: var(--textHighlight);
-  color: var(--nord0);
+  color: var(--highlight-ink);
 }
 
 // ============================================================================
@@ -465,13 +522,13 @@
 .site-nav-link[aria-current="page"] {
   border-color: var(--accent-strong);
   background: var(--accent-strong);
-  color: var(--nord0);
+  color: var(--on-accent);
 }
 
 .site-nav-link[aria-current="page"]:hover,
 .site-nav-link[aria-current="page"]:focus-visible {
-  background: color-mix(in srgb, var(--accent-strong) 82%, var(--nord6));
-  color: var(--nord0);
+  background: color-mix(in srgb, var(--accent-strong) 82%, var(--ef-bg0));
+  color: var(--on-accent);
 }
 
 .site-nav-toggle {
@@ -580,7 +637,7 @@
   background:
     radial-gradient(
       circle at 0 0,
-      color-mix(in srgb, var(--nd-teal-soft) 10%, transparent),
+      color-mix(in srgb, var(--ef-aqua-vivid) 12%, transparent),
       transparent 26rem
     ),
     var(--layout-center);
@@ -592,10 +649,10 @@
   align-items: center;
   min-height: 1.85rem;
   padding-inline: 0.65rem;
-  border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ef-aqua) 38%, transparent);
   border-radius: 0.45rem;
-  background: color-mix(in srgb, var(--nord9) 14%, var(--nord1));
-  color: var(--nord8);
+  background: var(--ef-bg-blue);
+  color: var(--ef-aqua);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.09em;
@@ -621,10 +678,10 @@
 .area-nav-link {
   display: block;
   padding: 0.36rem 0.78rem;
-  border: 1px solid var(--nord3);
+  border: 1px solid var(--layout-divider);
   border-radius: 0.45rem;
-  background: var(--nord2);
-  color: var(--nord5);
+  background: var(--ef-bg2);
+  color: var(--ef-fg);
   font-size: 0.76rem;
   font-weight: 600;
   line-height: 1.25;
@@ -638,17 +695,17 @@
 
 .area-nav-link:hover,
 .area-nav-link:focus-visible {
-  border-color: var(--nord9);
-  background: var(--nord3);
-  color: var(--nord6);
+  border-color: var(--ef-blue);
+  background: var(--ef-bg3);
+  color: var(--ef-heading);
   transform: translateY(-1px);
 }
 
 .area-nav-link[aria-current="page"] {
-  border-color: var(--nord9);
-  background: var(--nord9);
+  border-color: var(--ef-blue);
+  background: var(--ef-blue);
   box-shadow: 0 0.2rem 0.65rem rgb(0 0 0 / 18%);
-  color: var(--nord0);
+  color: var(--on-accent);
 }
 
 .garden-author-byline {
@@ -985,8 +1042,8 @@
 // ============================================================================
 
 :root {
-  --shell-code: var(--secondary); // 5.62:1 sobre el fondo de código
-  --shell-code-bg: var(--nord1);
+  --shell-code: var(--ef-green);
+  --shell-code-bg: var(--ef-bg1);
 }
 
 code [data-token-type="normal"] {
@@ -997,21 +1054,19 @@ code [data-token-type="comment"] {
   font-style: italic;
 }
 code [data-token-type="keyword"] {
-  color: var(--secondary) !important;
+  color: var(--ef-red) !important;
 }
 code [data-token-type="function"] {
-  color: var(--secondary) !important;
+  color: var(--ef-green) !important;
 }
 code [data-token-type="string"] {
-  color: var(--nord14) !important; // 4.94:1
+  color: var(--ef-aqua) !important;
 }
 code [data-token-type="value"] {
-  // Aurora naranja aclarado: nord12 (#d08770) se quedaba en 3.54:1 sobre el
-  // fondo de código.
-  color: #e5ab90 !important; // 5.06:1
+  color: var(--ef-purple) !important;
 }
 code [data-token-type="operator"] {
-  color: var(--nord7) !important; // 4.83:1
+  color: var(--ef-orange) !important;
 }
 code [data-token-type="punctuation"] {
   color: var(--gray) !important;
@@ -1053,13 +1108,14 @@ pre > code[data-language="console"] {
   white-space: pre;
 }
 
-pre:has(> :is(code.mermaid, code[data-language="mermaid"])) {
+:is(pre[data-language="mermaid"], pre:has(> :is(code.mermaid, code[data-language="mermaid"]))) {
   padding: 0.75rem;
+  border-color: var(--layout-divider);
   overflow: hidden;
-  background: color-mix(in srgb, var(--lightgray) 34%, transparent);
+  background: var(--ef-bg1);
 }
 
-pre:has(> :is(code.mermaid, code[data-language="mermaid"]))
+:is(pre[data-language="mermaid"], pre:has(> :is(code.mermaid, code[data-language="mermaid"])))
   > :is(code.mermaid, code[data-language="mermaid"]) {
   display: block;
   min-height: 12rem;
@@ -1068,11 +1124,77 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"]))
   background: transparent;
 }
 
-pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
+:is(pre[data-language="mermaid"], pre:has(> :is(code.mermaid, code[data-language="mermaid"]))) svg {
   display: block;
   width: min(100%, 1100px);
   height: auto;
   margin: 0 auto;
+}
+
+// Mermaid recibe colores básicos desde Quartz, pero algunos diagramas del
+// vault traen `classDef` claros inline. Estos estados semánticos prevalecen en
+// ambos modos y evitan texto oscuro sobre nodos saturados o ilegible en dark.
+:is(pre[data-language="mermaid"], pre:has(> :is(code.mermaid, code[data-language="mermaid"]))) svg {
+  .node :is(rect, circle, ellipse, polygon, path),
+  .label-container {
+    fill: var(--ef-bg2) !important;
+    stroke: var(--ef-blue) !important;
+    stroke-width: 2px !important;
+  }
+
+  :is(.nodeLabel, .label, .cluster-label, .edgeLabel) {
+    color: var(--ef-heading) !important;
+  }
+
+  :is(.nodeLabel, .label, .cluster-label, .edgeLabel) :is(p, span, div) {
+    color: inherit !important;
+  }
+
+  .cluster rect {
+    fill: var(--ef-bg1) !important;
+    stroke: var(--ef-grey2) !important;
+  }
+
+  .edgeLabel rect,
+  .edgeLabel .labelBkg {
+    fill: var(--ef-bg0) !important;
+    opacity: 0.96 !important;
+  }
+
+  :is(.edgePath path, .flowchart-link, .messageLine0, .messageLine1) {
+    stroke: var(--ef-fg) !important;
+  }
+
+  marker path,
+  .arrowheadPath {
+    fill: var(--ef-fg) !important;
+    stroke: var(--ef-fg) !important;
+  }
+
+  .node.start :is(rect, circle, ellipse, polygon, path) {
+    fill: var(--ef-bg-visual) !important;
+    stroke: var(--ef-purple) !important;
+  }
+
+  .node.decision :is(rect, circle, ellipse, polygon, path) {
+    fill: var(--ef-bg-yellow) !important;
+    stroke: var(--ef-yellow) !important;
+  }
+
+  .node.diagnostic :is(rect, circle, ellipse, polygon, path) {
+    fill: var(--ef-bg2) !important;
+    stroke: var(--ef-grey2) !important;
+  }
+
+  .node.repair :is(rect, circle, ellipse, polygon, path) {
+    fill: var(--ef-bg-blue) !important;
+    stroke: var(--ef-blue) !important;
+  }
+
+  .node.success :is(rect, circle, ellipse, polygon, path) {
+    fill: var(--ef-bg-green) !important;
+    stroke: var(--ef-green) !important;
+  }
 }
 
 // ============================================================================
@@ -1420,11 +1542,11 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     height: 2.7rem;
     margin: 0;
     padding: 0;
-    border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ef-aqua) 42%, transparent);
     border-radius: 0.7rem;
-    background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
+    background: color-mix(in srgb, var(--ef-aqua-vivid) 12%, var(--layout-sidebar));
     box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
-    color: var(--nd-teal-soft);
+    color: var(--ef-aqua);
   }
 
   // El plugin reserva por defecto 34 px para la hamburguesa móvil. El botón
@@ -1436,8 +1558,8 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
 
   .page[data-frame="default"] .explorer button.mobile-explorer:hover,
   .page[data-frame="default"] .explorer button.mobile-explorer:focus-visible {
-    border-color: var(--nd-teal-soft);
-    background: color-mix(in srgb, var(--nd-teal-soft) 22%, var(--layout-sidebar));
+    border-color: var(--ef-aqua);
+    background: color-mix(in srgb, var(--ef-aqua-vivid) 22%, var(--layout-sidebar));
   }
 
   .page[data-frame="default"] .explorer button.desktop-explorer {
@@ -1458,10 +1580,10 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     background:
       radial-gradient(
         circle at 92% 3%,
-        color-mix(in srgb, var(--nd-teal-soft) 18%, transparent),
+        color-mix(in srgb, var(--ef-aqua-vivid) 18%, transparent),
         transparent 22rem
       ),
-      linear-gradient(135deg, var(--nord1), var(--nord0));
+      linear-gradient(135deg, var(--ef-bg1), var(--ef-bg0));
     box-shadow: 0 1rem 3rem rgb(0 0 0 / 42%);
     opacity: 0;
     overflow-y: auto;
@@ -1494,9 +1616,9 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
       gap: 0.4rem;
       min-height: 2.7rem;
       padding: 0.45rem 0.75rem;
-      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border: 1px solid color-mix(in srgb, var(--ef-aqua) 42%, transparent);
       border-radius: 999px;
-      background: color-mix(in srgb, var(--nord1) 80%, transparent);
+      background: color-mix(in srgb, var(--ef-bg1) 80%, transparent);
       color: var(--dark);
       cursor: pointer;
       font: 600 0.8rem var(--uiFont);
@@ -1705,17 +1827,17 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
       height: 2.7rem;
       margin: 0;
       padding: 0;
-      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border: 1px solid color-mix(in srgb, var(--ef-aqua) 42%, transparent);
       border-radius: 0.7rem;
-      background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
+      background: color-mix(in srgb, var(--ef-aqua-vivid) 12%, var(--layout-sidebar));
       box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
-      color: var(--nd-teal-soft);
+      color: var(--ef-aqua);
     }
 
     .page[data-frame="default"] .explorer button.mobile-explorer:hover,
     .page[data-frame="default"] .explorer button.mobile-explorer:focus-visible {
-      border-color: var(--nd-teal-soft);
-      background: color-mix(in srgb, var(--nd-teal-soft) 22%, var(--layout-sidebar));
+      border-color: var(--ef-aqua);
+      background: color-mix(in srgb, var(--ef-aqua-vivid) 22%, var(--layout-sidebar));
     }
 
     .page[data-frame="default"] .explorer button.desktop-explorer {
@@ -1741,10 +1863,10 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
       background:
         radial-gradient(
           circle at 92% 3%,
-          color-mix(in srgb, var(--nd-teal-soft) 18%, transparent),
+          color-mix(in srgb, var(--ef-aqua-vivid) 18%, transparent),
           transparent 22rem
         ),
-        linear-gradient(135deg, var(--nord1), var(--nord0));
+        linear-gradient(135deg, var(--ef-bg1), var(--ef-bg0));
       box-shadow: 0 1rem 3rem rgb(0 0 0 / 42%);
       opacity: 0;
       overflow-y: auto;
@@ -1773,9 +1895,9 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
       gap: 0.4rem;
       min-height: 2.7rem;
       padding: 0.45rem 0.8rem;
-      border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+      border: 1px solid color-mix(in srgb, var(--ef-aqua) 42%, transparent);
       border-radius: 0.7rem;
-      background: color-mix(in srgb, var(--nord1) 88%, transparent);
+      background: color-mix(in srgb, var(--ef-bg1) 88%, transparent);
       box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 18%);
       color: var(--dark);
       cursor: pointer;
