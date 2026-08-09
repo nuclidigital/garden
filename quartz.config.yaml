@@ -82,7 +82,9 @@ plugins:
       highlight: true
       wikilinks: true
       callouts: true
-      mermaid: false
+      # Mermaid nativo de Quartz: solo carga el módulo en páginas que contienen
+      # diagramas, en vez de incluir la librería completa en todo el sitio.
+      mermaid: true
       parseTags: true
       parseArrows: true
       parseBlockReferences: true
@@ -163,8 +165,10 @@ plugins:
   - source: github:quartz-community/content-index
     enabled: true
     options:
-      enableSiteMap: true
-      enableRSS: true
+      # El índice JSON continúa siendo nativo. Sitemap y RSS los emite GardenSeo
+      # para excluir páginas virtuales débiles y limitar el feed a notas reales.
+      enableSiteMap: false
+      enableRSS: false
   - source: github:quartz-community/favicon
     enabled: true
   - source: github:quartz-community/og-image
@@ -283,6 +287,7 @@ plugins:
     enabled: true
     options:
       links:
+        Roger Gibaja: /sobre-mi
         Nucli Digital: https://nuclidigital.com
         Garden source: https://github.com/nuclidigital/garden
         Configuración de cookies: "#cookie-settings"

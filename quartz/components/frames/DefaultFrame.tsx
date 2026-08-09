@@ -4,12 +4,14 @@ import CookieConsent from "../CookieConsent"
 import SiteBrand from "../SiteBrand"
 import AreaNav from "../AreaNav"
 import SocialLinks from "../SocialLinks"
+import AuthorByline from "../AuthorByline"
 
 const Header = HeaderConstructor()
 const CookieConsentComponent = CookieConsent()
 const SiteBrandComponent = SiteBrand()
 const AreaNavComponent = AreaNav()
 const SocialLinksComponent = SocialLinks()
+const AuthorBylineComponent = AuthorByline()
 
 /**
  * The default page frame — three-column layout with left sidebar, center
@@ -57,6 +59,7 @@ export const DefaultFrame: PageFrame = {
               {beforeBody.map((BodyComponent) => (
                 <BodyComponent {...componentData} />
               ))}
+              <AuthorBylineComponent {...componentData} />
             </div>
           </div>
           <Content {...componentData} />

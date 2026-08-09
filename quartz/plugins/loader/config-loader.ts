@@ -478,6 +478,7 @@ export async function loadQuartzConfig(
     builtinPlugins.ComponentResources(),
     builtinPlugins.Assets(),
     builtinPlugins.Static(),
+    builtinPlugins.GardenSeo(),
   ]
   const builtinPageTypes = [
     builtinPlugins.PageTypes.AreaPage(),

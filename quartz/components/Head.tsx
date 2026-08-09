@@ -4,9 +4,15 @@ import { CSSResourceToStyleElement, JSResourceToScriptElement } from "../util/re
 import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
+import {
+  canonicalUrl,
+  isLandingSlug,
+  isSourcePage,
+  pageDate,
+  robotsDirective,
+  structuredData,
+} from "../util/gardenSeo"
 import { CustomOgImagesEmitterName } from "../../.quartz/plugins"
-// @ts-expect-error - inline script imported as string by esbuild loader
-import mermaidScript from "./scripts/mermaid.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import explorerOverlayScript from "./scripts/explorer-overlay.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
@@ -19,6 +25,7 @@ export default (() => {
     fileData,
     externalResources,
     ctx,
+    allFiles,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
     const title =
@@ -35,9 +42,19 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
 
-    // Url of current page
-    const socialUrl =
-      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+    const pageUrl = canonicalUrl(cfg, fileData.slug ?? "index")
+    const rssUrl = new URL("index.xml", canonicalUrl(cfg, "index")).href
+    const robots = robotsDirective(fileData, allFiles)
+    const isArticle =
+      isSourcePage(fileData) &&
+      !isLandingSlug(fileData.slug ?? "") &&
+      fileData.slug !== "sobre-mi" &&
+      !fileData.slug?.startsWith("tags/")
+    const published = pageDate(fileData, "published")
+    const modified = pageDate(fileData, "modified")
+    const schema = JSON.stringify(
+      structuredData(cfg, fileData, allFiles, title, description),
+    ).replace(/</g, "\\u003c")
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
@@ -67,16 +84,27 @@ export default (() => {
             )}
           </>
         )}
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        {fileData.hasMermaidDiagram && (
+          <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        )}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* El sitio es solo oscuro: se lo decimos al navegador para que pinte
             controles de formulario, barras de scroll y el fondo inicial en
             oscuro, sin destello blanco antes de aplicar el CSS. */}
         <meta name="color-scheme" content="dark" />
 
-        <meta name="og:site_name" content={cfg.pageTitle}></meta>
+        <link rel="canonical" href={pageUrl} />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${cfg.pageTitle ?? "Garden Digital"} RSS`}
+          href={rssUrl}
+        />
+        <meta name="robots" content={robots} />
+
+        <meta property="og:site_name" content={cfg.pageTitle}></meta>
         <meta property="og:title" content={title} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content={isArticle ? "article" : "website"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -98,14 +126,22 @@ export default (() => {
         {cfg.baseUrl && (
           <>
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
-            <meta property="og:url" content={socialUrl}></meta>
-            <meta property="twitter:url" content={socialUrl}></meta>
+            <meta property="og:url" content={pageUrl}></meta>
+            <meta property="twitter:url" content={pageUrl}></meta>
           </>
+        )}
+
+        {isArticle && published && (
+          <meta property="article:published_time" content={published.toISOString()} />
+        )}
+        {isArticle && modified && (
+          <meta property="article:modified_time" content={modified.toISOString()} />
         )}
 
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js
@@ -124,11 +160,6 @@ export default (() => {
 
   // Head es el único componente local que el emisor `componentResources`
   // recoge automáticamente, así que los scripts propios cuelgan de aquí.
-  Head.afterDOMLoaded = [
-    explorerScrollScript,
-    mermaidScript,
-    explorerOverlayScript,
-    linkReliabilityScript,
-  ]
+  Head.afterDOMLoaded = [explorerScrollScript, explorerOverlayScript, linkReliabilityScript]
   return Head
 }) satisfies QuartzComponentConstructor

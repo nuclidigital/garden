@@ -1,5 +1,5 @@
 ---
-title: Arch en wsl2 e_unexpected (Parte II)
+title: Arch en WSL2 E_UNEXPECTED (Parte II)
 date: 2026-08-05
 created: 2026-08-05
 description: Procedimiento técnico reproducible para diagnosticar y recuperar una distribución Arch Linux en WSL2 con bibliotecas y base local de Pacman truncadas.
@@ -23,6 +23,7 @@ tags:
   - recovery
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
+  - cuaderno/arch-en-wsl2-e_unexpected-(parte-ii)
   - ArchWSL E_UNEXPECTED Write-Up
   - Recuperar Pacman con bibliotecas corruptas
   - cuaderno/2026-08-05-arch-wsl-e-unexpected-write-up
@@ -917,4 +918,4 @@ pacman -Syu --overwrite '*'
 
 ## 23. Nota narrativa relacionada
 
-[[Arch en wsl2 e_unexpected (Parte I)|Arch Linux en WSL: anatomía de un «Error catastrófico»]]
+[[arch-wsl2-e-unexpected-informe|Arch Linux en WSL: anatomía de un «Error catastrófico»]]

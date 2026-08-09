@@ -651,6 +651,12 @@
   color: var(--nord0);
 }
 
+.garden-author-byline {
+  margin: 0.2rem 0 0.8rem;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
 @media (max-width: 800px) {
   .area-nav {
     align-items: flex-start;

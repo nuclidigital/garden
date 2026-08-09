@@ -1,6 +1,6 @@
 ---
 title: Garden Digital
-unlisted: true
+description: "Jardín digital de Roger Gibaja: notas técnicas, investigación y procesos creativos."
 publish: true
 ---
 
@@ -10,7 +10,7 @@ publish: true
 
   <div class="garden-home-body">
     <p>Casi todo lo que hay aquí está <strong>sin terminar a propósito</strong>. Una nota entra cuando me sirve para acordarme de algo, y se queda creciendo —o no— según vuelva a necesitarla. Algunas se convierten en un artículo largo; otras se quedarán en tres líneas durante años.</p>
-    <p>Gracias por pasarte. Si algo de lo que hay aquí te resulta útil, o simplemente equivocado, los enlaces de contacto están en el lateral.</p>
+    <p>Soy <a href="/sobre-mi">Roger Gibaja</a>. Gracias por pasarte. Si algo de lo que hay aquí te resulta útil, o simplemente equivocado, los enlaces de contacto están en el lateral.</p>
   </div>
 </div>
 

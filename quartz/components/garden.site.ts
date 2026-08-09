@@ -39,6 +39,7 @@ export const navLinks: NavLink[] = [
   { label: "Estudio", href: "estudio" },
   { label: "Colecciones", href: "colecciones" },
   { label: "Tags", href: "tags" },
+  { label: "Sobre mí", href: "sobre-mi" },
 ]
 
 /** Perfiles de redes sociales del lateral izquierdo, en orden de aparición. */
