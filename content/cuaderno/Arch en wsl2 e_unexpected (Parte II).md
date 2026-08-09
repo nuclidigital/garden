@@ -25,6 +25,7 @@ permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
   - ArchWSL E_UNEXPECTED Write-Up
   - Recuperar Pacman con bibliotecas corruptas
+  - cuaderno/2026-08-05-arch-wsl-e-unexpected-write-up
 draft: false
 publish: true
 cssclasses: []
