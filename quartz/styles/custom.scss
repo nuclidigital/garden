@@ -58,8 +58,24 @@
 
   --layout-center: var(--ef-bg0);
   --layout-sidebar: var(--ef-bg1);
+  --layout-left: var(--ef-bg-green);
+  --layout-right: var(--ef-bg-blue);
   --layout-divider: var(--ef-bg5);
   --layout-shadow: rgb(53 67 60 / 20%);
+  --surface-elevated: var(--ef-bg1);
+  --surface-metadata: var(--ef-bg-blue);
+  --surface-related: var(--ef-bg-purple);
+  --surface-orientation: var(--ef-bg-yellow);
+  --surface-activity: var(--ef-bg-red);
+  --role-navigation: var(--ef-blue);
+  --role-exploration: var(--ef-aqua);
+  --role-orientation: var(--ef-yellow);
+  --role-activity: var(--ef-orange);
+  --role-related: var(--ef-purple);
+  --role-danger: var(--ef-red);
+  --role-growth: var(--ef-green);
+  --focus-ring: var(--ef-red);
+  --soft-ink: var(--ef-heading);
 
   --brand-garden: var(--ef-green);
   --brand-digital: linear-gradient(
@@ -113,8 +129,24 @@
   --highlight-ink: var(--ef-bg0);
   --layout-center: var(--ef-bg0);
   --layout-sidebar: var(--ef-bg1);
+  --layout-left: var(--ef-bg-green);
+  --layout-right: var(--ef-bg-blue);
   --layout-divider: var(--ef-bg4);
   --layout-shadow: rgb(18 22 24 / 48%);
+  --surface-elevated: var(--ef-bg1);
+  --surface-metadata: var(--ef-bg-blue);
+  --surface-related: var(--ef-bg-purple);
+  --surface-orientation: var(--ef-bg-yellow);
+  --surface-activity: var(--ef-bg-red);
+  --role-navigation: var(--ef-blue);
+  --role-exploration: var(--ef-aqua);
+  --role-orientation: var(--ef-yellow);
+  --role-activity: var(--ef-orange);
+  --role-related: var(--ef-purple);
+  --role-danger: var(--ef-red);
+  --role-growth: var(--ef-green);
+  --focus-ring: var(--ef-yellow);
+  --soft-ink: var(--ef-heading);
   --brand-garden: var(--ef-green);
   --brand-digital: linear-gradient(
     105deg,
@@ -276,6 +308,13 @@
 .page[data-frame="default"] .center {
   background: var(--layout-center);
   border-inline: 1px solid var(--layout-divider);
+}
+
+.page[data-frame="default"]
+  > #quartz-body
+  > .sidebar
+  :is(.recent-notes > h3, .explorer .title-button h2, .toc h3, .backlinks h3, .graph h3) {
+  color: var(--soft-ink);
 }
 
 .page[data-frame="default"] .center > article {
@@ -1973,11 +2012,505 @@ pre > code[data-language="console"] {
 }
 
 // ============================================================================
+// Sistema cromático Everforest greenfield
+// ============================================================================
+//
+// La estructura responsive anterior sigue siendo útil, pero su semántica de
+// color deja de depender del antiguo par secondary/tertiary. Cada familia de
+// Everforest tiene un cometido reconocible y repetible en toda la interfaz.
+
+body {
+  background: var(--ef-bg-dim);
+}
+
+.page[data-frame="default"] > #quartz-body {
+  background: var(--layout-center);
+}
+
+.page[data-frame="default"] .center {
+  border-left-color: color-mix(in srgb, var(--role-growth) 42%, var(--layout-divider));
+  border-right-color: color-mix(in srgb, var(--role-navigation) 42%, var(--layout-divider));
+}
+
+// Titulares y recursos editoriales: la jerarquía también se reconoce por color,
+// pero todos los tonos usados como texto mantienen 4.5:1 sobre el lienzo.
+.page[data-frame="default"] article h1,
+.page[data-frame="default"] .article-title {
+  color: var(--ef-heading);
+}
+
+.page[data-frame="default"] article h2 {
+  color: var(--role-growth);
+}
+
+.page[data-frame="default"] article h3 {
+  color: var(--role-navigation);
+}
+
+.page[data-frame="default"] article h4 {
+  color: var(--role-related);
+}
+
+.page[data-frame="default"] article h5 {
+  color: var(--role-activity);
+}
+
+.page[data-frame="default"] article h6 {
+  color: var(--role-danger);
+}
+
+.page[data-frame="default"] article :is(ul, menu) li::marker {
+  color: var(--role-exploration);
+}
+
+.page[data-frame="default"] article ol li::marker {
+  color: var(--role-orientation);
+  font-weight: 700;
+}
+
+.page[data-frame="default"] article blockquote {
+  padding-block: 0.55rem;
+  border-left-color: var(--role-related);
+  background: var(--surface-related);
+}
+
+.page[data-frame="default"] article hr {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    var(--ef-red-vivid),
+    var(--ef-orange-vivid),
+    var(--ef-yellow-vivid),
+    var(--ef-green-vivid),
+    var(--ef-aqua-vivid),
+    var(--ef-blue-vivid),
+    var(--ef-purple-vivid)
+  );
+  opacity: 0.68;
+}
+
+.page[data-frame="default"] article table {
+  overflow: hidden;
+  border-color: var(--layout-divider);
+  border-radius: 0.5rem;
+}
+
+.page[data-frame="default"] article thead {
+  background: var(--ef-bg-blue);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] article tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--ef-bg-green) 72%, transparent);
+}
+
+.page[data-frame="default"] article tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--ef-bg-yellow) 46%, transparent);
+}
+
+.page[data-frame="default"] article :not(pre) > code {
+  border: 1px solid color-mix(in srgb, var(--role-activity) 34%, var(--layout-divider));
+  background: var(--ef-bg-yellow);
+  color: var(--soft-ink);
+}
+
+// Controles del rail: buscar, tema y lectura tienen funciones cromáticas
+// distintas; los siete perfiles recorren la paleta completa.
+.page[data-frame="default"] .search-button {
+  border: 1px solid color-mix(in srgb, var(--role-navigation) 38%, var(--layout-divider));
+  border-radius: 0.55rem;
+  background: var(--ef-bg-blue);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .search-button svg :is(path, circle) {
+  stroke: currentcolor;
+}
+
+.page[data-frame="default"] .search-button p {
+  color: inherit;
+}
+
+.page[data-frame="default"] button.darkmode {
+  border-radius: 0.5rem;
+  background: var(--ef-bg-yellow);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] button.readermode {
+  border-radius: 0.5rem;
+  background: var(--ef-bg-purple);
+  color: var(--soft-ink);
+}
+
+.social-links li:nth-child(7n + 1) { --social-accent: var(--ef-green); --social-bg: var(--ef-bg-green); }
+.social-links li:nth-child(7n + 2) { --social-accent: var(--ef-blue); --social-bg: var(--ef-bg-blue); }
+.social-links li:nth-child(7n + 3) { --social-accent: var(--ef-purple); --social-bg: var(--ef-bg-purple); }
+.social-links li:nth-child(7n + 4) { --social-accent: var(--ef-red); --social-bg: var(--ef-bg-red); }
+.social-links li:nth-child(7n + 5) { --social-accent: var(--ef-orange); --social-bg: var(--ef-bg-yellow); }
+.social-links li:nth-child(7n + 6) { --social-accent: var(--ef-aqua); --social-bg: var(--ef-bg-blue); }
+.social-links li:nth-child(7n) { --social-accent: var(--ef-yellow); --social-bg: var(--ef-bg-yellow); }
+
+.social-link {
+  color: var(--social-accent);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  border-color: var(--social-accent);
+  background: var(--social-bg);
+  color: var(--social-accent);
+}
+
+// Menú global multicolor. El estado actual usa relleno sólido y tinta inversa,
+// de modo que no depende únicamente del cambio de tono.
+.site-nav-list li:nth-child(7n + 1) { --nav-accent: var(--ef-blue); --nav-bg: var(--ef-bg-blue); }
+.site-nav-list li:nth-child(7n + 2) { --nav-accent: var(--ef-green); --nav-bg: var(--ef-bg-green); }
+.site-nav-list li:nth-child(7n + 3) { --nav-accent: var(--ef-orange); --nav-bg: var(--ef-bg-yellow); }
+.site-nav-list li:nth-child(7n + 4) { --nav-accent: var(--ef-purple); --nav-bg: var(--ef-bg-purple); }
+.site-nav-list li:nth-child(7n + 5) { --nav-accent: var(--ef-aqua); --nav-bg: var(--ef-bg-blue); }
+.site-nav-list li:nth-child(7n + 6) { --nav-accent: var(--ef-red); --nav-bg: var(--ef-bg-red); }
+.site-nav-list li:nth-child(7n) { --nav-accent: var(--ef-yellow); --nav-bg: var(--ef-bg-yellow); }
+
+.site-nav-link {
+  border-color: color-mix(in srgb, var(--nav-accent) 42%, var(--layout-divider));
+  background: var(--nav-bg);
+  color: var(--soft-ink);
+}
+
+.site-nav-link:hover,
+.site-nav-link:focus-visible {
+  border-color: var(--nav-accent);
+  background: color-mix(in srgb, var(--nav-bg) 72%, var(--ef-bg0));
+  color: var(--soft-ink);
+}
+
+.site-nav-link[aria-current="page"],
+.site-nav-link[aria-current="page"]:hover,
+.site-nav-link[aria-current="page"]:focus-visible {
+  border-color: var(--nav-accent);
+  background: var(--nav-accent);
+  color: var(--on-accent);
+}
+
+// Áreas: se emplea el mismo vocabulario sin repetir una tira azul uniforme.
+.area-nav {
+  background:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--ef-aqua-vivid) 16%, transparent), transparent 28rem),
+    radial-gradient(circle at 92% 100%, color-mix(in srgb, var(--ef-purple-vivid) 12%, transparent), transparent 24rem),
+    var(--surface-elevated);
+}
+
+.area-nav-label {
+  border-color: var(--role-growth);
+  background: var(--ef-bg-green);
+  color: var(--soft-ink);
+}
+
+.area-nav-list li:nth-child(5n + 1) { --area-accent: var(--ef-aqua); --area-bg: var(--ef-bg-blue); }
+.area-nav-list li:nth-child(5n + 2) { --area-accent: var(--ef-purple); --area-bg: var(--ef-bg-purple); }
+.area-nav-list li:nth-child(5n + 3) { --area-accent: var(--ef-orange); --area-bg: var(--ef-bg-yellow); }
+.area-nav-list li:nth-child(5n + 4) { --area-accent: var(--ef-red); --area-bg: var(--ef-bg-red); }
+.area-nav-list li:nth-child(5n) { --area-accent: var(--ef-green); --area-bg: var(--ef-bg-green); }
+
+.area-nav-link {
+  border-color: color-mix(in srgb, var(--area-accent) 46%, var(--layout-divider));
+  background: var(--area-bg);
+  color: var(--soft-ink);
+}
+
+.area-nav-link:hover,
+.area-nav-link:focus-visible {
+  border-color: var(--area-accent);
+  background: color-mix(in srgb, var(--area-bg) 74%, var(--ef-bg0));
+  color: var(--soft-ink);
+}
+
+.area-nav-link[aria-current="page"] {
+  border-color: var(--area-accent);
+  background: var(--area-accent);
+  color: var(--on-accent);
+}
+
+// Actividad reciente: cinco entradas, cinco acentos. El explorador mantiene
+// aqua como color de descubrimiento y púrpura para el nodo activo.
+.recent-notes .recent-li:nth-child(5n + 1) { --recent-accent: var(--ef-orange); --recent-bg: var(--ef-bg-yellow); }
+.recent-notes .recent-li:nth-child(5n + 2) { --recent-accent: var(--ef-purple); --recent-bg: var(--ef-bg-purple); }
+.recent-notes .recent-li:nth-child(5n + 3) { --recent-accent: var(--ef-aqua); --recent-bg: var(--ef-bg-blue); }
+.recent-notes .recent-li:nth-child(5n + 4) { --recent-accent: var(--ef-red); --recent-bg: var(--ef-bg-red); }
+.recent-notes .recent-li:nth-child(5n) { --recent-accent: var(--ef-blue); --recent-bg: var(--ef-bg-blue); }
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a {
+  border-left-color: color-mix(in srgb, var(--recent-accent) 48%, transparent);
+  color: var(--ef-fg);
+}
+
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a:hover,
+.page[data-frame="default"] > #quartz-body > .left.sidebar .recent-notes .recent-li a:focus-visible {
+  border-left-color: var(--recent-accent);
+  background: var(--recent-bg);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .explorer .title-button,
+.page[data-frame="default"] .explorer .folder-container,
+.page[data-frame="default"] .explorer :is(.folder-button, .folder-title),
+.page[data-frame="default"] .explorer-content ul li > a {
+  color: var(--ef-fg);
+}
+
+.page[data-frame="default"] .explorer-content ul li > a:hover,
+.page[data-frame="default"] .explorer-content ul li > a:focus-visible {
+  border-left-color: var(--role-exploration);
+  background: var(--ef-bg-blue);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .explorer-content ul li > a.active {
+  border-left-color: var(--role-related);
+  background: var(--ef-bg-purple);
+  color: var(--soft-ink);
+}
+
+// Orientación a la derecha: TOC amarillo, backlinks púrpura y grafo azul.
+.page[data-frame="default"] .right.sidebar .toc {
+  padding: 0.7rem;
+  border-left: 2px solid var(--role-orientation);
+  border-radius: 0.4rem;
+  background: var(--surface-orientation);
+}
+
+.page[data-frame="default"] .toc-content li a {
+  color: var(--ef-fg);
+  opacity: 1;
+}
+
+.page[data-frame="default"] .toc-content > li > a:hover,
+.page[data-frame="default"] .toc-content > li > a:focus-visible,
+.page[data-frame="default"] .toc-content > li > a.in-view {
+  border-left-color: var(--role-orientation);
+  background: color-mix(in srgb, var(--ef-yellow-vivid) 13%, transparent);
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .right.sidebar .backlinks {
+  padding: 0.7rem;
+  border-left: 2px solid var(--role-related);
+  border-radius: 0.4rem;
+  background: var(--surface-related);
+}
+
+.page[data-frame="default"] .right.sidebar .backlinks a {
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .right.sidebar .graph {
+  padding: 0.7rem;
+  border-left: 2px solid var(--role-navigation);
+  border-radius: 0.4rem;
+  background: var(--surface-metadata);
+}
+
+// Metadatos, migas y listados dejan de ser cajas grises indiferenciadas.
+.page[data-frame="default"] .note-properties,
+.popover .note-properties {
+  border-color: color-mix(in srgb, var(--role-navigation) 34%, var(--layout-divider));
+  background: var(--surface-metadata);
+}
+
+.note-properties-row:nth-child(7n + 1) { --property-accent: var(--ef-blue); }
+.note-properties-row:nth-child(7n + 2) { --property-accent: var(--ef-aqua); }
+.note-properties-row:nth-child(7n + 3) { --property-accent: var(--ef-green); }
+.note-properties-row:nth-child(7n + 4) { --property-accent: var(--ef-yellow); }
+.note-properties-row:nth-child(7n + 5) { --property-accent: var(--ef-orange); }
+.note-properties-row:nth-child(7n + 6) { --property-accent: var(--ef-red); }
+.note-properties-row:nth-child(7n) { --property-accent: var(--ef-purple); }
+
+.note-properties-row .note-properties-key {
+  padding-left: 0.45rem;
+  border-left: 2px solid var(--property-accent);
+  color: var(--soft-ink);
+  font-weight: 650;
+}
+
+.page[data-frame="default"] .breadcrumb-container {
+  border-bottom: 1px solid color-mix(in srgb, var(--role-orientation) 35%, var(--layout-divider));
+  background: linear-gradient(90deg, var(--ef-bg-yellow), transparent 72%);
+}
+
+.page[data-frame="default"] .breadcrumb-container a {
+  color: var(--soft-ink);
+}
+
+.page[data-frame="default"] .breadcrumb-element p {
+  color: var(--ef-fg);
+}
+
+.page[data-frame="default"] .page-listing .section-li {
+  padding: 0.75rem;
+  border-left: 3px solid var(--listing-accent, var(--role-growth));
+  border-radius: 0.35rem;
+  background: var(--listing-bg, var(--ef-bg-green));
+}
+
+.page[data-frame="default"] .page-listing .section-li:nth-child(4n + 1) { --listing-accent: var(--ef-green); --listing-bg: var(--ef-bg-green); }
+.page[data-frame="default"] .page-listing .section-li:nth-child(4n + 2) { --listing-accent: var(--ef-blue); --listing-bg: var(--ef-bg-blue); }
+.page[data-frame="default"] .page-listing .section-li:nth-child(4n + 3) { --listing-accent: var(--ef-purple); --listing-bg: var(--ef-bg-purple); }
+.page[data-frame="default"] .page-listing .section-li:nth-child(4n) { --listing-accent: var(--ef-orange); --listing-bg: var(--ef-bg-yellow); }
+
+.page[data-frame="default"] .page-listing :is(.meta, p) {
+  color: var(--ef-fg);
+}
+
+// Tags recorren toda la paleta; la tinta usa las variantes AA, el fondo las
+// superficies oficiales suaves.
+:is(.tags, .note-properties-tags) li:nth-child(7n + 1) { --tag-accent: var(--ef-green); --tag-bg: var(--ef-bg-green); }
+:is(.tags, .note-properties-tags) li:nth-child(7n + 2) { --tag-accent: var(--ef-aqua); --tag-bg: var(--ef-bg-blue); }
+:is(.tags, .note-properties-tags) li:nth-child(7n + 3) { --tag-accent: var(--ef-blue); --tag-bg: var(--ef-bg-blue); }
+:is(.tags, .note-properties-tags) li:nth-child(7n + 4) { --tag-accent: var(--ef-purple); --tag-bg: var(--ef-bg-purple); }
+:is(.tags, .note-properties-tags) li:nth-child(7n + 5) { --tag-accent: var(--ef-red); --tag-bg: var(--ef-bg-red); }
+:is(.tags, .note-properties-tags) li:nth-child(7n + 6) { --tag-accent: var(--ef-orange); --tag-bg: var(--ef-bg-yellow); }
+:is(.tags, .note-properties-tags) li:nth-child(7n) { --tag-accent: var(--ef-yellow); --tag-bg: var(--ef-bg-yellow); }
+
+.page[data-frame="default"] :is(.tags, .note-properties-tags) .tag-link,
+.popover :is(.tags, .note-properties-tags) .tag-link {
+  border-color: color-mix(in srgb, var(--tag-accent, var(--ef-green)) 42%, var(--layout-divider));
+  background: var(--tag-bg, var(--ef-bg-green));
+  color: var(--soft-ink);
+}
+
+// Portada, búsqueda, consentimiento y overlays son superficies diseñadas,
+// no residuos del rail o del lienzo de lectura.
+.garden-home:first-child {
+  position: relative;
+}
+
+.garden-home:first-child::before {
+  content: "";
+  display: block;
+  width: min(16rem, 55%);
+  height: 0.35rem;
+  margin-bottom: 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--ef-green-vivid),
+    var(--ef-aqua-vivid),
+    var(--ef-blue-vivid),
+    var(--ef-purple-vivid)
+  );
+}
+
+.garden-home-lead {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--role-exploration);
+  background: var(--ef-bg-blue);
+}
+
+.garden-home-body {
+  padding: 1.25rem;
+  border-top-color: var(--role-activity);
+  border-radius: 0 0 0.5rem 0.5rem;
+  background: linear-gradient(135deg, var(--ef-bg-yellow), var(--ef-bg-purple));
+}
+
+.garden-home-body p {
+  color: var(--ef-fg);
+}
+
+.garden-home-sign {
+  border-top-color: var(--role-related);
+  color: var(--role-related);
+}
+
+.search-container .search-space,
+.search-container .search-layout {
+  background: var(--surface-elevated);
+}
+
+.cookie-consent__panel {
+  border-color: var(--role-activity);
+  background:
+    linear-gradient(90deg, var(--ef-bg-yellow), transparent 44%),
+    var(--surface-elevated);
+}
+
+.cookie-consent__panel :is(p, small) {
+  color: var(--ef-fg);
+}
+
+.cookie-consent__reject {
+  border-color: var(--role-danger) !important;
+  background: var(--ef-bg-red) !important;
+  color: var(--soft-ink) !important;
+}
+
+.cookie-consent__configure {
+  border-color: var(--role-related) !important;
+  background: var(--ef-bg-purple) !important;
+  color: var(--soft-ink) !important;
+}
+
+.cookie-consent__accept {
+  border-color: var(--role-growth) !important;
+  background: var(--role-growth) !important;
+  color: var(--on-accent) !important;
+}
+
+// Fondos de layout por breakpoint. Escritorio distingue contexto izquierdo,
+// lectura y relaciones derechas; tablet conserva el rail verde; móvil apila
+// superficies sin mantener bandas laterales artificiales.
+@media (min-width: 1201px) {
+  .page[data-frame="default"] > #quartz-body {
+    background: linear-gradient(
+      to right,
+      var(--layout-left) 0 var(--rail),
+      var(--layout-center) var(--rail) calc(100% - var(--rail)),
+      var(--layout-right) calc(100% - var(--rail)) 100%
+    );
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .page[data-frame="default"] > #quartz-body {
+    background: linear-gradient(
+      to right,
+      var(--layout-center) 0 1rem,
+      var(--layout-left) 1rem calc(1rem + var(--rail)),
+      var(--layout-center) calc(1rem + var(--rail)) 100%
+    );
+  }
+
+  .page[data-frame="default"] > #quartz-body > .right.sidebar {
+    background: var(--layout-right);
+  }
+}
+
+@media (max-width: 800px) {
+  .page[data-frame="default"] > #quartz-body > .left.sidebar {
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--ef-bg-green) 84%, transparent), var(--ef-bg-blue));
+  }
+
+  .page[data-frame="default"] > #quartz-body > .right.sidebar {
+    background: var(--layout-right);
+  }
+
+  .page[data-frame="default"] .explorer > .explorer-content {
+    background:
+      radial-gradient(circle at 92% 3%, color-mix(in srgb, var(--ef-purple-vivid) 18%, transparent), transparent 24rem),
+      radial-gradient(circle at 8% 96%, color-mix(in srgb, var(--ef-aqua-vivid) 18%, transparent), transparent 28rem),
+      linear-gradient(135deg, var(--layout-left), var(--layout-right));
+  }
+}
+
+// ============================================================================
 // Accesibilidad
 // ============================================================================
 
 :focus-visible {
-  outline: 3px solid var(--tertiary);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 

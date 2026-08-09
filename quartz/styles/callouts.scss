@@ -35,14 +35,16 @@
   --callout-icon-fold: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"%3E%3C/polyline%3E%3C/svg%3E');
 
   &[data-callout] {
-    --color: var(--ef-blue);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-blue);
     --border: color-mix(in srgb, var(--ef-blue) 42%, var(--layout-divider));
     --bg: var(--ef-bg-blue);
     --callout-icon: var(--callout-icon-note);
   }
 
   &[data-callout="abstract"] {
-    --color: var(--ef-purple);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-purple);
     --border: color-mix(in srgb, var(--ef-purple) 42%, var(--layout-divider));
     --bg: var(--ef-bg-purple);
     --callout-icon: var(--callout-icon-abstract);
@@ -50,7 +52,8 @@
 
   &[data-callout="info"],
   &[data-callout="todo"] {
-    --color: var(--ef-aqua);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-aqua);
     --border: color-mix(in srgb, var(--ef-aqua) 42%, var(--layout-divider));
     --bg: var(--ef-bg-blue);
     --callout-icon: var(--callout-icon-info);
@@ -61,28 +64,32 @@
   }
 
   &[data-callout="tip"] {
-    --color: var(--ef-green);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-green);
     --border: color-mix(in srgb, var(--ef-green) 42%, var(--layout-divider));
     --bg: var(--ef-bg-green);
     --callout-icon: var(--callout-icon-tip);
   }
 
   &[data-callout="success"] {
-    --color: var(--ef-aqua);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-aqua);
     --border: color-mix(in srgb, var(--ef-aqua) 42%, var(--layout-divider));
     --bg: var(--ef-bg-green);
     --callout-icon: var(--callout-icon-success);
   }
 
   &[data-callout="question"] {
-    --color: var(--ef-yellow);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-yellow);
     --border: color-mix(in srgb, var(--ef-yellow) 42%, var(--layout-divider));
     --bg: var(--ef-bg-yellow);
     --callout-icon: var(--callout-icon-question);
   }
 
   &[data-callout="warning"] {
-    --color: var(--ef-orange);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-orange);
     --border: color-mix(in srgb, var(--ef-orange) 42%, var(--layout-divider));
     --bg: var(--ef-bg-yellow);
     --callout-icon: var(--callout-icon-warning);
@@ -91,7 +98,8 @@
   &[data-callout="failure"],
   &[data-callout="danger"],
   &[data-callout="bug"] {
-    --color: var(--ef-red);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-red);
     --border: color-mix(in srgb, var(--ef-red) 42%, var(--layout-divider));
     --bg: var(--ef-bg-red);
     --callout-icon: var(--callout-icon-failure);
@@ -106,15 +114,18 @@
   }
 
   &[data-callout="example"] {
-    --color: var(--ef-purple);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-purple);
     --border: color-mix(in srgb, var(--ef-purple) 42%, var(--layout-divider));
     --bg: var(--ef-bg-purple);
     --callout-icon: var(--callout-icon-example);
   }
 
   &[data-callout="quote"] {
-    --color: var(--secondary);
-    --border: var(--lightgray);
+    --color: var(--soft-ink);
+    --icon-color: var(--ef-purple);
+    --border: color-mix(in srgb, var(--ef-purple) 42%, var(--layout-divider));
+    --bg: var(--ef-bg-purple);
     --callout-icon: var(--callout-icon-quote);
   }
 
@@ -173,7 +184,7 @@
     // icon support
     background-size: var(--icon-size) var(--icon-size);
     background-position: center;
-    background-color: var(--color);
+    background-color: var(--icon-color, var(--color));
     mask-image: var(--callout-icon);
     mask-size: var(--icon-size) var(--icon-size);
     mask-position: center;
