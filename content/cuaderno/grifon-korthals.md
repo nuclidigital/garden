@@ -1,9 +1,10 @@
 ---
-title: "Grifón Korthals"
-description: "Nota de referencia sobre el grifón Korthals dentro de la cinofilia."
+title: Grifón Korthals
+description: Nota de referencia sobre el grifón Korthals dentro de la cinofilia.
 created: 2026-08-09
 space: cuaderno
-area: []
+area:
+  - cinofilia
 kind: note
 project: []
 tags:
@@ -11,8 +12,8 @@ tags:
   - perros
   - perros/grifon-korthals
 aliases:
-  - "Griffon Korthals"
-  - "Grifón de pelo duro"
+  - Griffon Korthals
+  - Grifón de pelo duro
 publish: true
 draft: false
 cssclasses: []

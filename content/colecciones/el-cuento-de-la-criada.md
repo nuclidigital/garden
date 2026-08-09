@@ -1,9 +1,10 @@
 ---
-title: "El cuento de la criada"
-description: "Ficha de colección para la novela de Margaret Atwood."
+title: El cuento de la criada
+description: Ficha de colección para la novela de Margaret Atwood.
 created: 2026-08-09
 space: colecciones
-area: []
+area:
+  - Libros
 kind: resource
 project: []
 tags:
@@ -11,7 +12,7 @@ tags:
   - literatura/distopía
   - margaret-atwood
 aliases:
-  - "The Handmaid's Tale"
+  - The Handmaid's Tale
 publish: true
 draft: false
 cssclasses: []

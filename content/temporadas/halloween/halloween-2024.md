@@ -1,9 +1,10 @@
 ---
-title: "Halloween 2024"
-description: "Bitácora estacional de Halloween 2024."
+title: Halloween 2024
+description: Bitácora estacional de Halloween 2024.
 created: 2024-10-31
 space: temporadas
-area: []
+area:
+  - halloween
 kind: experience
 project: []
 season: halloween

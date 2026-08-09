@@ -1,9 +1,10 @@
 ---
-title: "El perro de los Baskerville"
-description: "Ficha de colección para la novela de Arthur Conan Doyle."
+title: El perro de los Baskerville
+description: Ficha de colección para la novela de Arthur Conan Doyle.
 created: 2026-08-09
 space: colecciones
-area: []
+area:
+  - Libros
 kind: resource
 project: []
 tags:
@@ -11,7 +12,7 @@ tags:
   - literatura/policíaca
   - sherlock-holmes
 aliases:
-  - "The Hound of the Baskervilles"
+  - The Hound of the Baskervilles
 publish: true
 draft: false
 cssclasses: []

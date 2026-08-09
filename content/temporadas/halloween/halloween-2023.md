@@ -1,9 +1,10 @@
 ---
-title: "Halloween 2023"
-description: "Bitácora estacional de Halloween 2023."
+title: Halloween 2023
+description: Bitácora estacional de Halloween 2023.
 created: 2023-10-31
 space: temporadas
-area: []
+area:
+  - halloween
 kind: experience
 project: []
 season: halloween
