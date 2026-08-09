@@ -25,7 +25,9 @@ La segunda iteración no conserva la semántica cromática de Nord. Los aliases 
 - púrpura: relaciones, backlinks, citas y lectura;
 - rojo: alerta, rechazo y foco en modo claro.
 
-Los fondos también forman parte del sistema: lienzo `bg_dim`, lectura `bg0`, rail izquierdo `bg_green`, rail derecho `bg_blue` y superficies especializadas `bg_red`, `bg_yellow`, `bg_green`, `bg_blue`, `bg_purple` y `bg_visual`. En tablet se conserva el rail izquierdo y se apila el contexto; en móvil la cabecera mezcla las superficies verde/azul y el explorador usa un fondo propio con halos aqua y púrpura.
+Los fondos también forman parte del sistema, pero los rails no son grandes bloques cromáticos. El lienzo lateral es neutro (`bg_dim` en light y `bg1` en dark), la lectura usa `bg0` y no existen líneas verticales entre columnas. Las superficies especializadas `bg_red`, `bg_yellow`, `bg_green`, `bg_blue`, `bg_purple` y `bg_visual` quedan dentro de componentes concretos. En tablet y móvil se conserva el mismo principio, sin bandas artificiales.
+
+El lateral derecho utiliza tarjetas elevadas de radio amplio sobre el lienzo neutro. TOC, backlinks y grafo comparten estructura y distinguen su función mediante un punto amarillo, púrpura o azul, no mediante una barra lateral ni un fondo saturado. La hamburguesa móvil es un control de 44 px con superficie translúcida, sombra contenida, icono de alto contraste y foco visible.
 
 Los menús, áreas, redes sociales, entradas recientes, tags, propiedades y listados recorren la paleta mediante patrones repetibles. El color nunca es el único indicador: estados activos usan además relleno, borde o barra lateral.
 

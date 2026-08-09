@@ -58,8 +58,8 @@
 
   --layout-center: var(--ef-bg0);
   --layout-sidebar: var(--ef-bg1);
-  --layout-left: var(--ef-bg-green);
-  --layout-right: var(--ef-bg-blue);
+  --layout-left: var(--ef-bg-dim);
+  --layout-right: var(--ef-bg-dim);
   --layout-divider: var(--ef-bg5);
   --layout-shadow: rgb(53 67 60 / 20%);
   --surface-elevated: var(--ef-bg1);
@@ -129,8 +129,8 @@
   --highlight-ink: var(--ef-bg0);
   --layout-center: var(--ef-bg0);
   --layout-sidebar: var(--ef-bg1);
-  --layout-left: var(--ef-bg-green);
-  --layout-right: var(--ef-bg-blue);
+  --layout-left: var(--ef-bg1);
+  --layout-right: var(--ef-bg1);
   --layout-divider: var(--ef-bg4);
   --layout-shadow: rgb(18 22 24 / 48%);
   --surface-elevated: var(--ef-bg1);
@@ -2458,50 +2458,139 @@ body {
   color: var(--on-accent) !important;
 }
 
-// Fondos de layout por breakpoint. Escritorio distingue contexto izquierdo,
-// lectura y relaciones derechas; tablet conserva el rail verde; móvil apila
-// superficies sin mantener bandas laterales artificiales.
+// Arquitectura minimalista: los rails comparten un lienzo neutro continuo y
+// el centro se distingue por su superficie de lectura, no por líneas verticales
+// ni grandes masas de color.
+.page[data-frame="default"] .center {
+  border: 0;
+}
+
+.page[data-frame="default"] > #quartz-body > .right.sidebar {
+  background: transparent;
+}
+
+// Tarjetas contextuales modernas: una sola gramática de superficie, radio y
+// elevación. El color queda reducido a un punto de orientación junto al título.
+.page[data-frame="default"] .right.sidebar :is(.toc, .backlinks, .graph) {
+  --panel-accent: var(--ef-blue);
+  --panel-tint: var(--ef-bg-blue);
+
+  position: relative;
+  padding: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--panel-accent) 18%, var(--layout-divider));
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--panel-tint) 18%, var(--surface-elevated));
+  box-shadow: 0 0.45rem 1.4rem color-mix(in srgb, var(--layout-shadow) 42%, transparent);
+}
+
+.page[data-frame="default"] .right.sidebar .toc {
+  --panel-accent: var(--ef-yellow);
+  --panel-tint: var(--ef-bg-yellow);
+}
+
+.page[data-frame="default"] .right.sidebar .backlinks {
+  --panel-accent: var(--ef-purple);
+  --panel-tint: var(--ef-bg-purple);
+}
+
+.page[data-frame="default"] .right.sidebar .graph {
+  --panel-accent: var(--ef-blue);
+  --panel-tint: var(--ef-bg-blue);
+}
+
+.page[data-frame="default"]
+  .right.sidebar
+  :is(.toc, .backlinks, .graph)
+  > :is(h3, .toc-header) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page[data-frame="default"]
+  .right.sidebar
+  :is(.toc, .backlinks, .graph)
+  > :is(h3, .toc-header)::before {
+  content: "";
+  width: 0.48rem;
+  height: 0.48rem;
+  flex: 0 0 0.48rem;
+  border-radius: 50%;
+  background: var(--panel-accent);
+}
+
+.page[data-frame="default"] .right.sidebar .graph > .graph-outer {
+  border: 0;
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--ef-bg0) 74%, transparent);
+}
+
+// El control de exploración móvil abandona el botón enmarcado verde: pasa a
+// ser una pieza elevada de 44 px, con icono de alto contraste y respuesta sutil.
+@media (max-width: 1200px) {
+  .page[data-frame="default"] .explorer button.mobile-explorer,
+  .site-nav-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--ef-fg) 18%, var(--layout-divider));
+    border-radius: 0.8rem;
+    background: color-mix(in srgb, var(--ef-bg0) 88%, transparent);
+    box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--layout-shadow) 38%, transparent);
+    color: var(--ef-heading);
+    backdrop-filter: blur(12px);
+  }
+
+  .page[data-frame="default"] .explorer button.mobile-explorer:hover,
+  .page[data-frame="default"] .explorer button.mobile-explorer:focus-visible,
+  .site-nav-toggle:hover,
+  .site-nav-toggle:focus-visible {
+    border-color: color-mix(in srgb, var(--role-exploration) 48%, var(--layout-divider));
+    background: color-mix(in srgb, var(--ef-bg-blue) 58%, var(--ef-bg0));
+    color: var(--soft-ink);
+    transform: translateY(-1px);
+  }
+
+  .page[data-frame="default"] .explorer button.mobile-explorer .lucide-menu {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentcolor !important;
+    stroke-width: 1.8;
+  }
+
+  .site-nav-toggle {
+    width: auto;
+    padding-inline: 0.8rem;
+  }
+}
+
 @media (min-width: 1201px) {
   .page[data-frame="default"] > #quartz-body {
-    background: linear-gradient(
-      to right,
-      var(--layout-left) 0 var(--rail),
-      var(--layout-center) var(--rail) calc(100% - var(--rail)),
-      var(--layout-right) calc(100% - var(--rail)) 100%
-    );
+    background: var(--layout-left);
   }
 }
 
 @media (min-width: 801px) and (max-width: 1200px) {
   .page[data-frame="default"] > #quartz-body {
-    background: linear-gradient(
-      to right,
-      var(--layout-center) 0 1rem,
-      var(--layout-left) 1rem calc(1rem + var(--rail)),
-      var(--layout-center) calc(1rem + var(--rail)) 100%
-    );
-  }
-
-  .page[data-frame="default"] > #quartz-body > .right.sidebar {
-    background: var(--layout-right);
+    background: var(--layout-left);
   }
 }
 
 @media (max-width: 800px) {
   .page[data-frame="default"] > #quartz-body > .left.sidebar {
-    background:
-      linear-gradient(135deg, color-mix(in srgb, var(--ef-bg-green) 84%, transparent), var(--ef-bg-blue));
+    background: var(--layout-left);
   }
 
   .page[data-frame="default"] > #quartz-body > .right.sidebar {
-    background: var(--layout-right);
+    background: transparent;
   }
 
   .page[data-frame="default"] .explorer > .explorer-content {
     background:
-      radial-gradient(circle at 92% 3%, color-mix(in srgb, var(--ef-purple-vivid) 18%, transparent), transparent 24rem),
-      radial-gradient(circle at 8% 96%, color-mix(in srgb, var(--ef-aqua-vivid) 18%, transparent), transparent 28rem),
-      linear-gradient(135deg, var(--layout-left), var(--layout-right));
+      radial-gradient(circle at 92% 3%, color-mix(in srgb, var(--ef-purple-vivid) 7%, transparent), transparent 24rem),
+      radial-gradient(circle at 8% 96%, color-mix(in srgb, var(--ef-aqua-vivid) 7%, transparent), transparent 28rem),
+      var(--layout-left);
   }
 }
 
