@@ -181,6 +181,10 @@ plugins:
     enabled: true
   - source: github:quartz-community/explorer
     enabled: true
+    options:
+      # `areas` contiene páginas virtuales generadas por Quartz para el segundo
+      # menú; no es una carpeta editorial del vault y no pertenece al árbol.
+      filterFn: '(node) => node.slugSegment !== "tags" && node.slugSegment !== "areas"'
     layout:
       position: left
       priority: 50
