@@ -1392,10 +1392,17 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
     margin: 0;
     padding: 0;
     border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
-    border-radius: 999px;
+    border-radius: 0.7rem;
     background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
     box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
     color: var(--nd-teal-soft);
+  }
+
+  // El plugin reserva por defecto 34 px para la hamburguesa móvil. El botón
+  // nuevo mide más; si no se ensancha su contenedor, queda recortado.
+  .page[data-frame="default"] .explorer.collapsed,
+  .page[data-frame="default"] .explorer:not(.collapsed) {
+    flex-basis: 2.7rem;
   }
 
   .page[data-frame="default"] .explorer button.mobile-explorer:hover,
@@ -1476,7 +1483,43 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   .page[data-frame="default"] .explorer-content ul li > a {
     padding: 0.48rem 0.7rem;
     border-radius: 0.4rem;
-    font-size: 0.95rem;
+    font-size: 1.08rem;
+    line-height: 1.4;
+  }
+
+  .page[data-frame="default"] .explorer-content .folder-button,
+  .page[data-frame="default"] .explorer-content .folder-title {
+    font-size: 1.08rem;
+    line-height: 1.4;
+  }
+}
+
+// En la columna central estrecha, los tags no compiten con el titular: ocupan
+// una segunda línea completa. Así la lista sigue siendo escaneable en tablet y
+// móvil, incluso en notas con títulos largos.
+@media (max-width: 1200px) {
+  .page[data-frame="default"] .page-listing li.section-li > .section {
+    grid-template-columns: minmax(5rem, 6.5rem) minmax(0, 1fr);
+    row-gap: 0.35rem;
+  }
+
+  .page[data-frame="default"] .page-listing .section > .tags {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .page[data-frame="default"] .page-listing li.section-li > .section {
+    grid-template-columns: minmax(4.75rem, 5.5rem) minmax(0, 1fr);
+  }
+
+  // El CSS del componente externo oculta los tags en móvil. Los mantenemos,
+  // pero en su propia fila bajo toda la entrada, nunca junto al título.
+  .page[data-frame="default"] .page-listing .section > .tags {
+    display: flex !important;
+    grid-column: 1 / -1;
+    margin-top: 0.1rem;
   }
 }
 
