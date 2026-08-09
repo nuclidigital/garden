@@ -75,6 +75,7 @@ const AreaNav: QuartzComponent = ({ fileData, allFiles }: QuartzComponentProps) 
           <a
             class="area-nav-link"
             href={spaceHref}
+            data-router-ignore="true"
             {...(slug === space || slug === `${space}/index` ? { "aria-current": "page" } : {})}
           >
             Todo
@@ -90,6 +91,7 @@ const AreaNav: QuartzComponent = ({ fileData, allFiles }: QuartzComponentProps) 
                 <a
                   class="area-nav-link"
                   href={href}
+                  data-router-ignore="true"
                   {...(active ? { "aria-current": "page" } : {})}
                 >
                   {area.label}

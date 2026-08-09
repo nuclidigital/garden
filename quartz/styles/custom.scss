@@ -651,6 +651,27 @@
   color: var(--nord0);
 }
 
+@media (max-width: 800px) {
+  .area-nav {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .area-nav-list {
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .area-nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.7rem;
+    box-sizing: border-box;
+    touch-action: manipulation;
+  }
+}
+
 .area-content-eyebrow {
   margin-bottom: 0.3rem;
   color: var(--accent-strong);

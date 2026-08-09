@@ -10,6 +10,8 @@ import mermaidScript from "./scripts/mermaid.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import explorerOverlayScript from "./scripts/explorer-overlay.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
+import linkReliabilityScript from "./scripts/link-reliability.inline.ts"
+// @ts-expect-error - inline script imported as string by esbuild loader
 import explorerScrollScript from "./scripts/explorer-scroll.inline.ts"
 export default (() => {
   const Head: QuartzComponent = ({
@@ -122,6 +124,11 @@ export default (() => {
 
   // Head es el único componente local que el emisor `componentResources`
   // recoge automáticamente, así que los scripts propios cuelgan de aquí.
-  Head.afterDOMLoaded = [explorerScrollScript, mermaidScript, explorerOverlayScript]
+  Head.afterDOMLoaded = [
+    explorerScrollScript,
+    mermaidScript,
+    explorerOverlayScript,
+    linkReliabilityScript,
+  ]
   return Head
 }) satisfies QuartzComponentConstructor
