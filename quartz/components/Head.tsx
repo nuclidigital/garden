@@ -19,6 +19,8 @@ import explorerOverlayScript from "./scripts/explorer-overlay.inline.ts"
 import linkReliabilityScript from "./scripts/link-reliability.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import explorerScrollScript from "./scripts/explorer-scroll.inline.ts"
+// @ts-expect-error - inline script imported as string by esbuild loader
+import defaultThemeScript from "./scripts/default-theme.inline.ts"
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -70,6 +72,7 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
+        <script dangerouslySetInnerHTML={{ __html: defaultThemeScript }} />
         {coreStylesheet && <link rel="preload" href={coreStylesheet} as="style" />}
         {coreScript && coreScript.contentType === "external" && (
           <link rel="preload" href={coreScript.src} as="script" />
@@ -92,7 +95,7 @@ export default (() => {
           name="google-site-verification"
           content="rQ9hd-VIG6mfpvktYAP06b-HG2AJGfTnKIseOBgHw8w"
         />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="dark light" />
 
         <link rel="canonical" href={pageUrl} />
         <link

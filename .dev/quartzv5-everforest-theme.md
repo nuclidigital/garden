@@ -7,7 +7,7 @@ Esta customización recupera el selector nativo claro/oscuro de Quartz y sustitu
 ## Implementación
 
 - `garden/quartz.config.yaml`: activa `darkmode`, define colores Quartz distintos para `lightMode` y `darkMode`, selecciona `everforest-light` y `everforest-dark` para Shiki y asigna a Giscus una hoja por modo.
-- `garden/quartz/components/Head.tsx`: anuncia `color-scheme: light dark` al navegador.
+- `garden/quartz/components/Head.tsx` y `garden/quartz/components/scripts/default-theme.inline.ts`: aplican el tema antes de cargar los estilos y anuncian `color-scheme: dark light` al navegador.
 - `garden/quartz/styles/custom.scss`: contiene los tokens completos de Everforest medium, superficies, marca, navegación, estados, sintaxis y reglas adaptativas de Mermaid.
 - `garden/quartz/styles/callouts.scss`: asigna un color semántico y una superficie compatible a cada familia de callout.
 - `garden/quartz/static/giscus/light.css` y `dark.css`: trasladan la paleta al iframe de comentarios.
@@ -28,6 +28,8 @@ La segunda iteración no conserva la semántica cromática de Nord. Los aliases 
 Los fondos también forman parte del sistema, pero los rails no son grandes bloques cromáticos. El lienzo lateral es neutro (`bg_dim` en light y `bg1` en dark), la lectura usa `bg0` y no existen líneas verticales entre columnas. Las superficies especializadas `bg_red`, `bg_yellow`, `bg_green`, `bg_blue`, `bg_purple` y `bg_visual` quedan dentro de componentes concretos. En tablet y móvil se conserva el mismo principio, sin bandas artificiales.
 
 El lateral derecho utiliza tarjetas elevadas de radio amplio sobre el lienzo neutro. TOC, backlinks y grafo comparten estructura y distinguen su función mediante un punto amarillo, púrpura o azul, no mediante una barra lateral ni un fondo saturado. La hamburguesa móvil es un control de 44 px con superficie translúcida, sombra contenida, icono de alto contraste y foco visible.
+
+El modo inicial para una visita nueva es dark, independientemente de la preferencia de color del sistema operativo. El script temprano guarda ese valor en la clave `theme` de `localStorage` antes de cargar CSS, evitando un destello claro. Si la persona selecciona light o dark mediante el control de Quartz, esa elección guardada prevalece en las visitas siguientes. Si el navegador bloquea el almacenamiento local, se mantiene dark como fallback para esa carga.
 
 Los menús, áreas, redes sociales, entradas recientes, tags, propiedades y listados recorren la paleta mediante patrones repetibles. El color nunca es el único indicador: estados activos usan además relleno, borde o barra lateral.
 
