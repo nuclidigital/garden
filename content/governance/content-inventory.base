@@ -1,6 +1,6 @@
 filters:
   and:
-    - 'file.ext == "md"'
+    - file.ext == "md"
 properties:
   file.name:
     displayName: Entrada

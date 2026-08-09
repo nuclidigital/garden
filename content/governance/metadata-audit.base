@@ -1,6 +1,6 @@
 filters:
   and:
-    - 'file.ext == "md"'
+    - file.ext == "md"
 properties:
   file.name:
     displayName: Entrada
@@ -21,31 +21,29 @@ views:
     name: Sin space
     filters:
       and:
-        - "space.isEmpty()"
+        - space.isEmpty()
     order:
       - file.name
       - file.folder
       - space
       - area
       - kind
-
   - type: table
     name: Publicadas sin descripción
     filters:
       and:
-        - "publish == true"
-        - "description.isEmpty()"
+        - publish == true
+        - description.isEmpty()
     order:
       - file.name
       - description
       - space
       - area
-
   - type: table
     name: Sin área
     filters:
       and:
-        - "list(area).isEmpty()"
+        - list(area).isEmpty()
     order:
       - file.name
       - space
