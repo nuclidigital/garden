@@ -88,6 +88,10 @@ export default (() => {
           <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="google-site-verification"
+          content="rQ9hd-VIG6mfpvktYAP06b-HG2AJGfTnKIseOBgHw8w"
+        />
         {/* El sitio es solo oscuro: se lo decimos al navegador para que pinte
             controles de formulario, barras de scroll y el fondo inicial en
             oscuro, sin destello blanco antes de aplicar el CSS. */}
