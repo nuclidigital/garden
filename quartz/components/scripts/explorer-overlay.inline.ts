@@ -28,6 +28,35 @@ const setupExplorerOverlay = () => {
       panel.prepend(close)
     }
 
+    if (panel.dataset.swipeBound !== "true") {
+      let startX = 0
+      let startY = 0
+      panel.dataset.swipeBound = "true"
+      panel.addEventListener(
+        "touchstart",
+        (event) => {
+          const touch = event.changedTouches[0]
+          if (!touch) return
+          startX = touch.clientX
+          startY = touch.clientY
+        },
+        { passive: true },
+      )
+      panel.addEventListener(
+        "touchend",
+        (event) => {
+          const touch = event.changedTouches[0]
+          if (!touch) return
+          const horizontalDistance = touch.clientX - startX
+          const verticalDistance = Math.abs(touch.clientY - startY)
+          // A right swipe is the conventional dismissal gesture for a
+          // full-screen navigation surface. Vertical scrolling remains intact.
+          if (horizontalDistance > 72 && verticalDistance < 80) closeExplorer(explorer)
+        },
+        { passive: true },
+      )
+    }
+
     if (explorer.dataset.overlayBound === "true") continue
     explorer.dataset.overlayBound = "true"
     opener.addEventListener("click", () => {

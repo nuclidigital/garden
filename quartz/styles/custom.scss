@@ -933,11 +933,13 @@
 // una columna amplia para que no rompan una línea por pastilla y se muestran
 // como máximo los cinco más representativos.
 .page[data-frame="default"] .page-listing li.section-li > .section {
-  grid-template-columns: minmax(5.8rem, 7rem) minmax(15rem, 1fr) minmax(23rem, 42%);
+  grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
+  row-gap: 0.35rem;
 }
 
 .page[data-frame="default"] .page-listing .section > .tags {
-  justify-content: flex-end;
+  grid-column: 2 / -1;
+  justify-content: flex-start;
   gap: 0.38rem;
 }
 
@@ -947,7 +949,7 @@
 
 @media (max-width: 900px) {
   .page[data-frame="default"] .page-listing li.section-li > .section {
-    grid-template-columns: minmax(5rem, 6.25rem) minmax(0, 1fr) minmax(15rem, 38%);
+    grid-template-columns: minmax(5rem, 6.25rem) minmax(0, 1fr);
   }
 }
 
@@ -1655,6 +1657,125 @@ pre:has(> :is(code.mermaid, code[data-language="mermaid"])) svg {
   .cookie-consent__actions button {
     flex: 1;
   }
+}
+
+// Explorador unificado: en cualquier ancho de pantalla se abre como una
+// superficie de navegación completa. Se evita el patrón de raíl angosto en
+// escritorio y el usuario siempre reconoce el mismo botón y el mismo cierre.
+.page[data-frame="default"] .explorer button.mobile-explorer {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--nd-teal-soft) 12%, var(--layout-sidebar));
+  box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 16%);
+  color: var(--nd-teal-soft);
+}
+
+.page[data-frame="default"] .explorer button.mobile-explorer:hover,
+.page[data-frame="default"] .explorer button.mobile-explorer:focus-visible {
+  border-color: var(--nd-teal-soft);
+  background: color-mix(in srgb, var(--nd-teal-soft) 22%, var(--layout-sidebar));
+}
+
+.page[data-frame="default"] .explorer button.desktop-explorer {
+  display: none !important;
+}
+
+.page[data-frame="default"] .explorer.collapsed,
+.page[data-frame="default"] .explorer:not(.collapsed) {
+  flex-basis: 2.7rem;
+}
+
+.page[data-frame="default"] .explorer .explorer-content {
+  position: fixed;
+  z-index: 300;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 5.75rem clamp(1.25rem, 5vw, 5rem) 2rem;
+  border: 0;
+  background:
+    radial-gradient(
+      circle at 92% 3%,
+      color-mix(in srgb, var(--nd-teal-soft) 18%, transparent),
+      transparent 22rem
+    ),
+    linear-gradient(135deg, var(--nord1), var(--nord0));
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 42%);
+  opacity: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateY(-1rem);
+  transition:
+    opacity 0.22s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.28s ease;
+  visibility: hidden;
+}
+
+.page[data-frame="default"] .explorer:not(.collapsed) > .explorer-content {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.page[data-frame="default"] .explorer-overlay-close {
+  position: fixed;
+  z-index: 1;
+  top: 1rem;
+  right: clamp(1rem, 3vw, 2.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.7rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--nd-teal-soft) 42%, transparent);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--nord1) 88%, transparent);
+  box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 18%);
+  color: var(--dark);
+  cursor: pointer;
+  font: 600 0.84rem var(--uiFont);
+}
+
+.page[data-frame="default"] .explorer-overlay-close span:first-child {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.page[data-frame="default"] .explorer .explorer-content > .explorer-ul {
+  max-width: 58rem;
+  margin-inline: auto;
+  padding-bottom: 2rem;
+}
+
+.page[data-frame="default"] .explorer-content ul li > a {
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.45rem;
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.page[data-frame="default"] .explorer-content .folder-button,
+.page[data-frame="default"] .explorer-content .folder-title {
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+html.mobile-no-scroll,
+html.mobile-no-scroll body {
+  height: 100%;
+  overflow: hidden;
 }
 
 // ============================================================================
