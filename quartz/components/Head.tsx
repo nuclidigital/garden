@@ -8,7 +8,7 @@ import { CustomOgImagesEmitterName } from "../../.quartz/plugins"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import mermaidScript from "./scripts/mermaid.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
-import siteNavScript from "./scripts/sitenav.inline.ts"
+import explorerOverlayScript from "./scripts/explorer-overlay.inline.ts"
 // @ts-expect-error - inline script imported as string by esbuild loader
 import explorerScrollScript from "./scripts/explorer-scroll.inline.ts"
 export default (() => {
@@ -122,6 +122,6 @@ export default (() => {
 
   // Head es el único componente local que el emisor `componentResources`
   // recoge automáticamente, así que los scripts propios cuelgan de aquí.
-  Head.afterDOMLoaded = [explorerScrollScript, mermaidScript, siteNavScript]
+  Head.afterDOMLoaded = [explorerScrollScript, mermaidScript, explorerOverlayScript]
   return Head
 }) satisfies QuartzComponentConstructor
