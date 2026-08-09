@@ -565,6 +565,79 @@
   backdrop-filter: none;
 }
 
+// Subselector editorial: no sustituye al menú principal; aparece únicamente
+// cuando la página tiene un space con áreas publicadas. Al poder desplazarse
+// horizontalmente conserva una sola línea útil también en móvil.
+.area-nav {
+  --area-nav-pad: clamp(1rem, 1.6vw, 2rem);
+
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.45rem var(--area-nav-pad);
+  border-bottom: 1px solid var(--layout-divider);
+  background: color-mix(in srgb, var(--layout-center) 96%, transparent);
+}
+
+.area-nav-label {
+  flex: 0 0 auto;
+  color: var(--gray);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.area-nav-list {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+
+.area-nav-list li {
+  margin: 0;
+}
+
+.area-nav-link {
+  display: block;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--accent-strong) 24%, transparent);
+  border-radius: 999px;
+  color: var(--gray);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.area-nav-link:hover,
+.area-nav-link:focus-visible {
+  border-color: var(--accent-strong);
+  color: var(--dark);
+}
+
+.area-nav-link[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--accent-strong) 70%, transparent);
+  background: color-mix(in srgb, var(--accent-strong) 18%, transparent);
+  color: var(--dark);
+}
+
+.area-content-eyebrow {
+  margin-bottom: 0.3rem;
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 // ============================================================================
 // Redes sociales
 // ============================================================================

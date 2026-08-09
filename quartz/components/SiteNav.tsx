@@ -66,7 +66,14 @@ const SiteNav: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
             : link.href === ""
               ? baseDir
               : joinSegments(baseDir, link.href)
-          const active = isActive(slug, link.href)
+          // Las páginas virtuales de área viven bajo `/areas`, pero conservan
+          // su `space` en frontmatter. Así el menú principal no pierde el
+          // contexto cuando se navega por el subselector.
+          const pageSpace =
+            slug.startsWith("areas/") && typeof fileData.frontmatter?.space === "string"
+              ? fileData.frontmatter.space
+              : undefined
+          const active = link.href === pageSpace || isActive(slug, link.href)
 
           return (
             <li>

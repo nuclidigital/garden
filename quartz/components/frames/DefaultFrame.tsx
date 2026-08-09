@@ -3,12 +3,14 @@ import HeaderConstructor from "../Header"
 import CookieConsent from "../CookieConsent"
 import SiteBrand from "../SiteBrand"
 import SiteNav from "../SiteNav"
+import AreaNav from "../AreaNav"
 import SocialLinks from "../SocialLinks"
 
 const Header = HeaderConstructor()
 const CookieConsentComponent = CookieConsent()
 const SiteBrandComponent = SiteBrand()
 const SiteNavComponent = SiteNav()
+const AreaNavComponent = AreaNav()
 const SocialLinksComponent = SocialLinks()
 
 /**
@@ -47,6 +49,7 @@ export const DefaultFrame: PageFrame = {
         </div>
         <div class="center" id="garden-content" tabIndex={-1}>
           <SiteNavComponent {...componentData} />
+          <AreaNavComponent {...componentData} />
           <div class="page-header">
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
