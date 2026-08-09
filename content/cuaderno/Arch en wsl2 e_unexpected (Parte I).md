@@ -1,8 +1,8 @@
 ---
-title: "Arch Linux en WSL: recuperación de un E_UNEXPECTED"
+title: Arch en wsl2 e_unexpected (Parte I)
 date: 2026-08-05
 created: 2026-08-05
-description: "Resumen ejecutivo e informal de la recuperación de Arch Linux en WSL tras un fallo Wsl/Service/E_UNEXPECTED."
+description: Resumen informal de la recuperación de Arch Linux en WSL2 tras un fallo Wsl/Service/E_UNEXPECTED.
 space: cuaderno
 area:
   - digital
@@ -19,8 +19,8 @@ tags:
   - pacman
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-informe
 aliases:
-  - "Error catastrófico WSL Arch"
-  - "Recuperación ArchWSL E_UNEXPECTED"
+  - Error catastrófico WSL Arch
+  - Recuperación ArchWSL E_UNEXPECTED
 draft: false
 publish: true
 cssclasses: []
@@ -207,4 +207,4 @@ Ninguna de las dos se presenta como causa definitiva sin evidencia adicional.
 
 Los comandos, validaciones y pasos reproducibles se documentan en:
 
-[[2026-08-05-arch-wsl-e-unexpected-write-up|Write-Up técnico: recuperación de Arch Linux en WSL]]
+[[Arch en wsl2 e_unexpected (Parte II)|Write-Up técnico: recuperación de Arch Linux en WSL]]
