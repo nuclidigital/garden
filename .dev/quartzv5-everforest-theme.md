@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Esta customización recupera el selector nativo claro/oscuro de Quartz y sustituye Nord por Everforest `medium`. Mantiene los fondos cálidos y los siete acentos de la paleta (rojo, naranja, amarillo, verde, aqua, azul y púrpura), distribuidos por función para evitar una interfaz monocroma.
+Esta customización mantiene el selector nativo claro/oscuro de Quartz y sustituye Nord por Everforest `medium`. Mantiene los fondos cálidos y los siete acentos de la paleta (rojo, naranja, amarillo, verde, aqua, azul y púrpura), distribuidos por función para evitar una interfaz monocroma. El modo lectura se ha retirado: ocultaba información contextual sin convertir realmente la página en una vista de lectura de ancho completo.
 
 ## Implementación
 

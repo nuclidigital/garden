@@ -2,6 +2,8 @@
 .gitignore
 node_modules
 public
+playwright-report
+test-results
 prof
 tsconfig.tsbuildinfo
 .obsidian

@@ -1752,17 +1752,30 @@ pre > code[data-language="console"] {
     }
 
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .site-brand {
-      flex: 0 1 auto;
+      order: 0;
+      flex: 1 1 0;
+      min-width: 0;
       margin-bottom: 0;
     }
 
-    // Marca, buscador/tema y explorador comparten la primera fila; redes y
-    // entradas recientes ocupan una línea propia debajo.
+    // La primera fila queda reservada para marca y hamburguesa. El espaciador
+    // móvil del core no aporta contenido y rompería esa alineación.
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .mobile-only {
+      display: none !important;
+    }
+
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .explorer {
-      order: 0;
+      order: 1;
+      flex: 0 0 2.7rem;
+    }
+
+    .page[data-frame="default"] > #quartz-body > .left.sidebar > .flex-component {
+      order: 2;
+      flex: 1 0 100%;
     }
 
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
+      order: 3;
       flex: 1 0 100%;
       padding-top: 0.7rem;
     }
@@ -2115,8 +2128,8 @@ body {
   color: var(--soft-ink);
 }
 
-// Controles del rail: buscar, tema y lectura tienen funciones cromáticas
-// distintas; los siete perfiles recorren la paleta completa.
+// Controles del rail: búsqueda y tema usan superficies distintas; los siete
+// perfiles recorren la paleta completa.
 .page[data-frame="default"] .search-button {
   border: 1px solid color-mix(in srgb, var(--role-navigation) 38%, var(--layout-divider));
   border-radius: 0.55rem;
@@ -2135,12 +2148,6 @@ body {
 .page[data-frame="default"] button.darkmode {
   border-radius: 0.5rem;
   background: var(--ef-bg-yellow);
-  color: var(--soft-ink);
-}
-
-.page[data-frame="default"] button.readermode {
-  border-radius: 0.5rem;
-  background: var(--ef-bg-purple);
   color: var(--soft-ink);
 }
 

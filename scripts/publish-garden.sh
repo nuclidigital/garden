@@ -63,6 +63,8 @@ printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
 node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build
+printf 'Ejecutando regresión funcional y responsive...\n'
+npm run test:e2e
 
 printf 'Preparando cambios para publicar...\n'
 # Primero incluye cualquier cambio, renombre o borrado de archivos que ya están
@@ -80,6 +82,7 @@ PUBLISH_ROOTS=(
   docs
   quartz
   scripts
+  tests
 )
 
 for publish_root in "${PUBLISH_ROOTS[@]}"; do
@@ -107,6 +110,7 @@ git --no-pager add -- \
   index.d.ts \
   package.json \
   package-lock.json \
+  playwright.config.ts \
   quartz.config.default.yaml \
   quartz.config.yaml \
   quartz.lock.json \
