@@ -329,7 +329,9 @@ plugins:
         - phase
         - aliases
       excludedProperties: []
-      hidePropertiesView: false
+      # El frontmatter alimenta Head/JSON-LD, filtros y plugins, pero no se
+      # presenta como una tabla técnica al visitante.
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5

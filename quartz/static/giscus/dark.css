@@ -109,19 +109,20 @@ main {
   --color-prettylights-syntax-string: #83c092;
   --color-prettylights-syntax-variable: #e69875;
   --color-btn-text: #d3c6aa;
-  --color-btn-bg: #343f44;
-  --color-btn-border: #56635f;
-  --color-btn-hover-bg: #3d484d;
+  --color-btn-bg: #3a515d;
+  --color-btn-border: #66736e;
+  --color-btn-hover-bg: #425047;
   --color-btn-hover-border: #7fbbb3;
   --color-btn-active-bg: #475258;
-  --color-btn-selected-bg: #3d484d;
+  --color-btn-selected-bg: #425047;
   --color-btn-primary-text: #2d353b;
   --color-btn-primary-bg: #a7c080;
   --color-btn-primary-hover-bg: #83c092;
   --color-btn-primary-selected-bg: #a7c080;
-  --color-action-list-item-default-hover-bg: #425047;
-  --color-segmented-control-bg: #3d484d;
+  --color-action-list-item-default-hover-bg: #3a515d;
+  --color-segmented-control-bg: #232a2e;
   --color-segmented-control-button-bg: #343f44;
+  --color-segmented-control-button-selected-border: #a7c080;
   --color-fg-default: #d3c6aa;
   --color-fg-muted: #9da9a0;
   --color-fg-subtle: #9da9a0;
@@ -129,12 +130,48 @@ main {
   --color-canvas-overlay: #343f44;
   --color-canvas-inset: #232a2e;
   --color-canvas-subtle: #343f44;
-  --color-border-default: #56635f;
+  --color-border-default: #66736e;
   --color-border-muted: #475258;
+  --color-neutral-muted: rgb(157 169 160 / 22%);
   --color-accent-fg: #a7c080;
   --color-accent-emphasis: #a7c080;
+  --color-accent-muted: rgb(167 192 128 / 34%);
   --color-accent-subtle: #425047;
   --color-success-fg: #83c092;
   --color-attention-fg: #dbbc7f;
+  --color-attention-muted: rgb(219 188 127 / 32%);
+  --color-attention-subtle: #4d4c43;
   --color-danger-fg: #e67e80;
+  --color-danger-muted: rgb(230 126 128 / 32%);
+  --color-danger-subtle: #514045;
+  --color-done-fg: #d699b6;
+  --color-open-fg: #83c092;
+  --color-scale-gray-7: #475258;
+  --color-scale-blue-8: #3a515d;
+}
+
+html,
+body,
+main {
+  background: #2d353b !important;
+  color-scheme: dark;
+}
+
+main .gsc-comment-box,
+main .gsc-reactions,
+main .gsc-comment {
+  border-color: #66736e;
+  border-radius: 10px;
+  background: #343f44;
+}
+
+main .gsc-comment-box-textarea {
+  border-color: #56635f;
+  background: #232a2e;
+  color: #fdf6e3;
+}
+
+main button,
+main .btn {
+  border-radius: 7px;
 }

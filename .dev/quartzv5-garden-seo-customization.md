@@ -67,6 +67,10 @@ curl -sS https://garden.nuclidigital.com/index.xml
 
 En HTML se debe verificar una única canonical, `og:url` idéntica y un bloque JSON-LD válido.
 
+## Propiedades editoriales sin ruido visual
+
+El plugin `note-properties` mantiene el frontmatter disponible para Quartz, filtros y transformaciones, pero usa `hidePropertiesView: true`: no presenta al lector una tabla de propiedades internas. La semántica pública no depende de texto oculto por CSS; `Head.tsx` y `gardenSeo.ts` la expresan mediante metadatos estándar y JSON-LD, que es la representación adecuada para buscadores y consumidores automáticos.
+
 ## Alta en buscadores: paso externo pendiente
 
 El código deja el sitio listo, pero el alta necesita una sesión del propietario y no debe automatizarse con credenciales dentro del repositorio.

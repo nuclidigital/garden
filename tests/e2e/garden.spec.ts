@@ -21,6 +21,17 @@ test("la interfaz base conserva tema, ancho y controles esenciales", async ({ pa
   await expect(page.locator("html")).toHaveAttribute("saved-theme", "light")
 })
 
+test("la portada expone las cuatro rutas editoriales", async ({ page }) => {
+  await openPage(page)
+
+  const routes = ["cuaderno", "temporadas", "estudio", "colecciones"]
+  const cards = page.locator(".garden-space-grid .garden-space-card")
+  await expect(cards).toHaveCount(routes.length)
+  for (const route of routes) {
+    await expect(page.locator(`.garden-space-card[href$="/${route}"]`)).toHaveCount(1)
+  }
+})
+
 test("áreas y Relacionado navegan de forma nativa", async ({ page }) => {
   await openPage(page, "/cuaderno/grifon-korthals")
 
@@ -30,10 +41,24 @@ test("áreas y Relacionado navegan de forma nativa", async ({ page }) => {
   await expect(page).toHaveURL(/\/areas\/cuaderno\/digital\/?$/)
 
   await openPage(page, "/cuaderno/grifon-korthals")
+  const rejectConsent = page.locator(".cookie-consent__reject:visible")
+  if (await rejectConsent.count()) await rejectConsent.click()
   const relatedLink = page.locator("h2#relacionado + ul a.internal-link").first()
   await expect(relatedLink).toHaveAttribute("data-router-ignore", "true")
   await relatedLink.click()
   await expect(page).toHaveURL(/\/colecciones\/el-perro-de-los-baskerville\/?$/)
+})
+
+test("las propiedades editoriales son semántica de máquina, no interfaz visible", async ({
+  page,
+}) => {
+  await openPage(page, "/cuaderno/grifon-korthals")
+
+  await expect(page.locator(".note-properties")).toHaveCount(0)
+  const structuredData = page.locator('script[type="application/ld+json"]')
+  await expect(structuredData).toHaveCount(1)
+  const jsonLd = await structuredData.textContent()
+  expect(jsonLd).toContain('"@type":"Article"')
 })
 
 test("el layout responde al ancho y el explorador siempre puede cerrarse", async ({ page }) => {

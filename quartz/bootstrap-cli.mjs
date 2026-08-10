@@ -99,6 +99,9 @@ yargs(hideBin(process.argv))
     await handleSync(argv)
   })
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
+    // Every GitHub Pages build gets the Garden safety gates even when an
+    // upstream Quartz workflow skips its own test job on forks.
+    await import("../scripts/run-ci-build-preflight.mjs")
     // Garden customization hook: external plugins live in the ignored
     // `.quartz` cache, so apply and compile the versioned patch immediately
     // before every local or CI build.

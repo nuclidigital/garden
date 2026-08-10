@@ -47,6 +47,12 @@ Mermaid no depende únicamente del tema generado por Quartz: se fuerzan superfic
 
 Mermaid convierte cada `classDef` en estilo inline con `!important`, que no puede sobrescribirse de forma fiable desde una hoja externa. Los dos workflows WSL conservan las asignaciones de clase (`start`, `decision`, `diagnostic`, `repair`, `success`), pero delegan su representación en `custom.scss`; así mantienen la semántica y cambian con el selector sin duplicar el diagrama.
 
+## Giscus y breadcrumbs
+
+`quartz/static/giscus/light.css` y `dark.css` ya no conservan el lienzo blanco/negro de Primer. Ambos definen superficies, editor, comentarios, reacciones, bordes y estados Everforest: light usa `bg_dim` como lienzo y una tarjeta cálida contrastada; dark comparte `bg0`, `bg1`, verde, aqua, amarillo, rojo y púrpura con el jardín. Las dos variantes mantienen texto normal con contraste AA.
+
+El degradado de orientación de `.breadcrumb-container` se extiende `0.75rem` hacia la izquierda mediante margen negativo y padding compensatorio. La tipografía permanece alineada con el artículo, pero el fondo empieza antes que «Inicio».
+
 ## Publicación y mantenimiento
 
 La fuente de esta documentación vive en `.dev/` junto al repositorio. `garden/scripts/publish-garden.sh` la sincroniza a `garden/.dev/`, ejecuta la auditoría de contraste, construye Quartz, ejecuta la regresión Playwright y añade todas las rutas customizadas al commit. Por tanto no hay que copiar manualmente hojas, componentes, pruebas ni documentación.

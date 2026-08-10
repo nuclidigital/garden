@@ -11,8 +11,42 @@ const source = execFileSync("git", ["show", `HEAD:${graphRelativeScript}`], {
   cwd: graphDir,
   encoding: "utf8",
 })
-const start = source.indexOf("  Promise.all([")
-const end = source.indexOf("\n\n  function initGraph()", start)
+const utilsImport = `import {
+  removeAllChildren,
+  getBasePath,
+  getFullSlugFromUrl,
+  simplifySlug,
+  resolveBasePath,
+} from "@quartz-community/utils";`
+const localUtils = `function removeAllChildren(node) {
+  while (node.firstChild) node.removeChild(node.firstChild);
+}
+
+function getBasePath() {
+  return document.body?.dataset?.basepath || "";
+}
+
+function getFullSlugFromUrl() {
+  var slug = window.location.pathname.replace(/^\\/|\\/$/g, "");
+  return slug;
+}
+
+function simplifySlug(slug) {
+  var simplified = slug.replace(/^\\/|\\/$/g, "").replace(/\\/index$/, "");
+  return simplified || "/";
+}
+
+function resolveBasePath(target) {
+  return getBasePath() + "/" + target.replace(/^\\//, "");
+}`
+
+if (!source.includes(utilsImport)) {
+  throw new Error("Graph cambió sus utilidades; revisa la customización antes de publicar.")
+}
+
+const selfContainedSource = source.replace(utilsImport, localUtils)
+const start = selfContainedSource.indexOf("  Promise.all([")
+const end = selfContainedSource.indexOf("\n\n  function initGraph()", start)
 
 if (start === -1 || end === -1) {
   throw new Error("Graph cambió su cargador; revisa la customización antes de publicar.")
@@ -48,7 +82,18 @@ const lazyLoader = `  var graphMedia = window.matchMedia("(min-width: 1201px)");
   loadGraphLibraries();
   graphMedia.addEventListener("change", loadGraphLibraries);`
 
-await writeFile(graphScript, source.slice(0, start) + lazyLoader + source.slice(end))
+await writeFile(
+  graphScript,
+  selfContainedSource.slice(0, start) + lazyLoader + selfContainedSource.slice(end),
+)
+await writeFile(
+  path.join(graphDir, "src/util/lang.ts"),
+  `export function classNames(displayClass, ...classes) {
+  if (displayClass) classes.push(displayClass)
+  return classes.join(" ")
+}
+`,
+)
 console.log("Plugin Graph: carga de D3/Pixi limitada al layout desktop visible.")
 
 const build = spawnSync("npm", ["run", "build"], { cwd: graphDir, stdio: "inherit" })

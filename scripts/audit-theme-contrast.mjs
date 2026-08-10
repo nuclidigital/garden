@@ -48,6 +48,12 @@ const themes = {
       blue: ["#246e92", "#e9f0e9"],
       purple: ["#a23e86", "#fae8e2"],
     },
+    giscusSurfaces: {
+      canvas: ["#35433c", "#f4f0d9"],
+      card: ["#35433c", "#fdf6e3"],
+      editor: ["#35433c", "#e9f0e9"],
+      muted: ["#4f5b52", "#f4f0d9"],
+    },
   },
   dark: {
     background: "#2d353b",
@@ -93,6 +99,12 @@ const themes = {
       blue: ["#7fbbb3", "#3a515d"],
       purple: ["#d699b6", "#4a444e"],
     },
+    giscusSurfaces: {
+      canvas: ["#d3c6aa", "#2d353b"],
+      card: ["#d3c6aa", "#343f44"],
+      editor: ["#fdf6e3", "#232a2e"],
+      muted: ["#9da9a0", "#2d353b"],
+    },
   },
 }
 
@@ -125,13 +137,19 @@ for (const [themeName, theme] of Object.entries(themes)) {
   }
   for (const [token, background] of Object.entries(theme.diagramBackgrounds)) {
     const bodyRatio = contrast(theme.text.body, background)
-    if (bodyRatio < 4.5) failures.push(`${themeName}.surface.${token}.body: ${bodyRatio.toFixed(2)}:1`)
+    if (bodyRatio < 4.5)
+      failures.push(`${themeName}.surface.${token}.body: ${bodyRatio.toFixed(2)}:1`)
     const softRatio = contrast(theme.softInk, background)
-    if (softRatio < 4.5) failures.push(`${themeName}.surface.${token}.soft: ${softRatio.toFixed(2)}:1`)
+    if (softRatio < 4.5)
+      failures.push(`${themeName}.surface.${token}.soft: ${softRatio.toFixed(2)}:1`)
   }
   for (const [token, [accent, background]] of Object.entries(theme.accentSurfaces)) {
     const ratio = contrast(accent, background)
     if (ratio < 3) failures.push(`${themeName}.graphic.${token}: ${ratio.toFixed(2)}:1`)
+  }
+  for (const [token, [foreground, background]] of Object.entries(theme.giscusSurfaces)) {
+    const ratio = contrast(foreground, background)
+    if (ratio < 4.5) failures.push(`${themeName}.giscus.${token}: ${ratio.toFixed(2)}:1`)
   }
 }
 
@@ -140,6 +158,4 @@ if (failures.length > 0) {
   process.exit(1)
 }
 
-console.log(
-  "Contraste Everforest: texto >= 4.5:1 y acentos gráficos sobre superficies >= 3:1.",
-)
+console.log("Contraste Everforest: texto >= 4.5:1 y acentos gráficos sobre superficies >= 3:1.")

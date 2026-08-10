@@ -2,7 +2,8 @@
 
 set -Eeuo pipefail
 
-# Este script es no interactivo: Git no debe abrir less ni otro paginador.
+# La publicación es no interactiva: Git no debe abrir less ni otro paginador.
+# Solo `--share` abre el asistente editorial después de un push correcto.
 export GIT_PAGER=cat
 export PAGER=cat
 
@@ -16,6 +17,14 @@ CONTENT_DIR="$REPO_DIR/content"
 DEV_DOCS_DIR="$ROOT_DIR/.dev"
 REPO_DEV_DOCS_DIR="$REPO_DIR/.dev"
 TOKEN_FILE="${GARDEN_GITHUB_TOKEN_FILE:-$ROOT_DIR/.github-token}"
+SHARE_AFTER_PUBLISH=0
+
+for argument in "$@"; do
+  case "$argument" in
+    --share) SHARE_AFTER_PUBLISH=1 ;;
+    *) printf 'Error: argumento no reconocido: %s\n' "$argument" >&2; exit 1 ;;
+  esac
+done
 
 fail() {
   printf 'Error: %s\n' "$*" >&2
@@ -62,6 +71,8 @@ fi
 printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
 npm run install-plugins
+npm run audit:dependencies
+npm run audit:editorial
 node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build
 printf 'Comprobando presupuestos de rendimiento...\n'
@@ -175,3 +186,8 @@ else
 fi
 
 printf '\nPublicado. GitHub Actions construirá y desplegará garden.nuclidigital.com.\n'
+
+if [ "$SHARE_AFTER_PUBLISH" = "1" ]; then
+  printf '\nAbriendo el asistente social. Confirma que la URL pública ya responde antes de abrir el compositor.\n'
+  node scripts/garden-share.mjs select
+fi

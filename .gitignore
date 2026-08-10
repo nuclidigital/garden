@@ -13,4 +13,5 @@ private/
 .replit
 replit.nix
 .quartz/
+.garden-share/
 quartz/cli/tui/dist/

@@ -14,11 +14,14 @@
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
     "docs": "npx quartz build --serve -d docs",
-    "check": "tsc --noEmit && npx prettier . --check",
+    "check": "npm run audit:dependencies && npm run audit:editorial && tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
-    "test": "tsx --test",
+    "test": "node --test tests/unit/*.test.mjs",
     "test:e2e": "playwright test",
     "audit:performance": "node scripts/audit-performance-budgets.mjs",
+    "audit:dependencies": "npm audit --audit-level=low",
+    "audit:editorial": "node scripts/audit-editorial-architecture.mjs",
+    "share": "node scripts/garden-share.mjs",
     "report:lighthouse": "node scripts/run-lighthouse-report.mjs",
     "customize:plugins": "node scripts/patch-quartz-plugins.mjs",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
@@ -28,6 +31,11 @@
   "engines": {
     "npm": ">=10.9.2",
     "node": ">=22"
+  },
+  "overrides": {
+    "tsup": {
+      "esbuild": "^0.28.2"
+    }
   },
   "keywords": [
     "site generator",
@@ -64,7 +72,7 @@
     "remark-rehype": "^11.1.2",
     "rfdc": "^1.4.1",
     "serve-handler": "^6.1.6",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.3",
     "source-map-support": "^0.5.21",
     "to-vfile": "^8.0.0",
     "unified": "^11.0.5",
@@ -78,8 +86,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
-    "@quartz-community/types": "github:quartz-community/types",
-    "@quartz-community/utils": "github:quartz-community/utils",
+    "@quartz-community/types": "0.3.0",
     "@types/hast": "^3.0.4",
     "@types/node": "^25.0.10",
     "@types/pretty-time": "^1.1.5",
@@ -88,12 +95,11 @@
     "@types/yargs": "^17.0.35",
     "chrome-launcher": "^1.2.1",
     "compression": "^1.8.1",
-    "esbuild": "^0.27.2",
-    "lighthouse": "^12.8.2",
+    "esbuild": "^0.28.2",
+    "lighthouse": "^12.6.1",
     "prettier": "^3.8.1",
     "sass": "^1.102.0",
     "tsup": "^8.5.1",
-    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

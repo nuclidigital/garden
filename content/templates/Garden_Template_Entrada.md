@@ -1,7 +1,7 @@
 ---
 title: "{{title}}"
 description:
-created: { { date:YYYY-MM-DD } }
+created: "{{date:YYYY-MM-DD}}"
 space: cuaderno
 area: []
 kind:

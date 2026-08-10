@@ -108,33 +108,70 @@ main {
   --color-prettylights-syntax-keyword: #b83a37;
   --color-prettylights-syntax-string: #14785a;
   --color-prettylights-syntax-variable: #a84d0d;
-  --color-btn-text: #4f5b52;
-  --color-btn-bg: #f4f0d9;
-  --color-btn-border: #bdc3af;
-  --color-btn-hover-bg: #efebd4;
-  --color-btn-hover-border: #829181;
+  --color-btn-text: #35433c;
+  --color-btn-bg: #e9f0e9;
+  --color-btn-border: #9aa88f;
+  --color-btn-hover-bg: #eaedc8;
+  --color-btn-hover-border: #4f6d00;
   --color-btn-active-bg: #e6e2cc;
   --color-btn-selected-bg: #e0dcc7;
   --color-btn-primary-text: #fdf6e3;
   --color-btn-primary-bg: #4f6d00;
   --color-btn-primary-hover-bg: #3f5b00;
   --color-btn-primary-selected-bg: #4f6d00;
-  --color-action-list-item-default-hover-bg: #eaedc8;
-  --color-segmented-control-bg: #efebd4;
+  --color-action-list-item-default-hover-bg: #e9f0e9;
+  --color-segmented-control-bg: #e6e2cc;
   --color-segmented-control-button-bg: #fdf6e3;
-  --color-fg-default: #4f5b52;
-  --color-fg-muted: #66756b;
-  --color-fg-subtle: #66756b;
-  --color-canvas-default: #fdf6e3;
-  --color-canvas-overlay: #f4f0d9;
-  --color-canvas-inset: #efebd4;
+  --color-segmented-control-button-selected-border: #4f6d00;
+  --color-fg-default: #35433c;
+  --color-fg-muted: #4f5b52;
+  --color-fg-subtle: #58675e;
+  --color-canvas-default: #f4f0d9;
+  --color-canvas-overlay: #fdf6e3;
+  --color-canvas-inset: #e6e2cc;
   --color-canvas-subtle: #f0f1d2;
-  --color-border-default: #bdc3af;
-  --color-border-muted: #e0dcc7;
+  --color-border-default: #9aa88f;
+  --color-border-muted: #bdc3af;
+  --color-neutral-muted: rgb(130 145 129 / 22%);
   --color-accent-fg: #4f6d00;
   --color-accent-emphasis: #4f6d00;
+  --color-accent-muted: rgb(79 109 0 / 34%);
   --color-accent-subtle: #eaedc8;
   --color-success-fg: #14785a;
   --color-attention-fg: #7a5b00;
+  --color-attention-muted: rgb(168 77 13 / 30%);
+  --color-attention-subtle: #faedcd;
   --color-danger-fg: #b83a37;
+  --color-danger-muted: rgb(184 58 55 / 28%);
+  --color-danger-subtle: #fde3da;
+  --color-done-fg: #a23e86;
+  --color-open-fg: #14785a;
+  --color-scale-gray-1: #e6e2cc;
+  --color-scale-blue-1: #e9f0e9;
+}
+
+html,
+body,
+main {
+  background: #f4f0d9 !important;
+  color-scheme: light;
+}
+
+main .gsc-comment-box,
+main .gsc-reactions,
+main .gsc-comment {
+  border-color: #9aa88f;
+  border-radius: 10px;
+  background: #fdf6e3;
+}
+
+main .gsc-comment-box-textarea {
+  border-color: #bdc3af;
+  background: #e9f0e9;
+  color: #35433c;
+}
+
+main button,
+main .btn {
+  border-radius: 7px;
 }

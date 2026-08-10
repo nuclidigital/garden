@@ -4,7 +4,7 @@ description: Ficha de colección para la novela de Margaret Atwood.
 created: 2026-08-09
 space: colecciones
 area:
-  - Libros
+  - libros
 kind: resource
 project: []
 tags:

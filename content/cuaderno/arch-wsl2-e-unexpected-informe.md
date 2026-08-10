@@ -201,3 +201,7 @@ Ninguna de las dos se presenta como causa definitiva sin evidencia adicional.
 Los comandos, validaciones y pasos reproducibles se documentan en:
 
 [[arch-wsl2-e-unexpected-recuperacion|Write-Up técnico: recuperación de Arch Linux en WSL]]
+
+## Relacionado
+
+- [[arch-wsl2-e-unexpected-recuperacion|Arch en WSL2 E_UNEXPECTED (Parte II)]]

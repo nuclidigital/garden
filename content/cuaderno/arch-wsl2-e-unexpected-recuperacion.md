@@ -906,3 +906,7 @@ pacman -Syu --overwrite '*'
 ## 23. Nota narrativa relacionada
 
 [[arch-wsl2-e-unexpected-informe|Arch Linux en WSL: anatomía de un «Error catastrófico»]]
+
+## Relacionado
+
+- [[arch-wsl2-e-unexpected-informe|Arch en WSL2 E_UNEXPECTED (Parte I)]]
