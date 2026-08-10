@@ -50,9 +50,6 @@ jobs:
       - name: Install Quartz plugins
         run: npx quartz plugin install
 
-      - name: Apply Garden plugin customizations
-        run: npm run customize:plugins
-
       - name: Build Quartz
         run: npx quartz build
 

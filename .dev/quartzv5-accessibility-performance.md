@@ -34,7 +34,7 @@ Una ampliación intencionada debe justificar y actualizar el presupuesto en el m
 
 El primer diagnóstico descubrió que el plugin Graph descargaba y evaluaba D3 y Pixi incluso cuando el lateral estaba oculto en tablet/móvil. Pixi por sí solo transfería aproximadamente 434 KB y bloqueaba el hilo principal durante más de un segundo. `garden/scripts/patch-quartz-plugins.mjs` aplica sobre la revisión limpia instalada del plugin una carga condicionada a `min-width: 1201px`, recompila su distribución y preserva el grafo desktop. Al ampliar una ventana desde responsive a desktop, el `MediaQueryList` activa la carga una sola vez.
 
-La customización no se edita dentro de `.quartz`, porque esa carpeta es caché ignorada y se reemplaza al instalar plugins. El script versionado es la fuente de verdad, aborta si cambia el bloque upstream esperado y se ejecuta tras `npm run install-plugins` en publicación y CI. Esto elevó la medición local de rendimiento de 35 a 81, manteniendo 100 en accesibilidad, buenas prácticas y SEO.
+La customización no se edita dentro de `.quartz`, porque esa carpeta es caché ignorada y se reemplaza al instalar plugins. El script versionado es la fuente de verdad, aborta si cambia el bloque upstream esperado y se ejecuta tras `npm run install-plugins` en el publicador canónico. Esto elevó la medición local de rendimiento de 35 a 82, manteniendo 100 en accesibilidad, buenas prácticas y SEO.
 
 ## Publicación
 
