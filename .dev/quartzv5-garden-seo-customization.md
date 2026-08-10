@@ -11,7 +11,7 @@ Esta customización mantiene Quartz V5 como generador y sustituye solo aquello q
 - `garden/quartz/components/Head.tsx`: añade canonical, robots, descubrimiento RSS, Open Graph coherente y JSON-LD.
 - `garden/quartz/plugins/loader/config-loader.ts`: registra el emisor local como emisor integrado.
 - `garden/quartz.config.yaml`: mantiene `content-index`, pero desactiva únicamente sus salidas RSS y sitemap para evitar colisiones.
-- `garden/scripts/publish-garden.sh`: implementación canónica y versionada del publicador. Sincroniza `.dev`, actualiza todos los archivos ya versionados y admite nuevas customizaciones bajo el árbol completo `quartz`; así componentes, estilos, scripts, emitters, loaders, utilidades y pruebas viajan juntos.
+- `garden/scripts/publish-garden.sh`: implementación canónica y versionada del publicador. Sincroniza `.dev`, actualiza todos los archivos ya versionados y admite nuevas customizaciones bajo `quartz`, `scripts` y `tests`; `playwright.config.ts` forma parte de la allowlist raíz. Después del build ejecuta la regresión funcional y responsive, por lo que componentes, estilos, scripts, emitters, loaders, utilidades, pruebas y su configuración viajan juntos o la publicación aborta.
 - `publish-garden.sh`: wrapper estable en la raíz de trabajo para conservar el comando habitual `./publish-garden.sh`.
 
 Hay pruebas de política en `gardenSeo.test.ts`, junto a la utilidad y al emisor.
@@ -54,6 +54,8 @@ La identidad pública se centraliza en `GARDEN_AUTHOR`. Si cambian los perfiles,
 Se eliminó el bundle global personalizado de Mermaid y se activó la integración nativa de `obsidian-flavored-markdown`. Quartz carga Mermaid bajo demanda únicamente en páginas con diagramas. La dependencia directa `mermaid` dejó de ser necesaria en `package.json`.
 
 ## Publicación y comprobaciones
+
+El flujo local obligatorio es: sincronización del Vault y `.dev`, `npm ci`, auditoría de contraste, build de Quartz, regresión Playwright, staging por allowlist, commit y push. Cualquier fallo anterior al staging impide publicar.
 
 Después de `./publish-garden.sh`, comprobar:
 

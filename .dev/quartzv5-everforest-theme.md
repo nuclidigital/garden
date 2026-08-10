@@ -22,12 +22,16 @@ La segunda iteración no conserva la semántica cromática de Nord. Los aliases 
 - azul: navegación global, metadatos y rail contextual;
 - amarillo: orientación, migas e índice del artículo;
 - naranja: actividad reciente y consentimiento;
-- púrpura: relaciones, backlinks, citas y lectura;
+- púrpura: relaciones, backlinks y citas;
 - rojo: alerta, rechazo y foco en modo claro.
 
-Los fondos también forman parte del sistema, pero los rails no son grandes bloques cromáticos. El lienzo lateral es neutro (`bg_dim` en light y `bg1` en dark), la lectura usa `bg0` y no existen líneas verticales entre columnas. Las superficies especializadas `bg_red`, `bg_yellow`, `bg_green`, `bg_blue`, `bg_purple` y `bg_visual` quedan dentro de componentes concretos. En tablet y móvil se conserva el mismo principio, sin bandas artificiales.
+Los fondos también forman parte del sistema, pero los rails no son grandes bloques cromáticos. El lienzo lateral es neutro (`bg_dim` en light y `bg1` en dark), la superficie de contenido usa `bg0` y no existen líneas verticales entre columnas. Las superficies especializadas `bg_red`, `bg_yellow`, `bg_green`, `bg_blue`, `bg_purple` y `bg_visual` quedan dentro de componentes concretos. En tablet y móvil se conserva el mismo principio, sin bandas artificiales.
 
-El lateral derecho utiliza tarjetas elevadas de radio amplio sobre el lienzo neutro. TOC, backlinks y grafo comparten estructura y distinguen su función mediante un punto amarillo, púrpura o azul, no mediante una barra lateral ni un fondo saturado. La hamburguesa móvil es un control de 44 px con superficie translúcida, sombra contenida, icono de alto contraste y foco visible.
+El lateral derecho utiliza tarjetas elevadas de radio amplio sobre el lienzo neutro. TOC, backlinks y grafo comparten estructura y distinguen su función mediante un punto amarillo, púrpura o azul, no mediante una barra lateral ni un fondo saturado.
+
+En desktop, a partir de 1201 px, se mantiene el layout de tres columnas. Entre 801 y 1200 px, tablet deja de comprimir los controles dentro de un rail estrecho: usa una cabecera horizontal de ancho completo, contenido en una columna y tarjetas contextuales después del artículo. Hasta 800 px se conserva esa arquitectura con espaciados móviles. En ambos casos, marca, búsqueda, selector light/dark y hamburguesa comparten una única fila; los tres botones tienen un área táctil mínima de 44 × 44 px. Por debajo de 360 px se oculta únicamente el símbolo gráfico para preservar el texto completo «Garden Digital» y evitar desbordamiento.
+
+La hamburguesa responsive usa una superficie translúcida, sombra contenida, icono de alto contraste y foco visible. Abre el explorador como una superficie de pantalla completa, con cierre explícito, tecla Escape y bloqueo del scroll de fondo.
 
 El modo inicial para una visita nueva es dark, independientemente de la preferencia de color del sistema operativo. El script temprano guarda ese valor en la clave `theme` de `localStorage` antes de cargar CSS, evitando un destello claro. Si la persona selecciona light o dark mediante el control de Quartz, esa elección guardada prevalece en las visitas siguientes. Si el navegador bloquea el almacenamiento local, se mantiene dark como fallback para esa carga.
 
@@ -45,7 +49,7 @@ Mermaid convierte cada `classDef` en estilo inline con `!important`, que no pued
 
 ## Publicación y mantenimiento
 
-La fuente de esta documentación vive en `.dev/` junto al repositorio. `garden/scripts/publish-garden.sh` la sincroniza a `garden/.dev/`, ejecuta la auditoría de contraste, construye Quartz y añade todas las rutas customizadas al commit. Por tanto no hay que copiar manualmente hojas, componentes ni documentación.
+La fuente de esta documentación vive en `.dev/` junto al repositorio. `garden/scripts/publish-garden.sh` la sincroniza a `garden/.dev/`, ejecuta la auditoría de contraste, construye Quartz, ejecuta la regresión Playwright y añade todas las rutas customizadas al commit. Por tanto no hay que copiar manualmente hojas, componentes, pruebas ni documentación.
 
 Si se modifica cualquier token que funcione como texto, debe actualizarse el contrato en `audit-theme-contrast.mjs`. La publicación se detendrá si un par baja de WCAG AA.
 
