@@ -271,9 +271,11 @@ plugins:
         strict: true
         reactionsEnabled: true
         inputPosition: bottom
-        # El plugin cambia estos temas al recibir `themechange`.
-        lightTheme: https://garden.nuclidigital.com/static/giscus/light.css
-        darkTheme: https://garden.nuclidigital.com/static/giscus/dark.css
+        # El plugin compone `<themeUrl>/<nombre>.css`; estos campos son nombres,
+        # no URLs completas. También los reutiliza al recibir `themechange`.
+        themeUrl: https://garden.nuclidigital.com/static/giscus
+        lightTheme: light
+        darkTheme: dark
         lang: es
     layout:
       position: afterBody

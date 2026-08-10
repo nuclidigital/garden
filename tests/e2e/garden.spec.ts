@@ -61,6 +61,46 @@ test("las propiedades editoriales son semántica de máquina, no interfaz visibl
   expect(jsonLd).toContain('"@type":"Article"')
 })
 
+test("Giscus recibe la hoja Everforest correcta para cada tema", async ({ page }) => {
+  await openPage(page, "/cuaderno/grifon-korthals")
+
+  const giscus = page.locator(".giscus")
+  await expect(giscus).toHaveAttribute(
+    "data-theme-url",
+    "https://garden.nuclidigital.com/static/giscus",
+  )
+  await expect(giscus).toHaveAttribute("data-light-theme", "light")
+  await expect(giscus).toHaveAttribute("data-dark-theme", "dark")
+
+  const configuredTheme = await giscus.evaluate((element) => {
+    const mode = document.documentElement.getAttribute("saved-theme")
+    const name =
+      mode === "light"
+        ? element.getAttribute("data-light-theme")
+        : element.getAttribute("data-dark-theme")
+    return `${element.getAttribute("data-theme-url")}/${name}.css`
+  })
+  expect(configuredTheme).toBe("https://garden.nuclidigital.com/static/giscus/dark.css")
+})
+
+test("el preview de tags ordena título, fecha y etiquetas", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) <= 600, "Quartz no muestra popovers hover en móvil")
+  await openPage(page, "/cuaderno/grifon-korthals")
+
+  await page.locator(".page-header .tags .tag-link").first().hover()
+  const result = page.locator(".popover.active-popover .page-listing .section-li").first()
+  await expect(result).toBeVisible()
+
+  const title = await result.locator(".desc").boundingBox()
+  const date = await result.locator(":scope > .section > .meta").boundingBox()
+  const tags = await result.locator(":scope > .section > .tags").boundingBox()
+  expect(title).not.toBeNull()
+  expect(date).not.toBeNull()
+  expect(tags).not.toBeNull()
+  expect(title!.y).toBeLessThan(date!.y)
+  expect(date!.y).toBeLessThan(tags!.y)
+})
+
 test("el layout responde al ancho y el explorador siempre puede cerrarse", async ({ page }) => {
   await openPage(page)
   const viewport = page.viewportSize()

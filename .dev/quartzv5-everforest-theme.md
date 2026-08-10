@@ -51,7 +51,11 @@ Mermaid convierte cada `classDef` en estilo inline con `!important`, que no pued
 
 `quartz/static/giscus/light.css` y `dark.css` ya no conservan el lienzo blanco/negro de Primer. Ambos definen superficies, editor, comentarios, reacciones, bordes y estados Everforest: light usa `bg_dim` como lienzo y una tarjeta cálida contrastada; dark comparte `bg0`, `bg1`, verde, aqua, amarillo, rojo y púrpura con el jardín. Las dos variantes mantienen texto normal con contraste AA.
 
+El plugin de comentarios no acepta una URL completa en `lightTheme` o `darkTheme`: construye `<themeUrl>/<nombre>.css`. La configuración correcta fija `themeUrl` a `/static/giscus` y usa únicamente `light` y `dark` como nombres. La regresión E2E verifica estos tres atributos y la URL final, evitando volver a generar accidentalmente una ruta `https://…css.css` inválida.
+
 El degradado de orientación de `.breadcrumb-container` se extiende `0.75rem` hacia la izquierda mediante margen negativo y padding compensatorio. La tipografía permanece alineada con el artículo, pero el fondo empieza antes que «Inicio».
+
+Los previews de tags reutilizan `PageList`, cuyo orden semántico es título, fecha y etiquetas. `custom.scss` fuerza en el popover una tarjeta vertical por entrada y alterna superficies verde, azul y púrpura; la prueba responsive compara además la posición real de las tres filas.
 
 ## Publicación y mantenimiento
 

@@ -1131,6 +1131,65 @@
   padding: 0;
 }
 
+// En previews de páginas de tag cada resultado conserva tres líneas: título,
+// fecha y etiquetas. Se evita que el estilo compacto vuelva a formar columnas.
+.popover .page-listing .section-ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.popover .page-listing .section-li {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-left: 3px solid var(--role-growth);
+  border-radius: 0.45rem;
+  background: var(--ef-bg-green);
+}
+
+.popover .page-listing .section-li:nth-child(3n + 2) {
+  border-left-color: var(--role-exploration);
+  background: var(--ef-bg-blue);
+}
+
+.popover .page-listing .section-li:nth-child(3n) {
+  border-left-color: var(--role-related);
+  background: var(--ef-bg-purple);
+}
+
+.popover .page-listing .section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.popover .page-listing .section > :is(.desc, .meta, .tags) {
+  margin: 0;
+}
+
+.popover .page-listing .section > .desc {
+  order: 1;
+}
+
+.popover .page-listing .section > .meta {
+  order: 2;
+  color: var(--soft-ink);
+  font-size: 0.78rem;
+  opacity: 0.82;
+}
+
+.popover .page-listing .section > .tags {
+  order: 3;
+}
+
+.popover .page-listing .section h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
 .popover .note-properties .tag-link,
 .popover .tags .tag-link {
   display: inline-block;
