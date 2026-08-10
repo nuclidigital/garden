@@ -66,10 +66,15 @@ const AreaNav: QuartzComponent = ({ fileData, allFiles }: QuartzComponentProps) 
   const currentAreas = new Set(values(fileData.frontmatter?.area).map(areaSlug))
   const baseDir = pathToRoot(slug)
   const spaceHref = joinSegments(baseDir, space)
+  const filterLabel = `Filtrar ${space} por área`
 
   return (
     <nav class="area-nav" aria-label={`Áreas de ${space}`}>
-      <span class="area-nav-label">{space}</span>
+      <span class="area-nav-filter" role="img" aria-label={filterLabel} title={filterLabel}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 5h16l-6.5 7.5v5L10.5 19v-6.5L4 5Z" />
+        </svg>
+      </span>
       <ul class="area-nav-list">
         <li>
           <a

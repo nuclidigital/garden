@@ -35,8 +35,19 @@ test("la portada expone las cuatro rutas editoriales", async ({ page }) => {
 test("áreas y Relacionado navegan de forma nativa", async ({ page }) => {
   await openPage(page, "/cuaderno/grifon-korthals")
 
+  const filterIcon = page.getByRole("img", { name: "Filtrar cuaderno por área" })
+  await expect(filterIcon).toBeVisible()
+  await expect(page.locator(".area-nav-label")).toHaveCount(0)
+
   const areaLink = page.locator(".area-nav-link", { hasText: "digital" })
   await expect(areaLink).toHaveAttribute("data-router-ignore", "true")
+  if ((page.viewportSize()?.width ?? 0) > 1200) {
+    const restingBox = await areaLink.boundingBox()
+    await areaLink.hover()
+    const hoverBox = await areaLink.boundingBox()
+    expect(hoverBox?.y).toBe(restingBox?.y)
+    await expect(areaLink).toHaveCSS("box-shadow", /inset/)
+  }
   await areaLink.click()
   await expect(page).toHaveURL(/\/areas\/cuaderno\/digital\/?$/)
 
@@ -94,6 +105,35 @@ test("el preview de tags ordena título, fecha y etiquetas", async ({ page }) =>
   const title = await result.locator(".desc").boundingBox()
   const date = await result.locator(":scope > .section > .meta").boundingBox()
   const tags = await result.locator(":scope > .section > .tags").boundingBox()
+  expect(title).not.toBeNull()
+  expect(date).not.toBeNull()
+  expect(tags).not.toBeNull()
+  expect(title!.y).toBeLessThan(date!.y)
+  expect(date!.y).toBeLessThan(tags!.y)
+})
+
+test("Entradas recientes muestra título, fecha y tags antes del extracto", async ({ page }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 1200,
+    "El bloque lateral Entradas recientes solo se muestra en desktop",
+  )
+  await openPage(page)
+
+  const recent = page
+    .locator(".recent-notes")
+    .getByRole("link", { name: "Arch en WSL2 E_UNEXPECTED (Parte I)", exact: true })
+  await recent.hover()
+
+  const popover = page.locator('.popover[data-origin="recent-notes"].active-popover')
+  const header = popover.locator(".popover-hint:has(> .article-title)").first()
+  await expect(header).toBeVisible()
+  await expect(header.locator(".breadcrumb-container")).toBeHidden()
+  await expect(header.locator(".garden-author-byline")).toBeHidden()
+  await expect(header.locator(".content-meta > :not(time)")).toBeHidden()
+
+  const title = await header.locator(":scope > .article-title").boundingBox()
+  const date = await header.locator(":scope > .content-meta").boundingBox()
+  const tags = await header.locator(":scope > .tags").boundingBox()
   expect(title).not.toBeNull()
   expect(date).not.toBeNull()
   expect(tags).not.toBeNull()

@@ -103,7 +103,8 @@ const themes = {
       canvas: ["#d3c6aa", "#2d353b"],
       card: ["#d3c6aa", "#343f44"],
       editor: ["#fdf6e3", "#232a2e"],
-      muted: ["#9da9a0", "#2d353b"],
+      mutedCanvas: ["#b8b5a5", "#2d353b"],
+      mutedCard: ["#b8b5a5", "#343f44"],
     },
   },
 }

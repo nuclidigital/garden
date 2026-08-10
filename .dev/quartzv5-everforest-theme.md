@@ -57,6 +57,8 @@ El degradado de orientación de `.breadcrumb-container` se extiende `0.75rem` ha
 
 Los previews de tags reutilizan `PageList`, cuyo orden semántico es título, fecha y etiquetas. `custom.scss` fuerza en el popover una tarjeta vertical por entrada y alterna superficies verde, azul y púrpura; la prueba responsive compara además la posición real de las tres filas.
 
+Los popovers iniciados desde «Entradas recientes» se marcan con `data-origin="recent-notes"` en `popover.inline.ts`. Su cabecera elimina breadcrumb, autor y tiempo estimado para presentar únicamente título, fecha y tags en tres filas, sobre una superficie Everforest azul/verde; el extracto de la nota continúa debajo.
+
 ## Publicación y mantenimiento
 
 La fuente de esta documentación vive en `.dev/` junto al repositorio. `garden/scripts/publish-garden.sh` la sincroniza a `garden/.dev/`, ejecuta la auditoría de contraste, construye Quartz, ejecuta la regresión Playwright y añade todas las rutas customizadas al commit. Por tanto no hay que copiar manualmente hojas, componentes, pruebas ni documentación.

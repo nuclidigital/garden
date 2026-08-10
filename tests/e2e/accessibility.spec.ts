@@ -9,7 +9,13 @@ for (const route of routes) {
     await page.goto(route, { waitUntil: "domcontentloaded" })
     await expect(page.locator("html")).toHaveAttribute("saved-theme", /^(dark|light)$/)
 
-    const scan = await new AxeBuilder({ page }).withTags(wcagTags).analyze()
+    // Giscus obtiene la hoja publicada desde un iframe de terceros. Se excluye
+    // aquí para que CI no audite la versión desplegada anterior; sus pares de
+    // color customizados se validan en audit-theme-contrast.mjs.
+    const scan = await new AxeBuilder({ page })
+      .exclude("iframe.giscus-frame")
+      .withTags(wcagTags)
+      .analyze()
     await testInfo.attach("axe-wcag-report", {
       body: JSON.stringify(scan, null, 2),
       contentType: "application/json",

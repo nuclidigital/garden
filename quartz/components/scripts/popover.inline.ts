@@ -68,6 +68,9 @@ async function mouseEnterHandler(
   const popoverElement = document.createElement("div")
   popoverElement.id = popoverId
   popoverElement.classList.add("popover")
+  if (link.closest(".recent-notes")) {
+    popoverElement.dataset.origin = "recent-notes"
+  }
   const popoverInner = document.createElement("div")
   popoverInner.classList.add("popover-inner")
   popoverInner.dataset.contentType = contentType ?? undefined
