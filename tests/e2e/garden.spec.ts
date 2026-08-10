@@ -73,23 +73,30 @@ test("el layout responde al ancho y el explorador siempre puede cerrarse", async
   await expect(explorer).toHaveClass(/collapsed/)
 })
 
-test("en móvil la marca y la hamburguesa comparten la primera línea", async ({ page }) => {
-  test.skip((page.viewportSize()?.width ?? 0) > 800, "Contrato exclusivo del layout móvil")
+test("en tablet y móvil los cuatro controles comparten la primera línea", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) > 1200, "Contrato del layout responsive")
   await openPage(page)
 
   const brand = await page.locator(".site-brand-link").boundingBox()
+  const search = await page.locator(".search > .search-button").boundingBox()
+  const theme = await page.locator("button.darkmode").boundingBox()
   const hamburger = await page.locator(".explorer button.mobile-explorer").boundingBox()
-  const toolbar = await page.locator(".left.sidebar > .flex-component").boundingBox()
 
   expect(brand).not.toBeNull()
+  expect(search).not.toBeNull()
+  expect(theme).not.toBeNull()
   expect(hamburger).not.toBeNull()
-  expect(toolbar).not.toBeNull()
 
-  const brandCenter = brand!.y + brand!.height / 2
-  const hamburgerCenter = hamburger!.y + hamburger!.height / 2
-  expect(Math.abs(brandCenter - hamburgerCenter)).toBeLessThanOrEqual(6)
-  expect(hamburger!.x).toBeGreaterThan(brand!.x + brand!.width)
-  expect(toolbar!.y).toBeGreaterThanOrEqual(
-    Math.max(brand!.y + brand!.height, hamburger!.y + hamburger!.height),
-  )
+  const boxes = [brand!, search!, theme!, hamburger!]
+  const centers = boxes.map((box) => box.y + box.height / 2)
+  expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(6)
+
+  expect(search!.x).toBeGreaterThanOrEqual(brand!.x + brand!.width)
+  expect(theme!.x).toBeGreaterThan(search!.x)
+  expect(hamburger!.x).toBeGreaterThan(theme!.x)
+
+  for (const control of [search!, theme!, hamburger!]) {
+    expect(control.width).toBeGreaterThanOrEqual(44)
+    expect(control.height).toBeGreaterThanOrEqual(44)
+  }
 })

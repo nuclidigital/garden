@@ -13,7 +13,7 @@ Esta customización protege las rutas críticas del jardín antes de cada public
 - navegación nativa del selector de áreas y de los enlaces bajo «Relacionado»;
 - explorador móvil/tablet visible, operable y cerrable mediante Escape y el botón «Cerrar»;
 - tres columnas en desktop;
-- marca «Garden Digital» y hamburguesa en una misma línea en móvil.
+- marca «Garden Digital», búsqueda, selector de tema y hamburguesa en una misma línea tanto en tablet como en móvil, con controles táctiles de al menos 44 px.
 
 Los fallos conservan captura de pantalla y traza en `test-results/`; el informe HTML se genera en `playwright-report/`. Ambas carpetas son artefactos locales y están ignoradas por Git.
 

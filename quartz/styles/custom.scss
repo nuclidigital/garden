@@ -1525,22 +1525,34 @@ pre > code[data-language="console"] {
   }
 }
 
-// Tablet: dos columnas. El lateral derecho baja bajo el artículo, así que
-// grafo y backlinks se reparten en fila y el TOC se oculta (ya está el índice
-// del artículo a mano al ser una columna estrecha).
+// Tablet: una columna con cabecera horizontal. Mantener el antiguo rail de
+// 220–256 px obligaría a reducir la marca o los controles táctiles; el ancho
+// completo permite conservar los cuatro elementos principales en una fila.
 @media (min-width: 801px) and (max-width: 1200px) {
   .page[data-frame="default"] > #quartz-body {
-    // `#quartz-body` lleva `padding: 0 1rem` fuera de escritorio, así que el
-    // raíl arranca tras ese padding.
-    --rail: max(220px, 25vw);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-sidebar-right"
+      "grid-footer";
+    background: var(--layout-center);
+  }
 
-    grid-template-columns: var(--rail) minmax(0, 1fr);
-    background: linear-gradient(
-      to right,
-      var(--layout-center) 0 1rem,
-      var(--layout-sidebar) 1rem calc(1rem + var(--rail)),
-      var(--layout-center) calc(1rem + var(--rail)) 100%
-    );
+  .page[data-frame="default"] > #quartz-body > .left.sidebar {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.65rem;
+    height: auto;
+    padding: 1rem 0 0.9rem;
+    background: var(--layout-sidebar);
+    box-shadow:
+      -1rem 0 0 var(--layout-sidebar),
+      1rem 0 0 var(--layout-sidebar);
   }
 
   .page[data-frame="default"] > #quartz-body > .right.sidebar {
@@ -1558,7 +1570,6 @@ pre > code[data-language="console"] {
     font-size: 1.75rem;
   }
 
-  // El raíl baja a 220 px: el logotipo se ajusta para no partirse en dos líneas.
   .site-brand-mark {
     width: 2.1rem;
     height: 2.1rem;
@@ -1567,10 +1578,70 @@ pre > code[data-language="console"] {
   .site-brand-wordmark {
     font-size: 1.15rem;
   }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .site-brand {
+    order: 0;
+    flex: 1 1 0;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .flex-component {
+    order: 1;
+    flex: 0 0 auto;
+  }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .explorer {
+    order: 2;
+    flex: 0 0 2.75rem;
+  }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
+    order: 3;
+    flex: 1 0 100%;
+    padding-top: 0.45rem;
+  }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .recent-notes {
+    display: none;
+  }
 }
 
 // Móvil: una sola columna. El lateral izquierdo se convierte en cabecera.
 @media (max-width: 1200px) {
+  .page[data-frame="default"] .site-brand-link,
+  .page[data-frame="default"] .site-brand-wordmark {
+    flex-wrap: nowrap;
+  }
+
+  .page[data-frame="default"] > #quartz-body > .left.sidebar > .flex-component {
+    gap: 0.4rem !important;
+  }
+
+  .page[data-frame="default"]
+    > #quartz-body
+    > .left.sidebar
+    > .flex-component
+    > div {
+    flex: 0 0 auto !important;
+  }
+
+  .page[data-frame="default"] .search .search-button p {
+    display: none;
+  }
+
+  .page[data-frame="default"] .search > .search-button,
+  .page[data-frame="default"] button.darkmode {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+  }
+
   // En tablet y móvil el explorador pasa a ser una superficie de navegación
   // independiente. El panel cubre el viewport completo, no una columna.
   .page[data-frame="default"] .explorer button.mobile-explorer {
@@ -1758,20 +1829,19 @@ pre > code[data-language="console"] {
       margin-bottom: 0;
     }
 
-    // La primera fila queda reservada para marca y hamburguesa. El espaciador
-    // móvil del core no aporta contenido y rompería esa alineación.
+    // El espaciador móvil del core no aporta contenido y rompería la cabecera.
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .mobile-only {
       display: none !important;
     }
 
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .explorer {
-      order: 1;
+      order: 2;
       flex: 0 0 2.7rem;
     }
 
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .flex-component {
-      order: 2;
-      flex: 1 0 100%;
+      order: 1;
+      flex: 0 0 auto;
     }
 
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .social-links {
@@ -1790,19 +1860,9 @@ pre > code[data-language="console"] {
       height: 1.3rem;
     }
 
-    // El icono ya dice qué hace el botón; sin la etiqueta cabe el explorador en
-    // la misma fila que la marca.
-    .page[data-frame="default"] .search .search-button p {
-      display: none;
-    }
-
-    .page[data-frame="default"] .search .search-button {
-      padding-inline: 0.6rem;
-    }
-
     // «Entradas recientes» sale de la cabecera móvil. En una sola columna esa
     // tira empujaba el artículo unos 120 px hacia abajo para repetir lo que ya
-    // dan el menú y el explorador. En escritorio y tablet sigue intacta.
+    // dan el menú y el explorador. En escritorio sigue intacta.
     .page[data-frame="default"] > #quartz-body > .left.sidebar > .recent-notes {
       display: none;
     }
@@ -1864,6 +1924,16 @@ pre > code[data-language="console"] {
 
     .cookie-consent__actions button {
       flex: 1;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .page[data-frame="default"] .site-brand-mark {
+      display: none;
+    }
+
+    .page[data-frame="default"] .site-brand-wordmark {
+      font-size: 1.05rem;
     }
   }
 
