@@ -62,7 +62,6 @@ fi
 printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
 npm run install-plugins
-npm run customize:plugins
 node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build
 printf 'Comprobando presupuestos de rendimiento...\n'

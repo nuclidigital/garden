@@ -10,7 +10,7 @@ Esta customización protege las rutas críticas del jardín antes de cada public
 - ausencia de desbordamiento horizontal;
 - dark como tema inicial y persistencia de una elección light;
 - ausencia completa del antiguo botón y atributo de modo lectura;
-- navegación nativa del selector de áreas y de los enlaces bajo «Relacionado»;
+- navegación nativa determinista del selector de áreas y de los enlaces bajo «Relacionado»: un clic primario usa `window.location.assign`, mientras modificadores, `_blank` y descargas conservan el comportamiento estándar del navegador;
 - explorador móvil/tablet visible, operable y cerrable mediante Escape y el botón «Cerrar»;
 - foco inicial en «Cerrar», ciclo de foco dentro del overlay y devolución del foco a la hamburguesa;
 - búsqueda y consentimiento operables mediante teclado, con devolución de foco al cerrar;

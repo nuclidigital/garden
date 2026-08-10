@@ -99,6 +99,10 @@ yargs(hideBin(process.argv))
     await handleSync(argv)
   })
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
+    // Garden customization hook: external plugins live in the ignored
+    // `.quartz` cache, so apply and compile the versioned patch immediately
+    // before every local or CI build.
+    await import("../scripts/patch-quartz-plugins.mjs")
     await handleBuild(argv)
   })
   .command("tui", "Launch interactive plugin manager", CommonArgv, async () => {
