@@ -1314,8 +1314,11 @@ pre > code[data-language="console"] {
 }
 
 .page[data-frame="default"] .explorer-content ul li > a {
-  display: block;
-  padding: 0.14rem 0.45rem;
+  display: flex;
+  align-items: center;
+  min-height: 1.75rem;
+  box-sizing: border-box;
+  padding: 0.25rem 0.5rem;
   border-left: 2px solid transparent;
   border-radius: 3px;
   transition:
@@ -2334,7 +2337,8 @@ body {
 .page[data-frame="default"] .explorer .folder-container,
 .page[data-frame="default"] .explorer :is(.folder-button, .folder-title),
 .page[data-frame="default"] .explorer-content ul li > a {
-  color: var(--ef-fg);
+  color: var(--soft-ink);
+  opacity: 1;
 }
 
 .page[data-frame="default"] .explorer-content ul li > a:hover,
@@ -2436,8 +2440,23 @@ body {
 .page[data-frame="default"] .page-listing .section-li:nth-child(4n + 3) { --listing-accent: var(--ef-purple); --listing-bg: var(--ef-bg-purple); }
 .page[data-frame="default"] .page-listing .section-li:nth-child(4n) { --listing-accent: var(--ef-orange); --listing-bg: var(--ef-bg-yellow); }
 
-.page[data-frame="default"] .page-listing :is(.meta, p) {
-  color: var(--ef-fg);
+.page[data-frame="default"] .page-listing :is(.meta, p, h3 a) {
+  color: var(--soft-ink);
+  opacity: 1;
+}
+
+// Textos pequeños sobre superficies tintadas necesitan la tinta de máximo
+// contraste; la riqueza Everforest permanece en fondos, bordes y estados.
+.page[data-frame="default"] :is(.alias, footer, footer p, footer a) {
+  color: var(--soft-ink);
+  opacity: 1;
+}
+
+// El `pre` es el único propietario del desplazamiento horizontal y ya es
+// enfocable en el HTML emitido. Evita crear una segunda región desplazable en
+// `code` que no puede alcanzarse con teclado.
+.page[data-frame="default"] article pre > code {
+  overflow-x: visible;
 }
 
 // Tags recorren toda la paleta; la tinta usa las variantes AA, el fondo las

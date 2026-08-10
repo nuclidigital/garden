@@ -12,6 +12,10 @@ Esta customización protege las rutas críticas del jardín antes de cada public
 - ausencia completa del antiguo botón y atributo de modo lectura;
 - navegación nativa del selector de áreas y de los enlaces bajo «Relacionado»;
 - explorador móvil/tablet visible, operable y cerrable mediante Escape y el botón «Cerrar»;
+- foco inicial en «Cerrar», ciclo de foco dentro del overlay y devolución del foco a la hamburguesa;
+- búsqueda y consentimiento operables mediante teclado, con devolución de foco al cerrar;
+- ausencia de infracciones Axe `critical` o `serious` para WCAG 2 A/AA, 2.1 A/AA y 2.2 AA;
+- respeto de `prefers-reduced-motion`;
 - tres columnas en desktop;
 - marca «Garden Digital», búsqueda, selector de tema y hamburguesa en una misma línea tanto en tablet como en móvil, con controles táctiles de al menos 44 px.
 
@@ -49,10 +53,13 @@ El modo lectura no forma parte de ninguno de los layouts. Se retiró su plugin, 
 
 `npm run test:e2e` levanta temporalmente `public/` en `127.0.0.1:4173` mediante `serve-handler`, el mismo motor usado por el servidor de Quartz. Así reproduce las clean URLs de producción (`/ruta` resuelve `ruta.html`). Debe ejecutarse después de construir Quartz. `garden/scripts/publish-garden.sh` ya respeta este orden:
 
-1. auditoría cromática WCAG;
-2. build de Quartz;
-3. regresión Playwright;
-4. commit y push únicamente si todo lo anterior termina correctamente.
+1. instalación y customización reproducible de plugins;
+2. auditoría cromática WCAG;
+3. build de Quartz;
+4. presupuestos deterministas de rendimiento;
+5. regresión Playwright funcional, responsive y Axe;
+6. informe Lighthouse;
+7. commit y push únicamente si todo lo anterior termina correctamente.
 
 La configuración busca Chromium en `PLAYWRIGHT_CHROMIUM_PATH`, `/usr/sbin/chromium`, `/usr/bin/chromium` y `/usr/bin/google-chrome`, por ese orden. Si no encuentra ninguno, Playwright usa su navegador administrado; puede instalarse con `npx playwright install chromium`.
 
@@ -62,6 +69,7 @@ La prueba de cabecera mide posiciones reales mediante `boundingBox`: exige que l
 
 - `garden/playwright.config.ts`: navegadores, viewports, servidor y artefactos.
 - `garden/tests/e2e/garden.spec.ts`: contratos funcionales y responsive.
+- `garden/tests/e2e/accessibility.spec.ts`: Axe, teclado, foco y movimiento reducido.
 - `garden/scripts/serve-regression.mjs`: servidor local con clean URLs.
 - `garden/scripts/publish-garden.sh`: puerta de publicación.
 

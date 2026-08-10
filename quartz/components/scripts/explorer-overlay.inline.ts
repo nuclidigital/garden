@@ -9,8 +9,13 @@ const reflectExplorerState = (explorer: HTMLElement) => {
   const opener = explorer.querySelector<HTMLButtonElement>(".mobile-explorer")
   const open = !explorer.classList.contains("collapsed")
 
+  // The community Explorer currently mirrors `aria-expanded` onto generic
+  // divs. That state belongs on the controlling button; keeping it on the
+  // container/panel is invalid ARIA and is reported as a critical Axe defect.
+  explorer.removeAttribute("aria-expanded")
   opener?.setAttribute("aria-expanded", String(open))
   if (panel) {
+    panel.removeAttribute("aria-expanded")
     // `visibility: hidden` is not sufficient here: the Explorer stylesheet
     // gives its links their own visibility/pointer-event values, so an
     // invisible descendant can still win hit testing and steal taps from the
@@ -28,6 +33,13 @@ const closeExplorer = (explorer: HTMLElement) => {
   explorer.querySelector<HTMLButtonElement>(".mobile-explorer")?.focus()
 }
 
+const focusableElements = (panel: HTMLElement) =>
+  [
+    ...panel.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  ].filter((element) => !element.hidden && element.getClientRects().length > 0)
+
 const overlayMedia = window.matchMedia("(max-width: 1200px)")
 
 const setupExplorerOverlay = (closeOnEnter = false) => {
@@ -39,7 +51,9 @@ const setupExplorerOverlay = (closeOnEnter = false) => {
 
     // Desktop uses the normal left rail, not the full-screen overlay.
     if (!isOverlayViewport) {
+      explorer.removeAttribute("aria-expanded")
       panel.inert = false
+      panel.removeAttribute("aria-expanded")
       panel.removeAttribute("aria-hidden")
       panel.querySelector(".explorer-overlay-close")?.remove()
       continue
@@ -108,15 +122,43 @@ const setupExplorerOverlay = (closeOnEnter = false) => {
       // handler has run, then reflect the resulting state for assistive tech.
       requestAnimationFrame(() => {
         reflectExplorerState(explorer)
+        if (!explorer.classList.contains("collapsed")) {
+          panel.querySelector<HTMLButtonElement>(".explorer-overlay-close")?.focus()
+        }
       })
     })
   }
 }
 
 document.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape") return
   const explorer = document.querySelector<HTMLElement>(".explorer:not(.collapsed)")
-  if (explorer) closeExplorer(explorer)
+  if (!explorer || !overlayMedia.matches) return
+
+  if (event.key === "Escape") {
+    event.preventDefault()
+    closeExplorer(explorer)
+    return
+  }
+
+  if (event.key !== "Tab") return
+  const panel = explorer.querySelector<HTMLElement>(".explorer-content")
+  if (!panel) return
+  const focusable = focusableElements(panel)
+  if (focusable.length === 0) return
+
+  const first = focusable[0]
+  const last = focusable.at(-1)!
+  const active = document.activeElement
+  if (!panel.contains(active)) {
+    event.preventDefault()
+    first.focus()
+  } else if (event.shiftKey && active === first) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault()
+    first.focus()
+  }
 })
 
 document.addEventListener("nav", () => setupExplorerOverlay())

@@ -18,8 +18,11 @@
     "format": "npx prettier . --write",
     "test": "tsx --test",
     "test:e2e": "playwright test",
+    "audit:performance": "node scripts/audit-performance-budgets.mjs",
+    "report:lighthouse": "node scripts/run-lighthouse-report.mjs",
+    "customize:plugins": "node scripts/patch-quartz-plugins.mjs",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
-    "install-plugins": "npx tsx ./quartz/plugins/loader/install-plugins.ts",
+    "install-plugins": "node quartz/bootstrap-cli.mjs plugin install",
     "prebuild": "npm run install-plugins"
   },
   "engines": {
@@ -73,6 +76,7 @@
     "yargs": "^18.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
     "@quartz-community/types": "github:quartz-community/types",
     "@quartz-community/utils": "github:quartz-community/utils",
@@ -82,8 +86,13 @@
     "@types/source-map-support": "^0.5.10",
     "@types/ws": "^8.18.1",
     "@types/yargs": "^17.0.35",
+    "chrome-launcher": "^1.2.1",
+    "compression": "^1.8.1",
     "esbuild": "^0.27.2",
+    "lighthouse": "^12.8.2",
     "prettier": "^3.8.1",
+    "sass": "^1.102.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

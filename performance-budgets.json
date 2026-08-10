@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "index.html",
+    "cuaderno/grifon-korthals.html",
+    "cuaderno/arch-wsl2-e-unexpected-informe.html",
+    "areas/cuaderno/digital.html"
+  ],
+  "limits": {
+    "htmlGzipBytes": 16384,
+    "cssGzipBytes": 34816,
+    "javascriptGzipBytes": 6144,
+    "totalGzipBytes": 56320,
+    "localRequestCount": 32,
+    "externalOriginCount": 5,
+    "largestAssetGzipBytes": 20480
+  }
+}

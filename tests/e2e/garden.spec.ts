@@ -100,3 +100,20 @@ test("en tablet y móvil los cuatro controles comparten la primera línea", asyn
     expect(control.height).toBeGreaterThanOrEqual(44)
   }
 })
+
+test("el grafo pesado solo carga en el layout desktop que lo muestra", async ({ page }) => {
+  const graphLibraries: string[] = []
+  page.on("request", (request) => {
+    if (/cdn\.jsdelivr\.net\/npm\/(?:d3|pixi\.js)/.test(request.url())) {
+      graphLibraries.push(request.url())
+    }
+  })
+
+  await openPage(page)
+  if ((page.viewportSize()?.width ?? 0) > 1200) {
+    await expect.poll(() => graphLibraries.length).toBeGreaterThanOrEqual(2)
+  } else {
+    await page.waitForTimeout(750)
+    expect(graphLibraries).toHaveLength(0)
+  }
+})

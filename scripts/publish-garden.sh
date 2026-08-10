@@ -61,10 +61,16 @@ fi
 
 printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
+npm run install-plugins
+npm run customize:plugins
 node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build
+printf 'Comprobando presupuestos de rendimiento...\n'
+npm run audit:performance
 printf 'Ejecutando regresión funcional y responsive...\n'
 npm run test:e2e
+printf 'Generando informe Lighthouse...\n'
+npm run report:lighthouse
 
 printf 'Preparando cambios para publicar...\n'
 # Primero incluye cualquier cambio, renombre o borrado de archivos que ya están
@@ -111,6 +117,7 @@ git --no-pager add -- \
   package.json \
   package-lock.json \
   playwright.config.ts \
+  performance-budgets.json \
   quartz.config.default.yaml \
   quartz.config.yaml \
   quartz.lock.json \
