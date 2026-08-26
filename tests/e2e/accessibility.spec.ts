@@ -38,6 +38,9 @@ test("overlays, consentimiento y movimiento respetan teclado y preferencias", as
   await page.emulateMedia({ reducedMotion: "reduce" })
   await page.goto("/", { waitUntil: "domcontentloaded" })
 
+  // El buscador inicializa su índice y registra los listeners de forma
+  // asíncrona después de DOMContentLoaded. Este nodo solo existe al terminar.
+  await expect(page.locator(".search .tag-suggestions")).toBeAttached()
   const searchButton = page.locator(".search-button")
   await searchButton.focus()
   await page.keyboard.press("Enter")

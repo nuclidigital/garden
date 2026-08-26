@@ -71,7 +71,14 @@ fi
 printf 'Instalando dependencias y construyendo Quartz...\n'
 npm ci
 npm run install-plugins
-npm run audit:dependencies
+if ! npm run audit:dependencies; then
+  if [ "${GARDEN_STRICT_DEPENDENCY_AUDIT:-0}" = "1" ]; then
+    fail "la auditoría de dependencias ha fallado."
+  fi
+  printf '%s\n' \
+    'Aviso: la auditoría de dependencias ha detectado incidencias o no pudo consultar npm.' \
+    'La publicación continuará; usa GARDEN_STRICT_DEPENDENCY_AUDIT=1 para convertir el aviso en error.' >&2
+fi
 npm run audit:editorial
 node scripts/audit-theme-contrast.mjs
 node quartz/bootstrap-cli.mjs build

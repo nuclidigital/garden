@@ -119,9 +119,10 @@ test("Entradas recientes muestra título, fecha y tags antes del extracto", asyn
   )
   await openPage(page)
 
-  const recent = page
-    .locator(".recent-notes")
-    .getByRole("link", { name: "Arch en WSL2 E_UNEXPECTED (Parte I)", exact: true })
+  // La lista cambia con cada publicación; prueba la primera entrada que Quartz
+  // haya calculado como reciente en vez de acoplarse a un título concreto.
+  const recent = page.locator(".recent-notes .recent-li a.internal").first()
+  await expect(recent).toBeVisible()
   await recent.hover()
 
   const popover = page.locator('.popover[data-origin="recent-notes"].active-popover')

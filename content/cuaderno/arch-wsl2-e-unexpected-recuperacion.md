@@ -1,8 +1,9 @@
 ---
-title: Arch en WSL2 E_UNEXPECTED (Parte II)
+title: "Arch Linux en WSL2: anatomía y recuperación de un E_UNEXPECTED"
 date: 2026-08-05
 created: 2026-08-05
-description: Procedimiento técnico reproducible para diagnosticar y recuperar una distribución Arch Linux en WSL2 con bibliotecas y base local de Pacman truncadas.
+updated: 2026-08-26
+description: Caso y guía de recuperación de Arch Linux en WSL2 tras encontrar bibliotecas ELF y registros de Pacman truncados a cero bytes.
 space: cuaderno
 area:
   - digital
@@ -15,75 +16,85 @@ tags:
   - arch-linux
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
+  - Arch en WSL2 E_UNEXPECTED (Parte I)
+  - Arch en WSL2 E_UNEXPECTED (Parte II)
+  - Arch Linux en WSL anatomía de un Error catastrófico
+  - cuaderno/arch-en-wsl2-e_unexpected-(parte-i)
   - cuaderno/arch-en-wsl2-e_unexpected-(parte-ii)
   - ArchWSL E_UNEXPECTED Write-Up
+  - Error catastrófico WSL Arch
+  - Recuperación ArchWSL E_UNEXPECTED
   - Recuperar Pacman con bibliotecas corruptas
+  - cuaderno/2026-08-05-arch-wsl-e-unexpected-informe
   - cuaderno/2026-08-05-arch-wsl-e-unexpected-write-up
+  - ithings/2026-08-05-arch-wsl-e-unexpected-informe
 draft: false
 publish: true
 cssclasses: []
 ---
 
-# Write-Up técnico: recuperación de Arch Linux en WSL ante `Wsl/Service/E_UNEXPECTED`
+# Arch Linux en WSL2: anatomía y recuperación de un `E_UNEXPECTED`
 
-> [!abstract]
-> Una distribución Arch Linux registrada en WSL2 no iniciaba y devolvía `Wsl/Service/E_UNEXPECTED`. Otra distribución WSL sí arrancaba. El análisis mediante `wsl --system`, montaje del VHDX y `chroot` reveló bibliotecas ELF críticas y metadatos de `/var/lib/pacman/local` truncados a cero bytes. La recuperación se realizó restaurando OpenSSL desde caché, usando `pacman-static`, reconstruyendo la base local y reinstalando paquetes afectados.
+> [!abstract] Resultado
+> Arch seguía registrada en WSL2, pero cualquier intento de iniciarla terminaba en
+> `Wsl/Service/E_UNEXPECTED`. El mensaje de Windows escondía un fallo bastante más
+> concreto dentro de Linux: `systemd` y `pacman` no podían cargar varias bibliotecas
+> ELF truncadas a cero bytes, y parte de `/var/lib/pacman/local` había perdido sus
+> metadatos. La distribución se recuperó sin desregistrarla ni sustituir su VHDX:
+> copia de seguridad, acceso mediante `wsl --system`, restauración de OpenSSL y
+> `acl`, reparación de la base local y actualización completa.
+
+> [!warning] Alcance
+> La corrupción técnica quedó demostrada; su desencadenante exacto, no. La
+> actualización reciente de ArchWSL y los ~4 GB libres que quedaban en `C:` son
+> antecedentes plausibles, pero esta nota no los convierte en causa sin evidencia.
+
+Lo interesante del caso no es solo la secuencia de comandos. Es el cambio de
+perspectiva: `E_UNEXPECTED` parecía un error opaco de Windows hasta que se separó
+la capa WSL de la distribución y se consiguió ejecutar el sistema desde fuera.
+
+## El sistema detrás del error
+
+WSL2 no guarda Arch como una carpeta corriente. Windows registra la distribución,
+WSL arranca una máquina virtual ligera y el sistema Linux vive dentro de un VHDX
+con `ext4`. En este equipo, Arch tenía además `systemd=true`, así que WSL debía
+poder ejecutar `/usr/lib/systemd/systemd` como PID 1 antes de entregar una shell.
+
+```mermaid
+flowchart LR
+    WIN["Windows 11"] --> WSL["Servicio WSL2"]
+    WSL --> VM["VM ligera + kernel Linux"]
+    VM --> VHDX["ext4.vhdx"]
+    VHDX --> ROOT["Raíz de Arch"]
+    ROOT --> PID1["systemd · PID 1"]
+    PID1 --> SHELL["Bash / sesión de usuario"]
+    ROOT --> PACMAN["Pacman + base local"]
+    ROOT --> ELF["Loader y bibliotecas ELF"]
+    ELF --> PID1
+    ELF --> PACMAN
+```
+
+Este mapa permite leer el síntoma con más precisión. Si otra distribución
+arranca, la VM y el kernel siguen vivos. Si Arch falla incluso como `root` y sin
+perfiles, el problema aparece antes de la shell. Y si un `chroot` muestra
+`libcrypto.so.3: file too short`, el error genérico ya tiene una causa observable:
+el proceso que WSL necesita arrancar no puede resolver sus dependencias.
 
 ## Flujo técnico de diagnóstico y recuperación
 
 ```mermaid
 flowchart TD
-    A["wsl -d Arch<br/>E_UNEXPECTED"] --> B["wsl -l -v<br/>Arch registrada"]
-    B --> C{"¿Otra distribución inicia?"}
-
-    C -- "No" --> C1["Capa host<br/>WSL / Hyper-V / servicios"]
-    C -- "Sí" --> D["Fallo aislado a Arch"]
-
-    D --> E["wsl -d Arch -u root<br/>bash --noprofile --norc"]
-    E --> F{"¿Se ejecuta el proceso?"}
-    F -- "Sí" --> F1["Usuario, shell o perfiles"]
-    F -- "No" --> G["wsl --system -d Arch"]
-
-    G --> H["Localizar y respaldar ext4.vhdx"]
-    H --> I["wsl --mount --vhd --bare"]
-    I --> J["e2fsck -f -v /dev/sdX"]
-    J --> K["chroot /mnt/wslg/distro"]
-
-    K --> L["systemd --version<br/>pacman --version"]
-    L --> M{"¿file too short?"}
-    M -- "No" --> M1["Revisar logs y configuración"]
-    M -- "Sí" --> N["Identificar biblioteca truncada"]
-
-    N --> O["libcrypto.so.3 / libssl.so.3<br/>0 bytes"]
-    O --> P["Extraer openssl desde<br/>/var/cache/pacman/pkg"]
-    P --> Q["Pacman revela libacl.so.1<br/>también truncada"]
-    Q --> R["pacman-static + paquete acl local"]
-    R --> S["Pacman y systemd vuelven a cargar"]
-
-    S --> T["Arrancar Arch como root"]
-    T --> U["Auditar /var/lib/pacman/local"]
-    U --> V{"¿desc vacío o ausente?"}
-    V -- "Sí" --> W["Apartar entrada dañada<br/>y reinstalar paquete"]
-    V -- "No" --> X["Validar con pacman -Qkk"]
-
-    W --> Y["Reparar bash, ansible,<br/>ansible-core y resto"]
-    X --> Y
-    Y --> Z["pacman -Syu"]
-
-    Z --> AA["Buscar ejecutables vacíos<br/>y bibliotecas .so a 0 bytes"]
-    AA --> AB{"¿Archivo legítimo o crítico?"}
-    AB -- "Marcador/test/metapaquete" --> AC["Conservar"]
-    AB -- "Ejecutable o .so huérfano" --> AD["Reinstalar paquete o eliminar resto"]
-    AC --> AE["Validación final"]
-    AD --> AE
-
-    AE --> AF["pacman -Qkk<br/>wsl --shutdown<br/>wsl -d Arch"]
-    AF --> AG["Sistema recuperado"]
-
-    class C,F,M,V,AB decision;
-    class A,B,D,E,G,H,I,J,K,L,N,O,Q,T,U,AA diagnostic;
-    class P,R,S,W,X,Y,Z,AC,AD,AE,AF repair;
-    class AG success;
+    A["E_UNEXPECTED"] --> B{"¿Otra distro inicia?"}
+    B -- "No" --> C["Diagnosticar host WSL"]
+    B -- "Sí" --> D["Aislar Arch"]
+    D --> E["Backup del VHDX"]
+    E --> F["wsl --system + chroot"]
+    F --> G["Bibliotecas a 0 bytes"]
+    G --> H["Restaurar OpenSSL y acl"]
+    H --> I["Pacman vuelve a ejecutar"]
+    I --> J["Reconstruir base local"]
+    J --> K["pacman -Syu + Qkk"]
+    K --> L["Reinicio y validación"]
 ```
 
 ## 1. Alcance
@@ -903,10 +914,6 @@ pacman -Syu --overwrite '*'
 
 8. Tener disponible una distribución auxiliar WSL o un binario `pacman-static`.
 
-## 23. Nota narrativa relacionada
-
-[[arch-wsl2-e-unexpected-informe|Arch Linux en WSL: anatomía de un «Error catastrófico»]]
-
 ## Relacionado
 
-- [[arch-wsl2-e-unexpected-informe|Arch en WSL2 E_UNEXPECTED (Parte I)]]
+- [[cuaderno/Windows 11 25H2 - Bloqueo CBS durante KB5121003|Windows 11, CBS y una reparación desde otra capa]]
