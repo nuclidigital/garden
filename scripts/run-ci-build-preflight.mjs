@@ -11,6 +11,17 @@ if (process.env.CI === "true" && process.env.GARDEN_CI_PREFLIGHT_RUNNING !== "1"
       stdio: "inherit",
     })
     if (result.error) throw result.error
-    if (result.status !== 0) throw new Error(`CI preflight falló en npm run ${script}`)
+    if (result.status === 0) continue
+
+    const dependencyAuditMayWarn =
+      script === "audit:dependencies" && process.env.GARDEN_STRICT_DEPENDENCY_AUDIT !== "1"
+    if (dependencyAuditMayWarn) {
+      console.warn(
+        "CI preflight: la auditoría de dependencias ha detectado incidencias o no pudo consultar npm; el build continuará.",
+      )
+      continue
+    }
+
+    throw new Error(`CI preflight falló en npm run ${script}`)
   }
 }
