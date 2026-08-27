@@ -1,8 +1,11 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
+import { blockThirdPartyRequests } from "./network"
 
 const routes = ["/", "/cuaderno/grifon-korthals", "/areas/cuaderno/digital"]
 const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]
+
+test.beforeEach(async ({ page }) => blockThirdPartyRequests(page))
 
 for (const route of routes) {
   test(`Axe no detecta errores WCAG serios en ${route}`, async ({ page }, testInfo) => {

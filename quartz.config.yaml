@@ -125,7 +125,10 @@ plugins:
     enabled: false
     order: 85
   - source: github:quartz-community/hard-line-breaks
-    enabled: true
+    # El vault envuelve la prosa en el fichero fuente para facilitar su edición.
+    # Esos saltos son blandos: convertirlos en <br> impide que el texto refluya
+    # hasta el ancho disponible del carril central.
+    enabled: false
     order: 90
   - source: github:quartz-community/ox-hugo
     enabled: false

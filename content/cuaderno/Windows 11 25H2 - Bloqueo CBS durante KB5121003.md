@@ -1,15 +1,15 @@
 ---
 title: "Windows 11 25H2: anatomía de un bloqueo CBS durante KB5121003"
 aliases:
-  - "KB5121003 CBS"
-  - "Windows 11 CBS atascado"
-  - "Windows 11 25H2 — Bloqueo de CBS durante KB5121003"
+  - KB5121003 CBS
+  - Windows 11 CBS atascado
+  - Windows 11 25H2 — Bloqueo de CBS durante KB5121003
   - "Windows — Arquitectura de servicing: CBS, WinSxS, DISM y SFC"
-  - "Arquitectura de servicing de Windows"
-  - "CBS WinSxS DISM SFC"
-  - "Windows 11 — Reparación in-place desde ISO"
-  - "Repair install Windows 11"
-  - "Reinstalación in-place Windows 11"
+  - Arquitectura de servicing de Windows
+  - CBS WinSxS DISM SFC
+  - Windows 11 — Reparación in-place desde ISO
+  - Repair install Windows 11
+  - Reinstalación in-place Windows 11
   - cuaderno/Windows - Arquitectura de servicing - CBS WinSxS DISM SFC
   - cuaderno/Windows 11 - Reparación in-place desde ISO
 status: resuelto-provisionalmente
@@ -25,17 +25,13 @@ permalink: cuaderno/windows-11-25h2---bloqueo-cbs-durante-kb5121003
 publish: true
 draft: false
 cssclasses: []
-os: "Windows 11 Pro 25H2"
+os: Windows 11 Pro 25H2
 build_incidencia: "26200.9168"
 update:
   - KB5121003
 tags:
   - digital/windows
-  - digital/windows-update
   - digital/troubleshooting
-  - digital/cbs
-  - digital/dism
-  - digital/winsxs
 ---
 
 # Windows 11 25H2: anatomía de un bloqueo CBS durante KB5121003

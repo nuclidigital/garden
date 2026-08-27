@@ -7,13 +7,13 @@ description: Caso y guía de recuperación de Arch Linux en WSL2 tras encontrar 
 space: cuaderno
 area:
   - digital
-kind: guide
+kind: issue
 project: []
 season:
 phase:
 tags:
-  - write-up
   - arch-linux
+  - digital/troubleshooting
 permalink: ithings/2026-08-05-arch-wsl-e-unexpected-write-up
 aliases:
   - Arch en WSL2 E_UNEXPECTED (Parte I)

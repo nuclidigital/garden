@@ -1,4 +1,7 @@
 import { expect, test, type Page } from "@playwright/test"
+import { blockThirdPartyRequests } from "./network"
+
+test.beforeEach(async ({ page }) => blockThirdPartyRequests(page))
 
 async function openPage(page: Page, path = "/") {
   await page.goto(path, { waitUntil: "domcontentloaded" })
@@ -19,6 +22,15 @@ test("la interfaz base conserva tema, ancho y controles esenciales", async ({ pa
   await expect(page.locator("html")).toHaveAttribute("saved-theme", "light")
   await page.reload({ waitUntil: "domcontentloaded" })
   await expect(page.locator("html")).toHaveAttribute("saved-theme", "light")
+})
+
+test("la prosa refluye al ancho disponible del carril central", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) <= 1200, "Contrato del layout de escritorio")
+  await openPage(page, "/cuaderno/arch-wsl2-e-unexpected-recuperacion")
+
+  // Los saltos con los que se envuelve el Markdown fuente son blandos y no
+  // deben convertirse en líneas visuales de ancho fijo dentro del artículo.
+  await expect(page.locator("article > p br, article .callout-content p br")).toHaveCount(0)
 })
 
 test("la portada expone las cuatro rutas editoriales", async ({ page }) => {

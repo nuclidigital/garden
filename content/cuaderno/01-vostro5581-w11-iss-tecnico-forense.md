@@ -1,6 +1,6 @@
 ---
 title: "Dell Vostro 5581 y Windows 11: de una hora a 17 segundos"
-description: "Anatomía y resolución de un arranque extremo causado por la interacción entre BIOS, Windows 11 y la pila Intel Integrated Sensor Solution."
+description: Anatomía y resolución de un arranque extremo causado por la interacción entre BIOS, Windows 11 y la pila Intel Integrated Sensor Solution.
 date: 2026-08-20
 lastmod: 2026-08-20
 updated: 2026-08-26
@@ -14,17 +14,13 @@ publish: true
 tags:
   - windows/windows-11
   - hardware/dell/vostro-5581
-  - troubleshooting/boot
-  - drivers/intel-iss
-  - firmware/bios
-  - security/bitlocker
-  - incident-report
+  - digital/troubleshooting
 aliases:
   - "Dell Vostro 5581 + Windows 11: análisis forense de un arranque de ~1 hora causado por Intel Integrated Sensor Solution"
   - "De una hora a 17 segundos: cómo resolví un arranque imposible de Windows 11 en un Dell Vostro 5581"
   - "Dell Vostro 5581 y Windows 11: de un arranque de ~1 hora a 17 segundos"
-  - "Vostro 5581 Windows 11 slow boot Intel ISS"
-  - "Intel Integrated Sensor Solution 3.1.0.3923 Vostro 5581"
+  - Vostro 5581 Windows 11 slow boot Intel ISS
+  - Intel Integrated Sensor Solution 3.1.0.3923 Vostro 5581
   - cuaderno/02-vostro5581-w11-iss-divulgativo
   - cuaderno/03-vostro5581-w11-iss-hibrido
 status: resolved-field-test
